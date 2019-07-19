@@ -1,31 +1,48 @@
 <template>
-  <div id="app">
-    <div id="nav">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link>
-    </div>
-    <router-view/>
-  </div>
+  <v-app>
+    <toolbar />
+    <v-content>
+      <router-view />
+    </v-content>
+  </v-app>
 </template>
 
+<script>
+import toolbar from "@/components/toolbar";
+
+export default {
+  name: "App",
+  components: {
+    toolbar
+  },
+  data: () => ({
+    editor: null,
+    toolbar: null,
+    msg: "Hello world"
+  })
+};
+</script>
+
 <style>
-#app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-}
-#nav {
-  padding: 30px;
-}
+:root {
+  --color-bg: #2e2e2e;
+  --color-editor: #1e1e1e;
 
-#nav a {
-  font-weight: bold;
-  color: #2c3e50;
-}
+  --mtk1: #cdcdcd;
+  --mtk2: red;
+  --mtk3: green;
+  --mtk4: #fca369;
+  --mtk5: #92d192;
+  --mtk6: #f2777a;
+  --mtk7: #676767;
+  --mtk8: #f2777a;
+  --mtk9: #fff;
+  --mtk10: #cdcdcd;
 
-#nav a.router-link-exact-active {
-  color: #42b983;
+  --color-active-line: rgba(255, 255, 255, 0.03);
+}
+.theme--light.application,
+.theme--dark.application {
+  background-color: var(--color-bg);
 }
 </style>
