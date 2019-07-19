@@ -19,7 +19,26 @@ export default {
     editor: null,
     toolbar: null,
     msg: "Hello world"
-  })
+  }),
+  methods: {
+    getCSS(prop) {
+      // Returns current value of CSS variable
+      // prop == typeof String as name of variable, with or without leading dashes:
+      // this.getCSS('color-bg') || this.getCSS('--scrollbar-width')
+      return window
+        .getComputedStyle(document.documentElement)
+        .getPropertyValue(`${/^\-\-/.test(prop) ? prop : "--" + prop}`);
+    },
+    setCSS(prop, data) {
+      // Sets value of CSS variable
+      // prop == typeof String as name of variable, with or without leading dashes:
+      // this.setCSS('color-bg', 'rgba(25,25,25,1)') || this.setCSS('--scrollbar-width', '20px')
+      document.documentElement.style.setProperty(
+        `${/^\-\-/.test(prop) ? prop : "--" + prop}`,
+        data
+      );
+    }
+  }
 };
 </script>
 

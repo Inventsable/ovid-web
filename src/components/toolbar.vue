@@ -25,20 +25,56 @@
         </v-list-tile>
       </v-list>
     </v-menu>
-    <v-btn icon :style="getIconColor()">
-      <v-icon>refresh</v-icon>
+    <v-btn icon :style="getIconColor()" @click="toggleTheme">
+      <v-icon>mdi-format-color-fill</v-icon>
     </v-btn>
 
-    <v-btn icon :style="getIconColor()">
+    <v-menu bottom left>
+      <template v-slot:activator="{ on }">
+        <v-btn flat v-on="on">
+          Login
+          <!-- <v-icon>mdi-adobe</v-icon> -->
+        </v-btn>
+      </template>
+
+      <v-list>
+        <v-list-tile v-for="(item, i) in logins" :key="i" @click="checkLogin(item)">
+          <v-list-tile-title>
+            <v-icon style="min-width: 24px; min-height: 24px;" class="mr-2">{{item.icon}}</v-icon>
+            <span>{{ item.name }}</span>
+          </v-list-tile-title>
+        </v-list-tile>
+      </v-list>
+    </v-menu>
+
+    <!-- <v-btn icon :style="getIconColor()">
       <v-icon>more_vert</v-icon>
-    </v-btn>
+    </v-btn>-->
   </v-toolbar>
 </template>
 
 <script>
+import firebase from "firebase/app";
+import auth from "firebase/auth";
+import leylo from "leylo";
+
 export default {
   name: "toolbar",
   data: () => ({
+    logins: [
+      {
+        name: "with Google",
+        key: "Google",
+        icon: "mdi-google"
+        // callback: this.loginWithGoogle
+      },
+      {
+        name: "with Github",
+        key: "Github",
+        icon: "mdi-github-circle"
+        // callback: this.loginWithGithub
+      }
+    ],
     apps: [
       {
         name: "Illustrator",
@@ -103,6 +139,9 @@ export default {
     ]
   }),
   computed: {
+    app() {
+      return this.$root.$children[0];
+    },
     activeApp() {
       return this.apps.find(item => {
         return item.active;
@@ -111,6 +150,11 @@ export default {
   },
   mounted() {
     this.assignActiveApp();
+    this.app.toolbar = this;
+
+    firebase.auth().onAuthStateChanged(user => {
+      this.checkUserStatus(user);
+    });
   },
   watch: {
     $route() {
@@ -118,6 +162,34 @@ export default {
     }
   },
   methods: {
+    checkLogin(item) {
+      if (item.key == "Google") this.loginWithGoogle();
+      else this.loginWithGithub();
+    },
+    checkUserStatus(user) {
+      console.log(user);
+    },
+    loginWithGoogle() {
+      firebase
+        .auth()
+        .signInWithPopup(new firebase.auth.GoogleAuthProvider())
+        .then(response => {
+          console.log(response.user);
+          this.$store.dispatch("setUser", response.user);
+          // this.$router.push({ name: "chat" });
+        })
+        .catch(err => {
+          console.log(err);
+          // this.feedback = err.message;
+          // this.loading = false;
+        });
+    },
+    loginWithGithub() {
+      console.log(firebase.auth());
+    },
+    toggleTheme() {
+      this.app.editor.toggleTheme();
+    },
     assignActiveApp() {
       if (this.$route.params.name) {
         this.apps.forEach(item => {

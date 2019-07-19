@@ -1,6 +1,6 @@
 <template>
   <v-container class="main-editor-wrapper">
-    <div class="main-editor-padding">
+    <div class="main-editor-padding" :style="getCardStyle()">
       <editor />
     </div>
     <div v-if="isMounted">
@@ -29,14 +29,12 @@ export default {
   },
   watch: {
     $route() {
-      console.log(`Master route changed to ${this.$route.params.name}`);
       this.appName = this.$route.params.name;
     }
   },
   mounted() {
     if (this.$route.params.name) {
       this.appName = this.$route.params.name;
-      // this.deleteTypes();
       if (this.$route.params.page) {
         console.log(`Find page: ${this.$route.params.page}`);
       }
@@ -46,10 +44,11 @@ export default {
     this.isMounted = true;
   },
   methods: {
-    // deleteTypes() {
-    //   const self = this;
-    //   // console.log(monaco);
-    // }
+    getCardStyle() {
+      let parent = document.getElementsByClassName("main-editor-wrapper");
+      // return `${parent.offsetHeight}`;
+      return `height: ${parent.offsetHeight}px`;
+    }
   }
 };
 </script>
@@ -69,6 +68,9 @@ body::-webkit-scrollbar {
   width: 100%;
   height: 100%;
   padding: 10px;
-  background-color: #1e1e1e;
+  background-color: var(--color-editor);
+  box-shadow: 0px 3px 1px -2px rgba(0, 0, 0, 0.2),
+    0px 2px 2px 0px rgba(0, 0, 0, 0.14), 0px 1px 5px 0px rgba(0, 0, 0, 0.12);
+  border-radius: 5px;
 }
 </style>
