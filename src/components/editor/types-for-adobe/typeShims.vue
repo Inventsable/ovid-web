@@ -30,15 +30,9 @@ export default {
     let deftypes = monaco.languages.typescript.javascriptDefaults.addExtraLib(
       es5
     );
-    console.log(deftypes);
   },
   mounted() {
     this.$refs[this.appName].isActive = true;
-  },
-  watch: {
-    appName(content) {
-      console.log(`Shim detected change as ${content}`);
-    }
   },
   components: {
     ILSTshim,

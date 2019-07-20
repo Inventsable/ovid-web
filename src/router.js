@@ -14,7 +14,7 @@ export default new Router({
       component: Home
     },
     {
-      path: "/app/:name/:page?",
+      path: "/:name/:theme?/:page?",
       name: "editor",
       component: Edit
     }

@@ -21,7 +21,9 @@ export default {
     MonacoEditor
   },
   data: () => ({
+    notes: [],
     theme: "vs",
+    editor: null,
     editorH: 400,
     editorW: 800,
     code: "",
@@ -29,40 +31,68 @@ export default {
       dark: {
         bg: "#2e2e2e",
         editor: "#1e1e1e",
+        activeLine: "#262626",
         syntax: [
-          "#cdcdcd",
+          "#d4d4d4",
           "red",
           "green",
           "#fca369",
-          "#92d192",
-          "#f2777a",
+          "#98c379",
+          "#d09966",
           "#676767",
-          "#f2777a",
-          "#fff",
-          "#cdcdcd"
+          "#b17cb6",
+          // "#f2777a", // 8
+          "#56b7c2",
+          "#cdcdcd",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "#d09966",
+          "#50a14e",
+          "",
+          "#69addf"
         ]
       },
       light: {
-        bg: "#fafbfc",
-        editor: "#fffffe",
+        bg: "#fff",
+        editor: "#fafbfc",
+        activeLine: "#f3f3f3",
         syntax: [
-          "blue",
+          "#101010",
           "red",
           "green",
           "violet",
           "orange",
-          "steel",
-          "grey",
-          "black",
+          "#4f72b7",
+          "#e45649",
+          "#9ea0a6",
           "yellow",
-          "red"
+          "red",
+          "#E45649",
+          "",
+          "",
+          "#c0852b",
+          "",
+          "",
+          "",
+          "",
+          "#d09966",
+          "#50a14e",
+          "",
+          "#9d3895"
         ]
       }
     },
     options: {
       //Monaco Editor Options
+      glyphMargin: true,
       scrollBeyondLastLine: false,
-      lineDecorationsWidth: "0px",
+      lineDecorationsWidth: "6px",
       lineNumbersMinChars: 4,
       autoIndent: true,
       formatOnPaste: true,
@@ -85,6 +115,10 @@ export default {
   watch: {
     theme(value) {
       this.updateTheme();
+    },
+    notes(value) {
+      console.log(value);
+      this.createGlyphMarginInfo(value[value.length - 1]);
     }
   },
   mounted() {
@@ -94,10 +128,37 @@ export default {
     window.addEventListener("resize", this.updateEditorSize);
     this.updateEditorSize();
     this.updateTheme();
+    this.createActions();
     if (window.localStorage.getItem("code"))
       this.code = window.localStorage.getItem("code");
   },
   methods: {
+    createActions() {
+      const self = this;
+      this.editor.addAction({
+        id: "create note",
+        label: "Create note",
+        contextMenuGroupId: "action",
+        contextMenuOrder: 1.6,
+        precondition: "editorHasSelection",
+        keybindings: [monaco.KeyMod.Alt | monaco.KeyCode.Enter],
+        keybindingContext: null,
+        run: async function(ed) {
+          let selection = ed.getSelection();
+
+          let range = [
+            selection.startLineNumber,
+            selection.startColumn,
+            selection.endLineNumber,
+            selection.endColumn
+          ];
+          console.log(range);
+          self.notes.push(await self.getNoteText(range));
+          console.log("Finished");
+          return null;
+        }
+      });
+    },
     toggleTheme() {
       if (/dark/.test(this.theme)) this.theme = "vs";
       else this.theme = "vs-dark";
@@ -106,6 +167,11 @@ export default {
     updateEditorSize() {
       this.editorW = this.$el.offsetWidth;
       this.editorH = this.$el.offsetHeight;
+    },
+    async getNoteText(range) {
+      // setTimeout(() => {
+      return { note: "Testing", range: range };
+      // }, 200);
     },
     setDefaultLibsToFalse() {
       // eslint-disable-next-line
@@ -123,9 +189,33 @@ export default {
 
       this.app.setCSS("color-bg", this.colors[active].bg);
       this.app.setCSS("color-editor", this.colors[active].editor);
+      this.app.setCSS("color-active-line", this.colors[active].activeLine);
       this.colors[active].syntax.forEach((entry, i) => {
         this.app.setCSS(`mtk${i + 1}`, entry);
       });
+    },
+    createGlyphMarginInfo(item) {
+      console.log(item);
+      var decorations = this.editor.deltaDecorations(
+        [],
+        [
+          {
+            range: new monaco.Range(
+              item.range[0],
+              item.range[1],
+              item.range[2],
+              item.range[3]
+            ),
+            options: {
+              isWholeLine: false,
+              className: "myContentClass",
+              glyphMarginClassName: "myGlyphMarginClass",
+              hoverMessage: { value: "Hello world" },
+              glyphMarginHoverMessage: { value: item.note }
+            }
+          }
+        ]
+      );
     }
   }
 };
@@ -178,6 +268,47 @@ export default {
   color: var(--mtk10) !important;
 }
 
+.mtk10 {
+  /* Default */
+  color: var(--mtk10) !important;
+}
+.mtk11 {
+  color: var(--mtk11) !important;
+}
+.mtk12 {
+  color: var(--mtk12) !important;
+}
+.mtk13 {
+  color: var(--mtk13) !important;
+}
+.mtk14 {
+  color: var(--mtk14) !important;
+}
+.mtk15 {
+  color: var(--mtk15) !important;
+}
+.mtk16 {
+  color: var(--mtk16) !important;
+}
+.mtk17 {
+  color: var(--mtk17) !important;
+}
+.mtk18 {
+  color: var(--mtk18) !important;
+}
+.mtk19 {
+  color: var(--mtk19) !important;
+}
+.mtk20 {
+  color: var(--mtk20) !important;
+}
+.mtk21 {
+  color: var(--mtk21) !important;
+}
+.mtk22 {
+  color: var(--mtk22) !important;
+}
+
 .main-editor-container {
   box-sizing: border-box;
   /* border: 2px solid blue; */
@@ -188,5 +319,15 @@ export default {
 .current-line {
   border: 0px solid transparent !important;
   background-color: var(--color-active-line);
+}
+
+.myGlyphMarginClass {
+  background: transparent;
+  border-style: solid;
+  border-color: var(--color-note-margin);
+  border-width: 0px 4px 0px 0px;
+}
+.myContentClass {
+  background: var(--color-note-label);
 }
 </style>

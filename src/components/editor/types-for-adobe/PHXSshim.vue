@@ -13,7 +13,7 @@ export default {
   }),
   watch: {
     $route() {
-      this.isActive = this.$route.params.name == "PHXS";
+      this.isActive = /PHXS/.test(this.$route.params.name);
     },
     isActive(state) {
       state ? this.createTypes() : this.destroyTypes();

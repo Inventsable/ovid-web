@@ -1,7 +1,7 @@
 <template>
   <v-container class="main-editor-wrapper">
     <div class="main-editor-padding" :style="getCardStyle()">
-      <editor />
+      <editor ref="editor" />
     </div>
     <div v-if="isMounted">
       <typeShims :appName="appName" />
@@ -34,7 +34,13 @@ export default {
   },
   mounted() {
     if (this.$route.params.name) {
-      this.appName = this.$route.params.name;
+      this.appName = !/dark/.test(this.$route.params.name)
+        ? this.$route.params.name
+        : this.$route.params.name.replace("dark", "");
+      if (/dark/.test(this.$route.params.name)) {
+        this.$refs.editor.toggleTheme();
+        this.app.isDark = true;
+      }
       if (this.$route.params.page) {
         console.log(`Find page: ${this.$route.params.page}`);
       }
