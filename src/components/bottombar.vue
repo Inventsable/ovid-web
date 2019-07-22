@@ -4,7 +4,7 @@
       <div class="head-end"></div>
       <div class="tail-end">
         <div class="mr-3 mb-2">
-          <v-btn flat>
+          <v-btn flat @click="openLink('https://github.com/Inventsable/ovid-web/issues')">
             Report a bug
             <v-icon class="pl-2">mdi-github-circle</v-icon>
           </v-btn>
@@ -21,8 +21,8 @@
       </div>
       <div class="tail-end">
         <div class="mr-3 mb-2">
-          See my source code
-          <v-btn icon>
+          <span class="tail-anno">See my source code</span>
+          <v-btn icon @click="openLink('https://github.com/Inventsable/ovid-web')">
             <v-icon>mdi-github-circle</v-icon>
           </v-btn>
         </div>
@@ -33,12 +33,18 @@
 
 <script>
 export default {
-  name: "bottombar"
+  name: "bottombar",
+  methods: {
+    openLink(url) {
+      window.open(url);
+    }
+  }
 };
 </script>
 
 <style>
 .bottom-bar-static {
+  max-width: 800px;
   width: 100%;
   display: flex;
   justify-content: space-between;
@@ -67,5 +73,11 @@ export default {
 .head-end {
   margin-top: -10px;
   margin-left: 10px;
+}
+
+@media only screen and (max-width: 600px) {
+  .tail-anno {
+    display: none;
+  }
 }
 </style>

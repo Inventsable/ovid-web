@@ -6,7 +6,7 @@
           <logo style="width: 42px" />
           <div class="display-2 pl-2" style="margin-top: 2px;">Ovid Editor</div>
         </div>
-        <div class="subheading pt-2">A minimalist browser editor for Adobe scripting</div>
+        <div class="subheading pt-2">Minimalist browser editor for Adobe scripting</div>
       </div>
       <div class="main-content">
         <main-preview />

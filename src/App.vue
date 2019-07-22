@@ -142,9 +142,13 @@ body,
   overflow-x: hidden;
 }
 
+.v-content {
+  overflow-y: hidden;
+}
+
 html {
   overflow: -moz-scrollbars-vertical;
-  overflow-y: scroll;
+  overflow-y: hidden;
   overflow-x: hidden;
 }
 
@@ -182,7 +186,7 @@ html {
 }
 
 .v-content__wrap {
-  overflow-y: auto;
+  overflow-y: hidden;
   overflow-x: hidden;
 }
 </style>

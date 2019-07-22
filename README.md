@@ -1,5 +1,7 @@
 # Ovid Web
 
+## [Site is already up and running here](https://ovid-editor.web.app/)
+
 Minimalist browser rebuild of [Ovid-Editor](https://github.com/Inventsable/ovid-editor):
 
 ![](./src/assets/landing-page.png)
