@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="bottom-wrap">
     <div v-if="$route.name !== 'home'" class="bottom-bar hidden-sm-and-down">
       <div class="head-end"></div>
       <div class="tail-end">
@@ -57,6 +57,12 @@ export default {
   height: 30px;
 }
 
+.bottom-wrap {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
 .bottom-bar {
   width: 100%;
   display: flex;
@@ -72,7 +78,7 @@ export default {
 
 .head-end {
   margin-top: -10px;
-  margin-left: 10px;
+  margin-left: 30px;
 }
 
 @media only screen and (max-width: 600px) {
