@@ -8,12 +8,14 @@
     "lint": "vue-cli-service lint"
   },
   "dependencies": {
+    "@babel/standalone": "^7.5.5",
     "@mdi/font": "^3.8.95",
     "core-js": "^2.6.5",
     "firebase": "^6.3.0",
     "leylo": "^1.0.17",
     "monaco-editor-vue": "^1.0.9",
     "monaco-editor-webpack-plugin": "^1.7.0",
+    "shortid": "^2.2.14",
     "vue": "^2.6.10",
     "vue-router": "^3.0.3",
     "vuetify": "^1.5.5",

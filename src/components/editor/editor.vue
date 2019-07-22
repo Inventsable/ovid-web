@@ -14,17 +14,23 @@
 </template>
 
 <script>
+import leylo from "leylo";
+
 import MonacoEditor from "monaco-editor-vue";
 export default {
   name: "editor",
   components: {
     MonacoEditor
   },
+  props: {
+    appName: String
+  },
   data: () => ({
     notes: [],
     theme: "vs",
     editor: null,
     editorH: 400,
+    doc: null,
     editorW: 800,
     code: "",
     colors: {
@@ -110,6 +116,9 @@ export default {
       return this.editor
         ? this.editor.getModel().getValueInRange(this.editor.getSelection())
         : null;
+    },
+    local() {
+      return !this.$route.params.page;
     }
   },
   watch: {
@@ -117,11 +126,21 @@ export default {
       this.updateTheme();
     },
     notes(value) {
+      console.log("New value:");
       console.log(value);
       this.createGlyphMarginInfo(value[value.length - 1]);
+    },
+    doc(content) {
+      console.log(content);
+      if (content) {
+        this.setContents();
+      } else {
+        this.resetContents();
+      }
     }
   },
-  mounted() {
+  async mounted() {
+    const self = this;
     this.app.editor = this;
     this.editor = this.$refs.editor._getEditor();
     this.setDefaultLibsToFalse();
@@ -129,15 +148,26 @@ export default {
     this.updateEditorSize();
     this.updateTheme();
     this.createActions();
-    if (window.localStorage.getItem("code"))
+    if (!this.$route.params.page && window.localStorage.getItem("code")) {
       this.code = window.localStorage.getItem("code");
+    } else if (this.$route.params.page) {
+      leylo
+        .getDocByQuery("snippets", "title", "==", self.$route.params.page)
+        .then(doc => {
+          self.doc = doc;
+          self.code = doc.contents;
+        });
+    }
   },
   methods: {
+    focus() {
+      this.editor.focus();
+    },
     createActions() {
       const self = this;
       this.editor.addAction({
         id: "create note",
-        label: "Create note",
+        label: "Create Note",
         contextMenuGroupId: "action",
         contextMenuOrder: 1.6,
         precondition: "editorHasSelection",
@@ -153,8 +183,51 @@ export default {
             selection.endColumn
           ];
           console.log(range);
-          self.notes.push(await self.getNoteText(range));
-          console.log("Finished");
+          self.app.notedialog.init(range);
+
+          // self.notes.push(await self.getNoteText(range));
+          // console.log("Finished");
+          return null;
+        }
+      });
+      this.editor.addAction({
+        id: "save",
+        label: "Save Snippet",
+        precondition: null,
+        keybindings: [monaco.KeyMod.CtrlCmd | monaco.KeyCode.KEY_S],
+        keybindingContext: null,
+        contextMenuGroupId: "io",
+        contextMenuOrder: 1.6,
+        run: async function(ed) {
+          self.app.toolbar.promptSnippetSave();
+          return null;
+        }
+      });
+      this.editor.addAction({
+        id: "save-as",
+        label: "Save Snippet As...",
+        precondition: null,
+        keybindings: [
+          monaco.KeyMod.CtrlCmd | monaco.KeyMod.Shift | monaco.KeyCode.KEY_S
+        ],
+        keybindingContext: null,
+        contextMenuGroupId: "io",
+        contextMenuOrder: 1.6,
+        run: async function(ed) {
+          self.app.toolbar.promptSnippetSave(true);
+          return null;
+        }
+      });
+      this.editor.addAction({
+        id: "open",
+        label: "Open Snippet",
+        precondition: null,
+        keybindings: [monaco.KeyMod.CtrlCmd | monaco.KeyCode.KEY_O],
+        keybindingContext: null,
+        contextMenuGroupId: "io",
+        contextMenuOrder: 1.6,
+        run: async function(ed) {
+          self.app.toolbar.promptOpenDialog();
           return null;
         }
       });
@@ -168,11 +241,7 @@ export default {
       this.editorW = this.$el.offsetWidth;
       this.editorH = this.$el.offsetHeight;
     },
-    async getNoteText(range) {
-      // setTimeout(() => {
-      return { note: "Testing", range: range };
-      // }, 200);
-    },
+
     setDefaultLibsToFalse() {
       // eslint-disable-next-line
       monaco.languages.typescript.javascriptDefaults.setCompilerOptions({
@@ -180,8 +249,33 @@ export default {
         noLib: true
       });
     },
+    setContents() {
+      const self = this;
+      if (this.doc) {
+        setTimeout(() => {
+          self.code = self.doc.contents;
+        }, 200);
+        if (this.doc.notes) {
+          let notes = JSON.parse(this.doc.notes);
+          setTimeout(() => {
+            notes.forEach(note => {
+              self.createGlyphMarginInfo(note);
+            });
+          }, 200);
+          console.log(notes);
+        }
+      }
+      // console.log(this.doc);
+    },
+    resetContents() {
+      console.log(this.local);
+      this.code = window.localStorage.getItem("code") || "";
+    },
     onChange(value) {
-      window.localStorage.setItem("code", value);
+      if (!this.doc) window.localStorage.setItem("code", value);
+      else {
+        // No changes should be made?
+      }
     },
     updateTheme() {
       let isDark = /dark/.test(this.theme);
@@ -193,6 +287,20 @@ export default {
       this.colors[active].syntax.forEach((entry, i) => {
         this.app.setCSS(`mtk${i + 1}`, entry);
       });
+    },
+    async getNoteText(range) {
+      // setTimeout(() => {
+      return { note: "Testing", range: range };
+      // }, 200);
+    },
+    confirmNote(text, range) {
+      this.notes.push({
+        note: text,
+        range: range
+      });
+    },
+    addDefaultNote(item) {
+      this.confirmNote(item.note, item.range);
     },
     createGlyphMarginInfo(item) {
       console.log(item);
@@ -210,7 +318,7 @@ export default {
               isWholeLine: false,
               className: "myContentClass",
               glyphMarginClassName: "myGlyphMarginClass",
-              hoverMessage: { value: "Hello world" },
+              hoverMessage: { value: item.note },
               glyphMarginHoverMessage: { value: item.note }
             }
           }

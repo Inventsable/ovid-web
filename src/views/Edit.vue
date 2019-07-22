@@ -1,7 +1,7 @@
 <template>
   <v-container class="main-editor-wrapper">
     <div class="main-editor-padding" :style="getCardStyle()">
-      <editor ref="editor" />
+      <editor ref="editor" :appName="appName" />
     </div>
     <div v-if="isMounted">
       <typeShims :appName="appName" />
@@ -40,9 +40,6 @@ export default {
       if (/dark/.test(this.$route.params.name)) {
         this.$refs.editor.toggleTheme();
         this.app.isDark = true;
-      }
-      if (this.$route.params.page) {
-        console.log(`Find page: ${this.$route.params.page}`);
       }
     } else {
       throw new Error("No app found, redirect home or to error page");
