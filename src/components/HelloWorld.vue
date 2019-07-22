@@ -3,21 +3,23 @@
     <div class="main-page">
       <div class="main-title pt-4">
         <div class="main-header">
-          <logo style="width: 42px;" />
-          <div class="display-2 pl-3">Ovid Editor</div>
+          <logo style="width: 42px" />
+          <div class="display-2 pl-2" style="margin-top: 2px;">Ovid Editor</div>
         </div>
-        <div class="subheading">A minimalist browser editor for Adobe scripting</div>
+        <div class="subheading pt-2">A minimalist browser editor for Adobe scripting</div>
       </div>
       <div class="main-content">
         <main-preview />
       </div>
     </div>
+    <bottombar />
   </v-container>
 </template>
 
 <script>
 import logo from "@/components/editor/logo";
 import mainpreview from "@/components/mainpreview";
+import bottombar from "@/components/bottombar";
 
 export default {
   data: () => ({
@@ -25,7 +27,8 @@ export default {
   }),
   components: {
     logo,
-    "main-preview": mainpreview
+    "main-preview": mainpreview,
+    bottombar
   }
 };
 </script>
@@ -41,9 +44,17 @@ export default {
   width: 100%;
 }
 
-.main-header {
+.main-title {
   display: flex;
-  justify-content: flex-start;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.main-header {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   flex-wrap: nowrap;
 }
 

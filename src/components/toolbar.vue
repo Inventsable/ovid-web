@@ -64,7 +64,7 @@
       <v-icon>{{saveIcon}}</v-icon>
     </v-btn>
 
-    <v-btn icon :style="getIconColor()" @click="toggleTheme">
+    <v-btn icon :style="getIconColor()" @click="toggleTheme" v-if="!isHome">
       <v-icon>mdi-format-color-fill</v-icon>
     </v-btn>
 
@@ -85,8 +85,8 @@
     <v-menu bottom offset-y left v-else>
       <template v-slot:activator="{ on }">
         <v-btn icon v-on="on">
-          <v-avatar size="24" v-if="user">
-            <img :src="user.photoURL" />
+          <v-avatar size="24" class="grey lighten-2" v-if="user">
+            <img :src="user.photoURL" style="width: 22px; height: 22px;" />
           </v-avatar>
         </v-btn>
       </template>

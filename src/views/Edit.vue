@@ -6,12 +6,14 @@
     <div v-if="isMounted">
       <typeShims :appName="appName" />
     </div>
+    <bottombar />
   </v-container>
 </template>
 
 <script>
 import editor from "../components/editor/editor";
 import typeShims from "@/components/editor/types-for-adobe/typeShims";
+import bottombar from "@/components/bottombar";
 
 export default {
   data: () => ({
@@ -25,7 +27,8 @@ export default {
   },
   components: {
     editor,
-    typeShims
+    typeShims,
+    bottombar
   },
   watch: {
     $route() {
@@ -69,7 +72,7 @@ body::-webkit-scrollbar {
 
 .main-editor-padding {
   width: 100%;
-  height: 100%;
+  height: calc(100% - 20px);
   padding: 10px;
   background-color: var(--color-editor);
   box-shadow: 0px 3px 1px -2px rgba(0, 0, 0, 0.2),

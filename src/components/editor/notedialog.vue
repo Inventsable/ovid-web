@@ -23,7 +23,7 @@
             </v-flex>
           </v-layout>
         </v-form>
-        <div class="color-picker-wrapper">
+        <div v-if="extendedColors" class="color-picker-wrapper">
           <div
             v-for="item in highlights"
             :key="item.className"
@@ -50,6 +50,7 @@ export default {
   data: () => ({
     state: false,
     note: null,
+    extendedColors: false,
     rules: {
       required: value => !!value || "Required."
     },

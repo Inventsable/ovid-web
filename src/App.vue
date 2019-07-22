@@ -5,6 +5,7 @@
     <savedialog />
     <opendialog />
     <compiledialog />
+
     <notedialog />
     <v-content :style="getBGStyle()">
       <router-view />
@@ -26,11 +27,13 @@ export default {
   name: "App",
   components: {
     toolbar,
+    // bottombar,
     drawer,
     savedialog,
     compiledialog,
     notedialog,
     opendialog
+    // bottombar
   },
   data: () => ({
     editor: null,
@@ -50,9 +53,9 @@ export default {
   },
   methods: {
     getBGStyle() {
+      // height: calc(100vh - 48px);
+      // overflow-y: auto;
       let style = `
-        height: calc(100vh - 48px);
-        overflow-y: auto;
       `;
       if (this.$route.name == "home") style += `background-color: #fafbfc`;
       return style;
@@ -69,22 +72,60 @@ export default {
       }).code;
       output = output.replace("const", "var");
       output = output.replace("let", "var");
-      return output;
+      return this.checkForES6ArrayMethods(output);
+    },
+    checkForES6ArrayMethods(str) {
+      let methods = [
+        {
+          name: "filter",
+          rx: /\.filter\(/,
+          content: `Array.prototype.filter = function(callback) {
+  var filtered = [];
+  for (var i = 0; i < this.length; i++)
+    if (callback(this[i], i, this)) filtered.push(this[i]);
+  return filtered;
+};`
+        },
+        {
+          name: "map",
+          rx: /\.map\(/,
+          content: `Array.prototype.map = function(callback) {
+  var mappedParam = [];
+  for (var i = 0; i < this.length; i++)
+    mappedParam.push(callback(this[i], i, this));
+  return mappedParam;
+};`
+        },
+        {
+          name: "forEach",
+          rx: /\.forEach\(/,
+          content: `Array.prototype.forEach = function(callback) {
+  for (var i = 0; i < this.length; i++) callback(this[i], i, this);
+};`
+        },
+        {
+          name: "find",
+          rx: /\.find\(/,
+          content: `Array.prototype.find = function(callback) {
+  for (var i = 0; i < this.length; i++)
+    if (callback(this[i], i, this)) return this[i];
+};`
+        }
+      ];
+
+      methods.forEach(method => {
+        if (method.rx.test(str)) str += `\r\n\r\n${method.content}`;
+      });
+      return str;
     },
     getCSS(prop) {
-      // Returns current value of CSS variable
-      // prop == typeof String as name of variable, with or without leading dashes:
-      // this.getCSS('color-bg') || this.getCSS('--scrollbar-width')
       return window
         .getComputedStyle(document.documentElement)
-        .getPropertyValue(`${/^\-\-/.test(prop) ? prop : "--" + prop}`);
+        .getPropertyValue(`${/^--/.test(prop) ? prop : "--" + prop}`);
     },
     setCSS(prop, data) {
-      // Sets value of CSS variable
-      // prop == typeof String as name of variable, with or without leading dashes:
-      // this.setCSS('color-bg', 'rgba(25,25,25,1)') || this.setCSS('--scrollbar-width', '20px')
       document.documentElement.style.setProperty(
-        `${/^\-\-/.test(prop) ? prop : "--" + prop}`,
+        `${/^--/.test(prop) ? prop : "--" + prop}`,
         data
       );
     }
@@ -93,10 +134,18 @@ export default {
 </script>
 
 <style>
-::-webkit-scrollbar {
-  position: absolute;
-  top: 48px;
-  height: calc(100vh - 48px);
+html,
+body,
+#app {
+  height: 100vh;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+html {
+  overflow: -moz-scrollbars-vertical;
+  overflow-y: scroll;
+  overflow-x: hidden;
 }
 
 :root {
@@ -134,5 +183,6 @@ export default {
 
 .v-content__wrap {
   overflow-y: auto;
+  overflow-x: hidden;
 }
 </style>

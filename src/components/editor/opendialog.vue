@@ -102,9 +102,10 @@ export default {
       this.state = false;
       this.title = null;
       this.hasError = false;
-      setTimeout(() => {
-        this.app.editor.focus();
-      }, 100);
+      if (!this.$route.name == "home")
+        setTimeout(() => {
+          this.app.editor.focus();
+        }, 100);
     },
     init() {
       this.state = true;

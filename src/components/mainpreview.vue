@@ -59,7 +59,7 @@ export default {
     items: [
       {
         header: "Just Like VSCode",
-        desc: `Ovid uses Microsoft's <a target="_blank" href="https://github.com/microsoft/monaco-editor">Monaco</a> core and functions nearly identically to VSCode`,
+        desc: `Ovid uses Microsoft's <a target="_blank" href="https://github.com/microsoft/monaco-editor">Monaco Editor</a> core and feels nearly identical to VSCode.`,
         image:
           "https://thumbs.gfycat.com/PlaintiveBabyishCrow-size_restricted.gif"
       },
@@ -71,9 +71,28 @@ export default {
           "https://thumbs.gfycat.com/GrizzledGlitteringBubblefish-size_restricted.gif"
       },
       {
+        header: "ECMA 2018",
+        desc: `Write completely modern Javascript and receive snippets compatible to run inside Adobe applications (ECMA-262)`,
+        image:
+          "https://thumbs.gfycat.com/WelllitFlawlessBluebottle-size_restricted.gif"
+      },
+      {
         header: "Share and Save",
-        desc: "fury said to the mouse, who he met in the house",
-        image: "https://via.placeholder.com/960x540"
+        desc: `Instantly save or open snippets by title for ease of sharing via direct URLs.`,
+        image:
+          "https://thumbs.gfycat.com/SpeedyAridHamadryas-size_restricted.gif"
+      },
+      {
+        header: "Easy Resources",
+        desc: `Curated list of learning resources and forums for any app available on navigation drawer.`,
+        image:
+          "https://thumbs.gfycat.com/BothKeyIberianchiffchaff-size_restricted.gif"
+      },
+      {
+        header: "Available as a Panel",
+        desc: `The precursor to this web app is already <a target="_blank" href="https://github.com/Inventsable/ovid-editor">available on Github</a> for all supported apps, allowing you to write, run, save, open, and modify scripts with ease.`,
+        image:
+          "https://thumbs.gfycat.com/FlippantFirsthandGangesdolphin-size_restricted.gif"
       }
     ]
   })

@@ -101,7 +101,8 @@ export default {
       autoIndent: true,
       formatOnPaste: true,
       formatOnType: true,
-      readOnly: true
+      readOnly: true,
+      wordwrap: "min"
     }
   }),
   computed: {
