@@ -192,6 +192,16 @@ export default {
           max: "#042621"
         }
       },
+      // {
+      //   name: "XD",
+      //   key: "XD",
+      //   active: false,
+      //   colors: {
+      //     min: "#dd499a",
+      //     mid: "#9b5da6",
+      //     max: "#2a1020"
+      //   }
+      // },
       {
         name: "Any App",
         key: "ANY",

@@ -22478,40 +22478,41 @@ interface Date {
 }
 `;
 
-let AEFTshim = `/**
+let AEFTshim = `
+/**
  * The $ object provides a number of debugging facilities and informational methods.
  */
 interface $ {
   /**
    * The ExtendScript build information.
    */
-  readonly build: string
+  readonly build: string;
 
   /**
    * The ExtendScript build date.
    */
-  readonly buildDate: Date
+  readonly buildDate: Date;
 
   /**
    * The character used as the decimal point character in formatted numeric output.
    */
-  decimalPoint: string
+  decimalPoint: string;
 
   /**
    * The name of the current ExtendScript engine, if set.
    */
-  readonly engineName: string
+  readonly engineName: string;
 
   /**
    * The most recent run-time error information.
    * Assigning error text to this property generates a run-time error; however, the preferred way to generate a run-time error is to throw an Error object.
    */
-  error: Error
+  error: Error;
 
   /**
    * The file name of the current script.
    */
-  readonly fileName: string
+  readonly fileName: string;
 
   /**
    * Gets or sets low-level debug output flags.
@@ -22522,146 +22523,1398 @@ interface $ {
    * 0x0100 (256): Enables extended error handling (see strict).
    * 0x0200 (512): Enables the localization feature of the toString method. Equivalent to the localize property.
    */
-  flags: number
+  flags: number;
 
   /**
    * A reference to the global object, which contains the JavaScript global namespace.
    */
-  readonly global: any
+  readonly global: any;
 
   /**
    * A high-resolution timer, measuring the time in microseconds. The timer starts when ExtendScript is
    * initialized during the application startup sequence. Every read access resets the timer to Zero.
    */
-  readonly hiresTimer: number
+  readonly hiresTimer: number;
 
   /**
    * The path for include files for the current script.
    */
-  readonly includePath: string
+  readonly includePath: string;
 
   /**
    * The current debugging level, which enables or disables the JavaScript debugger.
    * One of 0 (no debugging), 1 (break on runtime errors), or 2 (full debug mode).
    */
-  level: number
+  level: number;
 
   /**
    * The current line number of the currently executing script.
    */
-  readonly line: number
+  readonly line: number;
 
   /**
    * Gets or sets the current locale.
    * The string contains five characters in the form LL_RR, where LL is an ISO 639 language specifier, and RR is an ISO 3166 region specifier.Initially, this is the value that the application or the platform returns for the current user. You can set it to temporarily change the locale for testing. To return to the application or platform setting, set to undefined, null, or the empty string.
    */
-  locale: string
+  locale: string;
 
   /**
    * Set to true to enable the extended localization features of the built-in toString() method.
    */
-  localize: boolean
+  localize: boolean;
 
   /**
    * The ExtendScript memory cache size, in bytes.
    */
-  memCache: number
+  memCache: number;
 
   /**
    * The current operating system version information.
    */
-  readonly os: string
+  readonly os: string;
 
   /**
    * An array of objects containing information about the display screens attached to your computer.
    * Each object has the properties left, top, right, bottom, which contain the four corners of each screen in global coordinates.A property primary is true if that object describes the primary display.
    */
-  readonly screens: object[]
+  readonly screens: object[];
 
   /**
    * The current stack trace.
    */
-  readonly stack: string
+  readonly stack: string;
 
   /**
    * Sets or clears strict mode for object modification.
    * When true, any attempt to write to a read-only property causes a runtime error. Some objects do not permit the creation of new properties when true.
    */
-  strict: any
+  strict: any;
 
   /**
    * The version number of the ExtendScript engine.
    * Formatted as a three-part number and description; for example: "3.92.95 (debug)".
    */
-  readonly version: string
+  readonly version: string;
 
   /**
    * Shows an About box for the ExtendScript component, and returns the text for the box.
    */
-  about(): string
+  about(): string;
 
   /**
    * Breaks execution at the current position.
    * @param condition A string containing a JavaScript statement to be used as a condition. If the statement evaluates to true or nonzero when this point is reached, execution stops.
    */
-  bp(condition?: any): void
+  bp(condition?: any): void;
 
   /**
    * Invokes the platform-specific color selection dialog, and returns the selected color.
    * @param color The color to be preselected in the dialog, as 0xRRGGBB, or -1 for the platform default.
    */
-  colorPicker(color: number): number
+  colorPicker(color: number): number;
 
   /**
    * Loads and evaluates a file.
    * @param file The file to load.
    * @param timeout An optional timeout in milliseconds.
    */
-  evalFile(file: File, timeout?: number): any
+  evalFile(file: File, timeout?: number): any;
 
   /**
    * Initiates garbage collection in the ExtendScript engine.
    */
-  gc(): void
+  gc(): void;
 
   /**
    * Retrieves the value of an environment variable.
    * @param name The name of the variable.
    */
-  getenv(name: string): string
+  getenv(name: string): string;
 
   /**
    * Sets the value of an environment variable.
    * @param name The name of the variable.
    * @param value The value of the variable.
    */
-  setenv(name: string, value: string): void
+  setenv(name: string, value: string): void;
 
   /**
    * Suspends the calling thread for a number of milliseconds.
    * During a sleep period, checks at 100 millisecond intervals to see whether the sleep should be terminated. This can happen if there is a break request, or if the script timeout has expired.
    * @param msecs Number of milliseconds to sleep.
    */
-  sleep(msecs: number): void
+  sleep(msecs: number): void;
 
   /**
    * Converts this object to a string.
    */
-  toString(): string
+  toString(): string;
 
   /**
    * Prints text to the Console.
    * @param text The text to print. All arguments are concatenated.
    */
-  write(text: any): void
+  write(text: any): void;
 
   /**
    * Prints text to the Console, and adds a newline character.
    * @param text The text to print. All arguments are concatenated.
    */
-  writeln(text: any): void
+  writeln(text: any): void;
 }
-declare const $: $
+declare const $: $;
+
+
+interface FileConstructor {
+  readonly prototype: File;
+
+  /**
+   * Creates and returns a new File object referring to a given file system location.
+   * @param path The full or partial path name of the file,in platform-specific or URI format. The value stored in the object is the absolute path. The file that the path refers to does not need to exist.If the path refers to an existing folder: The File function returns a Folder object instead of a File object. The new operator returns a File object for a nonexisting file with the same name.
+   */
+  new (path?: string): File;
+  (path?: string): File;
+
+  /**
+   * The name of the file system.
+   * This is a class property accessed through the File constructor. Valid values are "Windows", "Macintosh", and "Unix".
+   */
+  readonly fs: string;
+
+  /**
+   * Decodes a UTF-8 encoded string as required by RFC 2396, and returns the decoded string.
+   * See also String.decodeURI().
+   * @param uri The UTF-8 encoded string to decode.
+   */
+  decode(uri: string): string;
+
+  /**
+   * Encodes a string as required by RFC 2396, and returns the encoded string.
+   * All special characters are encoded in UTF-8 and stored as escaped characters starting with the percent sign followed by two hexadecimal digits. For example, the string "my file" is encoded as "my%20file".
+   * Special characters are those with a numeric value greater than 127, except the following: / - _ . ! ~ * ' ( )
+   * See also encodeURI().
+   * @param name The string to encode.
+   */
+  encode(name: string): string;
+
+  /**
+   * Reports whether a given encoding is available.
+   * @param name The encoding name. Typical values are "ASCII", "binary", or "UTF-8".For a complete list of supported encodings, see the JavaScript Tools Guide.
+   */
+  isEncodingAvailable(name: string): boolean;
+
+  /**
+   * Opens a dialog so the user can select one or more files to open.
+   * Opens the built-in platform-specific file-browsing dialog in which a user can select an existing file or multiple files, and creates new File objects to represent the selected files.
+   * If the user clicks OK, returns a File object for the selected file, or an array of objects if multiple files are selected.
+   * If the user cancels, returns null.
+   * @param prompt The prompt text, displayed if the dialog allows a prompt.
+   * @param filter A filter that limits the types of files displayed in the dialog. In Windows,a filter expression such as "Javascript files:*.jsx;All files:*.*". In Mac OS, a filter function that takes a File instance and returns true if the file should be included in the display, false if it should not.
+   * @param multiSelect When true, the user can select multiple files and the return value is an array.
+   */
+  openDialog(prompt?: string, filter?: any, multiSelect?: boolean): File;
+
+  /**
+   * Opens a dialog so the user can select a file name to save to.
+   * Opens the built-in platform-specific file-browsing dialog in which a user can select an existing file location to which to save information, and creates a new File object to represent the selected file location.
+   * If the user clicks OK, returns a File object for the selected file location.
+   * If the user cancels, returns null.
+   * @param prompt The prompt text, displayed if the dialog allows a prompt.
+   * @param filter In Windows only, a filter that limits the types of files displayed in the dialog. In Windows only,a filter expression such as "Javascript files:*.jsx;All files:*.*". Not used In Mac OS.
+   */
+  saveDialog(prompt?: string, filter?: any): File;
+}
+declare const File: FileConstructor;
+
+/**
+ * Represents a file in the local file system in a platform-independent manner.
+ */
+interface File {
+  /**
+   * The full path name for the referenced file in URI notation.
+   */
+  readonly absoluteURI: string;
+
+  /**
+   * If true, the object refers to a file system alias or shortcut.
+   */
+  readonly alias: boolean;
+
+  /**
+   * The creation date of the referenced file, or null if the object does not refer to a file on disk.
+   */
+  readonly created: Date;
+
+  /**
+   * In Mac OS, the file creator as a four-character string. In Windows or UNIX, value is "????".
+   */
+  readonly creator: string;
+
+  /**
+   * The localized name of the referenced file, without the path specification.
+   */
+  readonly displayName: string;
+
+  /**
+   * Gets or sets the encoding for subsequent read/write operations.
+   * One of the encoding constants listed in the JavaScript Tools Guide. If the value is not recognized, uses the system default encoding.A special encoder, BINARY, is used to read binary files. It stores each byte of the file as one Unicode character regardless of any encoding. When writing, the lower byte of each Unicode character is treated as a single byte to write.
+   */
+  encoding: string;
+
+  /**
+   * When true, a read attempt caused the current position to be at the end of the file, or the file is not open.
+   */
+  readonly eof: boolean;
+
+  /**
+   * A string containing a message describing the most recent file system error.
+   * Typically set by the file system, but a script can set it. Setting this value clears any error message and resets the error bit for opened files. Contains the empty string if there is no error.
+   */
+  error: string;
+
+  /**
+   * If true, this object refers to a file or file-system alias that actually exists in the file system.
+   */
+  readonly exists: boolean;
+
+  /**
+   * The platform-specific full path name for the referenced file.
+   */
+  readonly fsName: string;
+
+  /**
+   * The full path name for the referenced file in URI notation.
+   */
+  readonly fullName: string;
+
+  /**
+   * When true, the file is not shown in the platform-specific file browser.
+   * If the object references a file-system alias or shortcut, the flag is altered on the alias, not on the original file.
+   */
+  hidden: boolean;
+
+  /**
+   * The size of the file in bytes.
+   * Can be set only for a file that is not open, in which case it truncates or pads the file with 0-bytes to the new length.
+   */
+  length: number;
+
+  /**
+   * How line feed characters are written in the file system.
+   * One of the values "Windows", "Macintosh", or "Unix".
+   */
+  lineFeed: string;
+
+  /**
+   * The date of the referenced file's last modification, or null if the object does not refer to a file on the disk.
+   */
+  readonly modified: Date;
+
+  /**
+   * The file name portion of the absolute URI for the referenced file, without the path specification.
+   */
+  readonly name: string;
+
+  /**
+   * The Folder object for the folder that contains this file.
+   */
+  readonly parent: Folder;
+
+  /**
+   * The path portion of the absolute URI for the referenced file, without the file name.
+   */
+  readonly path: string;
+
+  /**
+   * When true, prevents the file from being altered or deleted.
+   * If the referenced file is a file-system alias or shortcut, the flag is altered on the alias, not on the original file.
+   */
+  readonly: boolean;
+
+  /**
+   * The path name for the object in URI notation, relative to the current folder.
+   */
+  readonly relativeURI: string;
+
+  /**
+   * The file type as a four-character string.
+   * In Mac OS, the Mac OS file type.
+   * In Windows, "appl" for .EXE files, "shlb" for .DLL files and "TEXT" for any other file.
+   */
+  readonly type: string;
+
+  /**
+   * Changes the path specification of the referenced file.
+   * @param path A string containing the new path, absolute or relative to the current folder.
+   */
+  changePath(path: string): boolean;
+
+  /**
+   * Closes this open file.
+   * Returns true if the file was closed successfully, false if an I/O error occurred.
+   */
+  close(): boolean;
+
+  /**
+   * Copies this object’s referenced file to the specified target location.
+   * Resolves any aliases to find the source file. If a file exists at the target location, it is overwritten.
+   * Returns true if the copy was successful.
+   * @param target A string with the URI path to the target location, or a File object that references the target location.
+   */
+  copy(target: string): boolean;
+
+  /**
+   * Makes this file a file-system alias or shortcut to the specified file.
+   * The referenced file for this object must not yet exist on disk. Returns true if the operation was successful.
+   * @param path A string containing the path of the target file.
+   */
+  createAlias(path: string): void;
+
+  /**
+   * Executes or opens this file using the appropriate application, as if it had been double-clicked in a file browser.
+   * You can use this method to run scripts, launch applications, and so on.Returns true immediately if the application launch was successful.
+   */
+  execute(): boolean;
+
+  /**
+   * Retrieves and returns the path for this file, relative to the specified base path, in URI notation.
+   * If no base path is supplied, the URI is relative to the path of the current folder.Returns a string containing the relative URI.
+   * @param basePath A base path in URI notation.
+   */
+  getRelativeURI(basePath: string): string;
+
+  /**
+   * Opens the referenced file for subsequent read/write operations. The method resolves any aliases to find the file.
+   * Returns true if the file was opened successfully.The method attempts to detect the encoding of the open file. It reads a few bytes at the current location and tries to detect the Byte Order Mark character 0xFFFE. If found, the current position is advanced behind the detected character and the encoding property is set to one of the strings UCS-2BE, UCS-2LE, UCS4-BE, UCS-4LE, or UTF-8. If the marker character is not found, it checks for zero bytes at the current location and makes an assumption about one of the above formats (except UTF-8). If everything fails, the encoding property is set to the system encoding.
+   * IMPORTANT: Be careful about opening a file more than once. The operating system usually permits you to do so, but if you start writing to the file using two different File objects, you can destroy your data.
+   * @param mode The read-write mode, a single-character string. One of these characters: r (read) Opens for reading. If the file does not exist or cannot be found, the call fails. w (write) Opens a file for writing. If the file exists, its contents are destroyed. If the file does not exist, creates a new, empty file. e (edit) Opens an existing file for reading and writing. a (append) Opens an existing file for reading and writing, and moves the current position to the end of the file.
+   * @param type In Mac OS, the type of a newly created file, a 4-character string. Ignored in Windows and UNIX.
+   * @param creator In Mac OS, the creator of a newly created file, a 4-character string. Ignored in Windows and UNIX.
+   */
+  open(mode: string, type?: string, creator?: string): boolean;
+
+  /**
+   * Opens the built-in platform-specific file-browsing dialog, in which the user can select an existing file or files, and creates new File objects to represent the selected files.
+   * Differs from the class method openDialog() in that it presets the current folder to this File object’s parent folder and the current file to this object’s associated file.
+   * If the user clicks OK, returns a File or Folder object for the selected file or folder, or an array of objects.
+   * If the user cancels, returns null.
+   * @param prompt A string containing the prompt text, if the dialog allows a prompt.
+   * @param filter A filter that limits the types of files displayed in the dialog. In Windows,a filter expression such as "Javascript files:*.jsx;All files:*.*". In Mac OS, a filter function that takes a File instance and returns true if the file should be included in the display, false if it should not.
+   * @param multiSelect When true, the user can select multiple files and the return value is an array.
+   */
+  openDlg(prompt?: string, filter?: any, multiSelect?: boolean): File;
+
+  /**
+   * Reads the contents of the file, starting at the current position.
+   * Returns a string that contains up to the specified number of characters. If a number of characters is not supplied, reads from the current position to the end of the file. If the file is encoded, multiple bytes might be read to create single Unicode characters.
+   * @param chars An integer specifying the number of characters to read.
+   */
+  read(chars?: number): string;
+
+  /**
+   * Reads a single text character from the file at the current position.
+   * Line feeds are recognized as CR, LF, CRLF or LFCR pairs.If the file is encoded, multiple bytes might be read to create a single Unicode character. Returns a string that contains the character.
+   */
+  readch(): string;
+
+  /**
+   * Reads a single line of text from the file at the current position.
+   * Line feeds are recognized as CR, LF, CRLF or LFCR pairs.. If the file is encoded, multiple bytes might be read to create single Unicode characters. Returns a string that contains the text.
+   */
+  readln(): string;
+
+  /**
+   * Deletes the file associated with this object from disk immediately, without moving it to the system trash.
+   * Does not resolve aliases; instead, deletes the referenced alias or shortcut file itself. Returns true if the file was successfully removed.
+   * IMPORTANT: Cannot be undone. It is recommended that you prompt the user for permission before deleting.
+   */
+  remove(): boolean;
+
+  /**
+   * Renames the associated file.
+   * Does not resolve aliases, but renames the referenced alias or shortcut file itself. Returns true if the file was successfully renamed.
+   * @param newName The new file name, with no path information.
+   */
+  rename(newName: string): boolean;
+
+  /**
+   * Attempts to resolve the file-system alias or shortcut that this object refers to.
+   * If successful, creates and returns a new File object that points to the resolved file system element. Returns null if this object does not refer to an alias, or if the alias could not be resolved.
+   */
+  resolve(): File;
+
+  /**
+   * Opens the built-in platform-specific file-browsing dialog, in which the user can select an existing file location to which to save information, and creates a new File object to represent the selected file.
+   * Differs from the class method saveDialog() in that it presets the current folder to this File object’s parent folder and the file to this object’s associated file.
+   * If the user clicks OK, returns a File object for the selected file.
+   * If the user cancels, returns null.
+   * @param prompt A string containing the prompt text, if the dialog allows a prompt.
+   * @param filter In Windows only, a filter that limits the types of files displayed in the dialog. In Windows only,a filter expression such as "Javascript files:*.jsx;All files:*.*". Not used In Mac OS.
+   */
+  saveDlg(prompt?: string, filter?: any): File;
+
+  /**
+   * Seeks to a given position in the file.
+   * The new position cannot be less than 0 or greater than the current file size. Returns true if the position was changed.
+   * @param pos The new current position in the file as an offset in bytes from the start, current position, or end, depending on the mode.
+   * @param mode The seek mode. One of: 0: Seek to absolute position, where pos=0 is the first byte of the file. This is the default. 1: Seek relative to the current position. 2. Seek backward from the end of the file.
+   */
+  seek(pos: number, mode?: number): boolean;
+
+  /**
+   * Retrieves the current position as a byte offset from the start of the file.
+   * Returns a number, the position index.
+   */
+  tell(): number;
+
+  /**
+   * Creates and returns a serialized string representation of this object.
+   * Pass the resulting string to eval() to recreate the object.
+   */
+  toSource(): string;
+
+  /**
+   * Converts this object to a string.
+   */
+  toString(): string;
+
+  /**
+   * Writes the specified text to the file at the current position.
+   * You can supply multiple text values; the strings are concatenated to form a single string.For encoded files, writing a single Unicode character may write multiple bytes. Returns true if the write was successful.IMPORTANT: Be careful not to write to a file that is open in another application or object, as this can overwrite existing data.
+   * @param text A text string to be written.
+   */
+  write(text: string): boolean;
+
+  /**
+   * Writes a string to the file at the current position and appends a line-feed sequence.
+   * You can supply multiple text values. The strings are concatenated into a single string, which is written in the file followed by one line-feed sequence, of the style specified by this object's linefeed property.For encoded files, writing a single Unicode character may write multiple bytes.Returns true if the write was successful.IMPORTANT: Be careful not to write to a file that is open in another application or object, as this can overwrite existing data.
+   * @param text A text string to be written.
+   */
+  writeln(text: string): boolean;
+}
+
+interface FolderConstructor {
+  readonly prototype: Folder;
+
+  /**
+   * Creates and returns a new Folder object referring to a given file-system location.
+   * If the path name refers to an already existing disk file, a File object is returned instead.Returns the new Folder object.
+   * @param path The absolute or relative path to the folder associated with this object, specified in URI format. The value stored in the object is the absolute path.The path need not refer to an existing folder. If the path refers to an existing file, rather than a folder: The Folder() function returns a File object instead of a Folder object. The new operator returns a Folder object for a nonexisting folder with the same name.
+   */
+  new (path?: string): Folder;
+  (path?: string): Folder;
+
+  /**
+   * The folder containing the application data for all users.
+   * In Windows, the value of %APPDATA% (by default, C:\\Documents and Settings\\All Users\\Application Data)
+   * In Mac OS, /Library/Application Support
+   */
+  readonly appData: Folder;
+
+  /**
+   * In Mac OS, a Folder object for the folder containing the bundle of the running application.
+   */
+  readonly appPackage: Folder;
+
+  /**
+   * A Folder object for the folder containing common files for all programs installed by the user.
+   * In Windows, the value of %CommonProgramFiles% (by default, C:\\Program Files\\Common Files)
+   * In Mac OS, /Library/Application Support
+   */
+  readonly commonFiles: Folder;
+
+  /**
+   * A Folder object for the current folder.
+   * Assign a Folder object or a string containing the new path name to set the current folder. This is a class property accessed through the Folder constructor.
+   */
+  current: Folder;
+
+  /**
+   * A Folder object for the folder that contains the user’s desktop.
+   * In Windows, C:\\Documents and Settings\\username\\Desktop
+   * In Mac OS, ~/Desktop
+   */
+  readonly desktop: Folder;
+
+  /**
+   * The name of the current file system.
+   * One of "Windows", "Macintosh", or "Unix".
+   */
+  readonly fs: string;
+
+  /**
+   * A folder pointing to the user's My Documents folder.
+   * In Windows, C:\\Documents and Settings\\username\\My Documents
+   * In Mac OS,~/Documents
+   */
+  readonly myDocuments: Folder;
+
+  /**
+   * A Folder object for the folder containing the executable image of the running application.
+   */
+  readonly startup: Folder;
+
+  /**
+   * A Folder object for the folder containing the operating system files.
+   * In Windows, the value of %windir% (by default, C:\\Windows)
+   * In Mac OS, /System
+   */
+  readonly system: Folder;
+
+  /**
+   * A Folder object for the default folder for temporary files.
+   */
+  readonly temp: Folder;
+
+  /**
+   * A Folder object for the folder containing deleted items. On Windows, the trash folder is a virtual
+   * folder containing a database; therefore, the property value is null on Windows.
+   */
+  readonly trash: Folder;
+
+  /**
+   * A Folder object for the folder containing the user's application data.
+   * In Windows, the value of %USERDATA% (by default, C:\\Documents and Settings\\username\\Application Data)
+   * In Mac OS,~/Library/Application Support.
+   */
+  readonly userData: Folder;
+
+  /**
+   * Decodes a UTF-8 encoded string as required by RFC 2396, and returns the decoded string.
+   * See also String.decodeURI().
+   * @param uri The UTF-8 string to decode.
+   */
+  decode(uri: string): string;
+
+  /**
+   * Encodes a string as required by RFC 2396, and returns the encoded string.
+   * All special characters are encoded in UTF-8 and stored as escaped characters starting with the percent sign followed by two hexadecimal digits. For example, the string "my file" is encoded as "my%20file".
+   * Special characters are those with a numeric value greater than 127, except the following: / - _ . ! ~ * ' ( )
+   * See also encodeURI().
+   * @param name The string to encode.
+   */
+  encode(name: string): string;
+
+  /**
+   * Reports whether a given encoding is available.
+   * @param name The encoding name. Typical values are "ASCII", "binary", or "UTF-8".For a complete list of supported encodings, see the JavaScript Tools Guide.
+   */
+  isEncodingAvailable(name: string): boolean;
+
+  /**
+   * Opens the built-in platform-specific file-browsing dialog, and creates a new File or Folder object for the selected file or folder.
+   * Differs from the object method selectDlg() in that it does not preselect a folder.
+   * If the user clicks OK, returns a File or Folder object for the selected file or folder.
+   * If the user cancels, returns null.
+   * @param prompt The prompt text, if the dialog allows a prompt.
+   */
+  selectDialog(prompt?: string): Folder;
+}
+declare const Folder: FolderConstructor;
+
+/**
+ * Represents a file-system folder or directory in a platform-independent manner.
+ */
+interface Folder {
+  /**
+   * The full path name for the referenced folder in URI notation.
+   */
+  readonly absoluteURI: string;
+
+  /**
+   * When true, the object refers to a file system alias or shortcut.
+   */
+  readonly alias: boolean;
+
+  /**
+   * The creation date of the referenced folder, or null if the object does not refer to a folder on disk.
+   */
+  readonly created: Date;
+
+  /**
+   * The localized name portion of the absolute URI for the referenced folder, without the path specification.
+   */
+  readonly displayName: string;
+
+  /**
+   * A message describing the most recent file system error.
+   * Typically set by the file system, but a script can set it. Setting this value clears any error message and resets the error bit for opened files. Contains the empty string if there is no error.
+   */
+  error: string;
+
+  /**
+   * When true, this object refers to a folder that currently exists in the file system.
+   */
+  readonly exists: boolean;
+
+  /**
+   * The platform-specific name of the referenced folder as a full path name.
+   */
+  readonly fsName: string;
+
+  /**
+   * The full path name for the referenced folder in URI notation. .
+   */
+  readonly fullName: string;
+
+  /**
+   * The date of the referenced folder's last modification, or null if the object does not refer to a folder on disk.
+   */
+  readonly modified: Date;
+
+  /**
+   * The folder name portion of the absolute URI for the referenced file, without the path specification.
+   */
+  readonly name: string;
+
+  /**
+   * TThe Folder object for the folder that contains this folder, or null if this object refers to the root folder of a volume.
+   */
+  readonly parent: Folder;
+
+  /**
+   * The path portion of the object absolute URI for the referenced file, without the folder name.
+   */
+  readonly path: string;
+
+  /**
+   * The path name for the referenced folder in URI notation, relative to the current folder.
+   */
+  readonly relativeURI: string;
+
+  /**
+   * Changes the path specification of the referenced folder.
+   * @param path A string containing the new path, absolute or relative to the current folder.
+   */
+  changePath(path: string): boolean;
+
+  /**
+   * Creates a folder at the location given by this object's path property.
+   * Returns true if the folder was created.
+   */
+  create(): boolean;
+
+  /**
+   * Opens this folder in the platform-specific file browser (as if it had been double-clicked in the file browser).
+   * Returns true immediately if the folder was opened successfully.
+   */
+  execute(): boolean;
+
+  /**
+   * Retrieves the contents of this folder, filtered by the supplied mask.
+   * Returns an array of File and Folder objects, or null if this object's referenced folder does not exist.
+   * @param mask A search mask for file names, specified as a string or a function. A mask string can contain question mark (?) and asterisk (*) wild cards. Default is "*", which matches all file names. Can also be the name of a function that takes a File or Folder object as its argument. It is called for each file or folder found in the search; if it returns true, the object is added to the return array. NOTE: In Windows, all aliases end with the extension .lnk. ExtendScript strips this from the file name when found, in order to preserve compatibility with other operating systems. You can search for all aliases by supplying the search mask "*.lnk", but note that such code is not portable.
+   */
+  getFiles(mask: any): Array<File | Folder>;
+
+  /**
+   * Retrieves and returns the path for this file, relative to the specified base path, in URI notation.
+   * If no base path is supplied, the URI is relative to the path of the current folder.Returns a string containing the relative URI.
+   * @param basePath A base path in URI notation.
+   */
+  getRelativeURI(basePath?: string): string;
+
+  /**
+   * Deletes the folder associated with this object from disk immediately, without moving it to the system trash.
+   * Folders must be empty before they can be deleted. Does not resolve aliases; instead, deletes the referenced alias or shortcut file itself. Returns true if the file was successfully removed.
+   * IMPORTANT: Cannot be undone. It is recommended that you prompt the user for permission before deleting.
+   */
+  remove(): boolean;
+
+  /**
+   * Renames the associated folder.
+   * Does not resolve aliases, but renames the referenced alias or shortcut file itself. Returns true if the folder was successfully renamed.
+   * @param newName The new folder name, with no path information.
+   */
+  rename(newName: string): boolean;
+
+  /**
+   * Attempts to resolve the file-system alias or shortcut that this object refers to.
+   * If successful, creates and returns a new Folder object that points to the resolved file system element. Returns null if this object does not refer to an alias, or if the alias could not be resolved.
+   */
+  resolve(): Folder;
+
+  /**
+   * Opens the built-in platform-specific file-browsing dialog, and creates a new File or Folder object for the selected file or folder.
+   * Differs from the class method selectDialog() in that it preselects this folder.
+   * If the user clicks OK, returns a File or Folder object for the selected file or folder.
+   * If the user cancels, returns null.
+   * @param prompt The prompt text, if the dialog allows a prompt.
+   */
+  selectDlg(prompt?: string): Folder;
+
+  /**
+   * Creates and returns a serialized string representation of this object.
+   * Pass the resulting string to eval() to recreate the object.
+   */
+  toSource(): string;
+
+  /**
+   * Converts this object to a string.
+   */
+  toString(): string;
+}
+
+interface SocketConstructor {
+  readonly prototype: Socket;
+
+  /**
+   * Creates a new Socket object.
+   */
+  new (): Socket;
+  (): Socket;
+}
+declare const Socket: SocketConstructor;
+
+/**
+ * Creates a TCP/IP connection, or establishes a TCP/IP server.
+ */
+interface Socket {
+  /**
+   * When true, the connection is active.
+   */
+  readonly connected: boolean;
+
+  /**
+   * Sets or retrieves the name of the encoding used to transmit data.
+   * Typical values are "ASCII", "BINARY", or "UTF-8".
+   */
+  encoding: string;
+
+  /**
+   * When true, the receive buffer is empty.
+   */
+  readonly eof: boolean;
+
+  /**
+   * A message describing the most recent error. Setting this value clears any error message.
+   */
+  error: string;
+
+  /**
+   * The name of the remote computer when a connection is established.
+   * If the connection is shut down or does not exist, the property contains the empty string.
+   */
+  readonly host: string;
+
+  /**
+   * The timeout in seconds to be applied to read or write operations.
+   */
+  timeout: number;
+
+  /**
+   * Terminates the open connection.
+   * Returns true if the connection was closed, false on I/O errors.
+   * Deleting the object also closes the connection, but not until JavaScript garbage-collects the object. The connection might stay open longer than you wish if you do not close it explicitly.
+   */
+  close(): boolean;
+
+  /**
+   * Instructs the object to start listening for an incoming connection.
+   * The call to open() and the call to listen()are mutually exclusive. Call one function or the other, not both.
+   * @param port The TCP/IP port number to listen on. Valid port numbers are 1 to 65535. Typical values are 80 for a Web server, 23 for a Telnet server and so on.
+   * @param encoding The encoding to be used for the connection Typical values are "ASCII", "BINARY", or "UTF-8".
+   */
+  listen(port: number, encoding?: string): boolean;
+
+  /**
+   * Opens the connection for subsequent read/write operations.
+   * The call to open() and the call to listen() are mutually exclusive. Call one function or the other, not both.
+   * @param host The server to connect to. This can be a DNS name, an IPv4 address, or an IPv6 address, followed by a colon and a port number.
+   * @param encoding The encoding to be used for the connection Typical values are "ASCII", "binary", or "UTF-8".
+   */
+  open(host: string, encoding?: string): boolean;
+
+  /**
+   * Checks a listening object for a new incoming connection.
+   * If a connection request was detected, the method returns a new Socket object that wraps the new connection. Use this connection object to communicate with the remote computer. After use, close the connection and delete the JavaScript object. If no new connection request was detected, the method returns null.
+   */
+  poll(): Socket;
+
+  /**
+   * Reads up to the specified number of characters from the connection. CR characters are ignored unless the encoding is set to "BINARY".
+   * Returns a string that contains up to the number of characters that were supposed to be read, or the number of characters read before the connection closed or timed out.
+   * @param count The number of characters to read. If not supplied, the connection attempts to read as many characters it can get and returns immediately.
+   */
+  read(count?: number): string;
+
+  /**
+   * Reads one line of text up to the next line feed.
+   * Line feeds are recognized as LF or CRLF pairs. CR characters are ignored. Returns a string containing the characters.
+   */
+  readln(): string;
+
+  /**
+   * Concatenates all arguments into a single string and writes that string to the connection.
+   * @param text Any number of string values. All arguments are concatenated to form the string to be written. CRLF sequences are converted to LFs unless the encoding is set to "BINARY".
+   */
+  write(text: string): boolean;
+
+  /**
+   * Concatenates all arguments into a single string, appends a LF character, and writes that string to the connection.
+   * @param text Any number of string values. All arguments are concatenated to form the string to be written. CRLF sequences are converted to LFs unless the encoding is set to "BINARY".
+   */
+  writeln(text: string): boolean;
+}
+
+/**
+ * Provides information about a method, a property or a method parameters.
+ */
+interface ReflectionInfo {
+  /**
+   * The description of method or function arguments.
+   */
+  readonly arguments: ReflectionInfo[];
+
+  /**
+   * The data type.
+   */
+  readonly dataType: string;
+
+  /**
+   * The default value.
+   */
+  readonly defaultValue: any;
+
+  /**
+   * The long description text.
+   */
+  readonly description: string;
+
+  /**
+   * The short description text.
+   */
+  readonly help: string;
+
+  /**
+   * Contains true if the class describes a collection class.
+   */
+  readonly isCollection: boolean;
+
+  /**
+   * The maximum value.
+   */
+  readonly max: number;
+
+  /**
+   * The minimum value.
+   */
+  readonly min: number;
+
+  /**
+   * The element name.
+   */
+  readonly name: string;
+
+  /**
+   * The class object that this element belongs to.
+   */
+  readonly parent: Reflection;
+
+  /**
+   * Sample code, if present.
+   */
+  readonly sampleCode: string;
+
+  /**
+   * A file containing sample code. May be null.
+   */
+  readonly sampleFile: File;
+
+  /**
+   * The element type.
+   * One of unknown, readonly, readwrite, createonly, method or parameter.
+   */
+  readonly type: string;
+}
+declare const ReflectionInfo: ReflectionInfo;
+
+/**
+ * Provides information about a class.
+ */
+interface Reflection {
+  /**
+   * The long description text.
+   */
+  readonly description: string;
+
+  /**
+   * The short description text.
+   */
+  readonly help: string;
+
+  /**
+   * An array of method descriptions.
+   */
+  readonly methods: ReflectionInfo[];
+
+  /**
+   * The class name.
+   */
+  readonly name: string;
+
+  /**
+   * An array of property descriptions.
+   */
+  readonly properties: ReflectionInfo[];
+
+  /**
+   * Sample code, if present.
+   */
+  readonly sampleCode: string;
+
+  /**
+   * A file containing sample code. May be null.
+   */
+  readonly sampleFile: File;
+
+  /**
+   * An array of class method descriptions.
+   */
+  readonly staticMethods: ReflectionInfo[];
+
+  /**
+   * An array of class property descriptions.
+   */
+  readonly staticProperties: ReflectionInfo[];
+
+  /**
+   * Finds an element description by name.
+   * @param name The name of the element to find.
+   */
+  find(name: string): ReflectionInfo;
+
+  /**
+   * Returns this class information as XML in OMV format.
+   */
+  toXML(): XML;
+}
+declare const Reflection: Reflection;
+
+interface QNameConstructor {
+  readonly prototype: QName;
+
+  /**
+   * Creates a QName object.
+   * @param uri The URI, specified as a Namespace object, an existing QName object, or string. If this is a Namespace object, the URI is set to the namespace URI, and there is no local name. If this is a QName object, the URI and localName is set to those of that object. If this is a string, the URI is set to that string.
+   * @param name The local name. Used only if URI is given as a string.
+   */
+  new (uri: any, name?: string): QName;
+  (uri: any, name?: string): QName;
+}
+declare const QName: QNameConstructor;
+
+/**
+ * A qualified XML name, containing the URI and the local name.
+ */
+interface QName {
+  /**
+   * The local name part of the qualified name.
+   */
+  readonly localName: string;
+
+  /**
+   * The URI part of the qualified name.
+   */
+  readonly uri: string;
+}
+
+interface NamespaceConstructor {
+  readonly prototype: Namespace;
+
+  /**
+   * Creates a Namespace object.
+   * @param prefix The URIprefix, specified as an existing Namespace object, QName object, or string. If this is a Namespace or a QName object, the URI and prefix are set to that of the object. If this is a string, the prefix is set to that string, and the URI must be specified.
+   * @param uri The URI if the prefix is specified as a string.
+   */
+  new (prefix: any, uri?: string): Namespace;
+  (prefix: any, uri?: string): Namespace;
+}
+declare const Namespace: NamespaceConstructor;
+
+/**
+ * A XML namespace object.
+ */
+interface Namespace {
+  /**
+   * The named prefix.
+   */
+  readonly prefix: string;
+
+  /**
+   * The URI.
+   */
+  readonly uri: string;
+}
+
+interface XMLConstructor {
+  readonly prototype: XML;
+
+  /**
+   * Parses an XML string. Throws an error if the XML is incorrect.
+   * @param text The text to parse.
+   */
+  new (text: string): XML;
+  (text: string): XML;
+
+  /**
+   * Controls whether XML comments should be parsed (false) or ignored (true).
+   */
+  ignoreComments: boolean;
+
+  /**
+   * Controls whether XML preprocessing instructions should be parsed (false) or ignored (true).
+   */
+  ignoreProcessingInstructions: boolean;
+
+  /**
+   * Controls whether whitespace should be parsed (false) or ignored (true).
+   */
+  ignoreWhitespace: boolean;
+
+  /**
+   * The number of spaces used to indent pretty-printed XML.
+   */
+  prettyIndent: number;
+
+  /**
+   * When true, XML is pretty-printed when converting to a string.
+   */
+  prettyPrinting: boolean;
+
+  /**
+   * Returns an object containing the default parsing and print settings for XML.
+   */
+  defaultSettings(): object;
+
+  /**
+   * Sets the parsing and print setting for XML using an object returned by the settings() method.
+   * @param obj The object containing the settings to set.
+   */
+  setSettings(obj: object): void;
+
+  /**
+   * Returns an object containing the current parsing and print settings for XML.
+   */
+  settings(): object;
+}
+declare const XML: XMLConstructor;
+
+/**
+ * Wraps XML into an object.
+ */
+interface XML {
+  /**
+   * Adds a namespace declaration to the node. Returns the XML object itself.
+   * @param namespace The namespace to add.
+   */
+  addNamespace(namespace: Namespace): XML;
+
+  /**
+   * Appends the given XML to this XML as a child. Returns the XML object itself.
+   * If the argument is not XML, creates a new XML element containing the argument as text. The element name of that new XML is the same as the last element in the original XML.
+   * @param child The child XML to add.
+   */
+  appendChild(child: XML): XML;
+
+  /**
+   * Returns a list containing all attribute elements matching the given name.
+   * @param name The attribute name to look for.
+   */
+  attribute(name: string): XML;
+
+  /**
+   * Returns a list containing all attribute elements.
+   */
+  attributes(): XML;
+
+  /**
+   * Returns a list containing all children of this XML matching the given element name.
+   * If the argument is a number, uses the number as index into the array of children.
+   * @param name The name or the index of the child element.
+   */
+  child(name: string): XML;
+
+  /**
+   * Returns a number representing the ordinal position of this XML object within the context of its parent.
+   */
+  childIndex(): number;
+
+  /**
+   * Returns an XML object containing all the properties of this XML object in order.
+   */
+  children(): XML;
+
+  /**
+   * Returns an XML object containing the properties of this XML object that represent XML comments.
+   */
+  comments(): XML;
+
+  /**
+   * Checks if this XML object contains the given XML object.
+   * @param xml The XML to search for.
+   */
+  contains(xml: XML): boolean;
+
+  /**
+   * Creates a copy of this XML object.
+   */
+  copy(): XML;
+
+  /**
+   * Returns all the XML-valued descendants of this XML object with the given name.
+   * If the name parameter is omitted, returns all descendants of this XML object.
+   * @param name The name of the descendant to find.
+   */
+  descendants(name?: string): XML;
+
+  /**
+   * Returns a list of XML children that are elements with a given name, or all children that are XML elements.
+   * @param name The element name. If not supplied, gets all children that are XML elements.
+   */
+  elements(name?: string): XML;
+
+  /**
+   * Reports whether this XML object contains complex content.
+   * An XML object is considered to contain complex content if it represents an XML element that has child elements. XML objects representing attributes, comments, processing instructions and text nodes do not have complex content. The existence of attributes, comments, processing instructions and text nodes within an XML object is not significant in determining if it has complex content.
+   */
+  hasComplexContent(): boolean;
+
+  /**
+   * Reports whether this XML object contains simple content.
+   * An XML object is considered to contain simple content if it represents a text node, represents an attribute node or if it represents an XML element that has no child elements. XML objects representing comments and processing instructions do not have simple content. The existence of attributes, comments, processing instructions and text nodes within an XML object is not significant in determining if it has simple content.
+   */
+  hasSimpleContent(): boolean;
+
+  /**
+   * Returns an array of Namespace objects mirroring the current list of valid namespaces at this element.
+   * The last element of thereturned array is the default namespace.
+   */
+  inScopeNamespaces(): Namespace[];
+
+  /**
+   * Inserts the given child2 after the given child1 in this XML object and returns this XML object.
+   * If child1 is null, the method inserts child2 before all children of this XML object (that is, after none of them). If child1 does not exist in this XML object, the method returns without modifying this XML object.
+   * @param child1 The child to insert the other child after. If null, the method inserts child2 before all children of this XML object.
+   * @param child2 The XML to insert.
+   */
+  insertChildAfter(child1: XML, child2: XML): void;
+
+  /**
+   * Inserts the given child2 before the given child1 in this XML object and returns this XML object.
+   * If child1 is null, the method inserts child2 after all children of this XML object (that is, before none of them). If child1 does not exist in this XML object, the method returns without modifying this XML object.
+   * @param child1 The child to search for. If null, the method inserts child2 after all children of this XML object.
+   * @param child2 The XML to insert.
+   */
+  insertChildBefore(child1: XML, child2: XML): void;
+
+  /**
+   * Returns the number of elements contained in an XML list. If this XML object is not a list, returns 1.
+   */
+  length(): number;
+
+  /**
+   * Returns the local name of this XML object.
+   * This value corresponds to the element name unless the name has a namespace prefix. For example, if the element has the name "ns:tag", the return value is "tag".
+   */
+  localName(): string;
+
+  /**
+   * Returns a QName object containing the URI and the local name of the element.
+   */
+  name(): QName;
+
+  /**
+   * Returns a Namespace object containing the namespace URI of the current element.
+   */
+  namespace(): Namespace;
+
+  /**
+   * Returns an array containing all namespace declarations of this XML object.
+   */
+  namespaceDeclarations(): Namespace[];
+
+  /**
+   * Returns the type of this XML object as one of the strings "element", "attribute", "comment", "processing-instruction", or "text".
+   */
+  nodeKind(): string;
+
+  /**
+   * Puts all text nodes in this and all descendant XML objects into a normal form by merging adjacent text nodes and eliminating empty text nodes. Returns this XML object.
+   */
+  normalize(): XML;
+
+  /**
+   * Returns the parent object of this XML object.
+   * The root object, as returned by the XML constructor, does not have a parent and returns null. Note that the E4X standard does not define what happens if this XML object is a list containing elements with multiple parents.
+   */
+  parent(): XML;
+
+  /**
+   * Inserts a given child into this object before its existing XML properties, and returns this XML object.
+   * @param child The XML to insert.
+   */
+  prependChild(child: XML): XML;
+
+  /**
+   * Returns a list of preprocessing instructions.
+   * Collects processing-instructions with the given name, if supplied. Otherwise, returns an XML list containing all the children of this XML object that are processing-instructions regardless of their name.
+   * @param name The name of the preprocessing instruction to return.
+   */
+  processingInstructions(name?: string): XML;
+
+  /**
+   * Removes the given namespace from this XML, and returns this XML.
+   * @param namespace The namespace to remove.
+   */
+  removeNamespace(namespace: Namespace): XML;
+
+  /**
+   * Replaces the value of specified XML properties of this XML object returns this XML object.
+   * This method acts like the assignment operator.
+   * @param name The property name. Can be a numeric property name, a name for a set of XML elements, or the properties wildcard “*”. If this XML object contains no properties that match the name, the method returns without modifying this XML object.
+   * @param value The XML with which to replace the value of the matching property. Can be an XML object, XML list or any value that can be converted to a String with toString().
+   */
+  replace(name: string, value: XML): XML;
+
+  /**
+   * Replaces all of the XML-valued properties in this object with a new value, and returns this XML object.
+   * @param value The new value, which can be a single XML object or an XML list.
+   */
+  setChildren(value: XML): XML;
+
+  /**
+   * Replaces the local name of this XML objectwith a string constructed from the given name
+   * The local name is any part behind a colon character. If there is no colon, it is the entire name.
+   * @param name The name to set.
+   */
+  setLocalName(name: string): void;
+
+  /**
+   * Replaces the name of this XML object with the given QName object.
+   * @param name The fully qualified name.
+   */
+  setName(name: QName): void;
+
+  /**
+   * Sets the namespace for this XML element.
+   * If the namespace has not been declared in the tree above this element, adds a namespace declaration.
+   * @param namespace The namespace to set.
+   */
+  setNamespace(namespace: Namespace): void;
+
+  /**
+   * Returns an XML list containing all XML properties of this XML object that represent XML text nodes.
+   */
+  text(): XML;
+
+  /**
+   * Returns the string representation of this object.
+   * For text and attribute nodes, this is the textual value of the node; for other elements, this is the result of calling the toXMLString() method. If this XML object is a list, concatenates the result of calling toString() on each element.
+   */
+  toString(): string;
+
+  /**
+   * Returns an XML-encoded string representation of this XML object.
+   * Always includes the start tag, attributes and end tag of the XML object regardless of its content. It is provided for cases when the default XML to string conversion rules are not desired. Interprets the global settings XML.prettyPrint and XML.prettyIndent.
+   */
+  toXMLString(): string;
+
+  /**
+   * Evaluates the given XPath expression in accordance with the W3C XPath recommendation, using this XML object as the context node.
+   * @param expr The XPath expression to use.
+   */
+  xpath(expr: string): XML;
+}
+
+/**
+ * An XML list object.
+ * In this implementation, an XMLList object is synonymous to the XML object. The constructor accepts an XML list, but everything else works like theXML object.
+ */
+interface XMLList {}
+declare const XMLList: XMLList;
+
+interface UnitValueConstructor {
+  readonly prototype: UnitValue;
+
+  /**
+   * Creates a new UnitValue object.
+   */
+  new (value: string | UnitValue): UnitValue;
+  (value: string | UnitValue): UnitValue;
+
+  /**
+   * The base unit for all conversions.
+   */
+  baseUnit: UnitValue;
+}
+declare const UnitValue: UnitValueConstructor;
+
+/**
+ * Represents a measurement as a combination of values and unit.
+ * Note that this object is not available in all applications.
+ */
+interface UnitValue {
+  /**
+   * The base unit.
+   */
+  baseUnit: UnitValue;
+
+  /**
+   * The unit name.
+   */
+  readonly type: string;
+
+  /**
+   * The numeric value.
+   */
+  value: number;
+
+  /**
+   * Returns this instance as a different unit.
+   * @param unitName The unit name.
+   */
+  as(unitName: string): UnitValue;
+
+  /**
+   * Converts this instance to a different unit.
+   * @param unitName The unit name.
+   */
+  convert(unitName: string): any;
+}
+
+/**
+ * Only for TypeScript compatibility
+ */
+interface CallableFunction extends Function {}
+
+interface NewableFunction extends Function {}
+
+interface IArguments {
+  [index: number]: any;
+  length: number;
+  callee: Function;
+}
+
+/**
+ * Make all properties in T optional
+ */
+type Partial<T> = { [P in keyof T]?: T[P] };
+
+/**
+ * Make all properties in T readonly
+ */
+type Readonly<T> = { readonly [P in keyof T]: T[P] };
+
+/**
+ * From T pick a set of properties K
+ */
+type Pick<T, K extends keyof T> = { [P in K]: T[P] };
+
+/**
+ * Construct a type with a set of properties K of type T
+ */
+type Record<K extends string, T> = { [P in K]: T };
 
 /**
  * The global BridgeTalk object.
@@ -25651,33 +26904,33 @@ interface $ {
   /**
    * The ExtendScript build information.
    */
-  readonly build: string
+  readonly build: string;
 
   /**
    * The ExtendScript build date.
    */
-  readonly buildDate: Date
+  readonly buildDate: Date;
 
   /**
    * The character used as the decimal point character in formatted numeric output.
    */
-  decimalPoint: string
+  decimalPoint: string;
 
   /**
    * The name of the current ExtendScript engine, if set.
    */
-  readonly engineName: string
+  readonly engineName: string;
 
   /**
    * The most recent run-time error information.
    * Assigning error text to this property generates a run-time error; however, the preferred way to generate a run-time error is to throw an Error object.
    */
-  error: Error
+  error: Error;
 
   /**
    * The file name of the current script.
    */
-  readonly fileName: string
+  readonly fileName: string;
 
   /**
    * Gets or sets low-level debug output flags.
@@ -25688,146 +26941,1398 @@ interface $ {
    * 0x0100 (256): Enables extended error handling (see strict).
    * 0x0200 (512): Enables the localization feature of the toString method. Equivalent to the localize property.
    */
-  flags: number
+  flags: number;
 
   /**
    * A reference to the global object, which contains the JavaScript global namespace.
    */
-  readonly global: any
+  readonly global: any;
 
   /**
    * A high-resolution timer, measuring the time in microseconds. The timer starts when ExtendScript is
    * initialized during the application startup sequence. Every read access resets the timer to Zero.
    */
-  readonly hiresTimer: number
+  readonly hiresTimer: number;
 
   /**
    * The path for include files for the current script.
    */
-  readonly includePath: string
+  readonly includePath: string;
 
   /**
    * The current debugging level, which enables or disables the JavaScript debugger.
    * One of 0 (no debugging), 1 (break on runtime errors), or 2 (full debug mode).
    */
-  level: number
+  level: number;
 
   /**
    * The current line number of the currently executing script.
    */
-  readonly line: number
+  readonly line: number;
 
   /**
    * Gets or sets the current locale.
    * The string contains five characters in the form LL_RR, where LL is an ISO 639 language specifier, and RR is an ISO 3166 region specifier.Initially, this is the value that the application or the platform returns for the current user. You can set it to temporarily change the locale for testing. To return to the application or platform setting, set to undefined, null, or the empty string.
    */
-  locale: string
+  locale: string;
 
   /**
    * Set to true to enable the extended localization features of the built-in toString() method.
    */
-  localize: boolean
+  localize: boolean;
 
   /**
    * The ExtendScript memory cache size, in bytes.
    */
-  memCache: number
+  memCache: number;
 
   /**
    * The current operating system version information.
    */
-  readonly os: string
+  readonly os: string;
 
   /**
    * An array of objects containing information about the display screens attached to your computer.
    * Each object has the properties left, top, right, bottom, which contain the four corners of each screen in global coordinates.A property primary is true if that object describes the primary display.
    */
-  readonly screens: object[]
+  readonly screens: object[];
 
   /**
    * The current stack trace.
    */
-  readonly stack: string
+  readonly stack: string;
 
   /**
    * Sets or clears strict mode for object modification.
    * When true, any attempt to write to a read-only property causes a runtime error. Some objects do not permit the creation of new properties when true.
    */
-  strict: any
+  strict: any;
 
   /**
    * The version number of the ExtendScript engine.
    * Formatted as a three-part number and description; for example: "3.92.95 (debug)".
    */
-  readonly version: string
+  readonly version: string;
 
   /**
    * Shows an About box for the ExtendScript component, and returns the text for the box.
    */
-  about(): string
+  about(): string;
 
   /**
    * Breaks execution at the current position.
    * @param condition A string containing a JavaScript statement to be used as a condition. If the statement evaluates to true or nonzero when this point is reached, execution stops.
    */
-  bp(condition?: any): void
+  bp(condition?: any): void;
 
   /**
    * Invokes the platform-specific color selection dialog, and returns the selected color.
    * @param color The color to be preselected in the dialog, as 0xRRGGBB, or -1 for the platform default.
    */
-  colorPicker(color: number): number
+  colorPicker(color: number): number;
 
   /**
    * Loads and evaluates a file.
    * @param file The file to load.
    * @param timeout An optional timeout in milliseconds.
    */
-  evalFile(file: File, timeout?: number): any
+  evalFile(file: File, timeout?: number): any;
 
   /**
    * Initiates garbage collection in the ExtendScript engine.
    */
-  gc(): void
+  gc(): void;
 
   /**
    * Retrieves the value of an environment variable.
    * @param name The name of the variable.
    */
-  getenv(name: string): string
+  getenv(name: string): string;
 
   /**
    * Sets the value of an environment variable.
    * @param name The name of the variable.
    * @param value The value of the variable.
    */
-  setenv(name: string, value: string): void
+  setenv(name: string, value: string): void;
 
   /**
    * Suspends the calling thread for a number of milliseconds.
    * During a sleep period, checks at 100 millisecond intervals to see whether the sleep should be terminated. This can happen if there is a break request, or if the script timeout has expired.
    * @param msecs Number of milliseconds to sleep.
    */
-  sleep(msecs: number): void
+  sleep(msecs: number): void;
 
   /**
    * Converts this object to a string.
    */
-  toString(): string
+  toString(): string;
 
   /**
    * Prints text to the Console.
    * @param text The text to print. All arguments are concatenated.
    */
-  write(text: any): void
+  write(text: any): void;
 
   /**
    * Prints text to the Console, and adds a newline character.
    * @param text The text to print. All arguments are concatenated.
    */
-  writeln(text: any): void
+  writeln(text: any): void;
 }
-declare const $: $
+declare const $: $;
+
+
+interface FileConstructor {
+  readonly prototype: File;
+
+  /**
+   * Creates and returns a new File object referring to a given file system location.
+   * @param path The full or partial path name of the file,in platform-specific or URI format. The value stored in the object is the absolute path. The file that the path refers to does not need to exist.If the path refers to an existing folder: The File function returns a Folder object instead of a File object. The new operator returns a File object for a nonexisting file with the same name.
+   */
+  new (path?: string): File;
+  (path?: string): File;
+
+  /**
+   * The name of the file system.
+   * This is a class property accessed through the File constructor. Valid values are "Windows", "Macintosh", and "Unix".
+   */
+  readonly fs: string;
+
+  /**
+   * Decodes a UTF-8 encoded string as required by RFC 2396, and returns the decoded string.
+   * See also String.decodeURI().
+   * @param uri The UTF-8 encoded string to decode.
+   */
+  decode(uri: string): string;
+
+  /**
+   * Encodes a string as required by RFC 2396, and returns the encoded string.
+   * All special characters are encoded in UTF-8 and stored as escaped characters starting with the percent sign followed by two hexadecimal digits. For example, the string "my file" is encoded as "my%20file".
+   * Special characters are those with a numeric value greater than 127, except the following: / - _ . ! ~ * ' ( )
+   * See also encodeURI().
+   * @param name The string to encode.
+   */
+  encode(name: string): string;
+
+  /**
+   * Reports whether a given encoding is available.
+   * @param name The encoding name. Typical values are "ASCII", "binary", or "UTF-8".For a complete list of supported encodings, see the JavaScript Tools Guide.
+   */
+  isEncodingAvailable(name: string): boolean;
+
+  /**
+   * Opens a dialog so the user can select one or more files to open.
+   * Opens the built-in platform-specific file-browsing dialog in which a user can select an existing file or multiple files, and creates new File objects to represent the selected files.
+   * If the user clicks OK, returns a File object for the selected file, or an array of objects if multiple files are selected.
+   * If the user cancels, returns null.
+   * @param prompt The prompt text, displayed if the dialog allows a prompt.
+   * @param filter A filter that limits the types of files displayed in the dialog. In Windows,a filter expression such as "Javascript files:*.jsx;All files:*.*". In Mac OS, a filter function that takes a File instance and returns true if the file should be included in the display, false if it should not.
+   * @param multiSelect When true, the user can select multiple files and the return value is an array.
+   */
+  openDialog(prompt?: string, filter?: any, multiSelect?: boolean): File;
+
+  /**
+   * Opens a dialog so the user can select a file name to save to.
+   * Opens the built-in platform-specific file-browsing dialog in which a user can select an existing file location to which to save information, and creates a new File object to represent the selected file location.
+   * If the user clicks OK, returns a File object for the selected file location.
+   * If the user cancels, returns null.
+   * @param prompt The prompt text, displayed if the dialog allows a prompt.
+   * @param filter In Windows only, a filter that limits the types of files displayed in the dialog. In Windows only,a filter expression such as "Javascript files:*.jsx;All files:*.*". Not used In Mac OS.
+   */
+  saveDialog(prompt?: string, filter?: any): File;
+}
+declare const File: FileConstructor;
+
+/**
+ * Represents a file in the local file system in a platform-independent manner.
+ */
+interface File {
+  /**
+   * The full path name for the referenced file in URI notation.
+   */
+  readonly absoluteURI: string;
+
+  /**
+   * If true, the object refers to a file system alias or shortcut.
+   */
+  readonly alias: boolean;
+
+  /**
+   * The creation date of the referenced file, or null if the object does not refer to a file on disk.
+   */
+  readonly created: Date;
+
+  /**
+   * In Mac OS, the file creator as a four-character string. In Windows or UNIX, value is "????".
+   */
+  readonly creator: string;
+
+  /**
+   * The localized name of the referenced file, without the path specification.
+   */
+  readonly displayName: string;
+
+  /**
+   * Gets or sets the encoding for subsequent read/write operations.
+   * One of the encoding constants listed in the JavaScript Tools Guide. If the value is not recognized, uses the system default encoding.A special encoder, BINARY, is used to read binary files. It stores each byte of the file as one Unicode character regardless of any encoding. When writing, the lower byte of each Unicode character is treated as a single byte to write.
+   */
+  encoding: string;
+
+  /**
+   * When true, a read attempt caused the current position to be at the end of the file, or the file is not open.
+   */
+  readonly eof: boolean;
+
+  /**
+   * A string containing a message describing the most recent file system error.
+   * Typically set by the file system, but a script can set it. Setting this value clears any error message and resets the error bit for opened files. Contains the empty string if there is no error.
+   */
+  error: string;
+
+  /**
+   * If true, this object refers to a file or file-system alias that actually exists in the file system.
+   */
+  readonly exists: boolean;
+
+  /**
+   * The platform-specific full path name for the referenced file.
+   */
+  readonly fsName: string;
+
+  /**
+   * The full path name for the referenced file in URI notation.
+   */
+  readonly fullName: string;
+
+  /**
+   * When true, the file is not shown in the platform-specific file browser.
+   * If the object references a file-system alias or shortcut, the flag is altered on the alias, not on the original file.
+   */
+  hidden: boolean;
+
+  /**
+   * The size of the file in bytes.
+   * Can be set only for a file that is not open, in which case it truncates or pads the file with 0-bytes to the new length.
+   */
+  length: number;
+
+  /**
+   * How line feed characters are written in the file system.
+   * One of the values "Windows", "Macintosh", or "Unix".
+   */
+  lineFeed: string;
+
+  /**
+   * The date of the referenced file's last modification, or null if the object does not refer to a file on the disk.
+   */
+  readonly modified: Date;
+
+  /**
+   * The file name portion of the absolute URI for the referenced file, without the path specification.
+   */
+  readonly name: string;
+
+  /**
+   * The Folder object for the folder that contains this file.
+   */
+  readonly parent: Folder;
+
+  /**
+   * The path portion of the absolute URI for the referenced file, without the file name.
+   */
+  readonly path: string;
+
+  /**
+   * When true, prevents the file from being altered or deleted.
+   * If the referenced file is a file-system alias or shortcut, the flag is altered on the alias, not on the original file.
+   */
+  readonly: boolean;
+
+  /**
+   * The path name for the object in URI notation, relative to the current folder.
+   */
+  readonly relativeURI: string;
+
+  /**
+   * The file type as a four-character string.
+   * In Mac OS, the Mac OS file type.
+   * In Windows, "appl" for .EXE files, "shlb" for .DLL files and "TEXT" for any other file.
+   */
+  readonly type: string;
+
+  /**
+   * Changes the path specification of the referenced file.
+   * @param path A string containing the new path, absolute or relative to the current folder.
+   */
+  changePath(path: string): boolean;
+
+  /**
+   * Closes this open file.
+   * Returns true if the file was closed successfully, false if an I/O error occurred.
+   */
+  close(): boolean;
+
+  /**
+   * Copies this object’s referenced file to the specified target location.
+   * Resolves any aliases to find the source file. If a file exists at the target location, it is overwritten.
+   * Returns true if the copy was successful.
+   * @param target A string with the URI path to the target location, or a File object that references the target location.
+   */
+  copy(target: string): boolean;
+
+  /**
+   * Makes this file a file-system alias or shortcut to the specified file.
+   * The referenced file for this object must not yet exist on disk. Returns true if the operation was successful.
+   * @param path A string containing the path of the target file.
+   */
+  createAlias(path: string): void;
+
+  /**
+   * Executes or opens this file using the appropriate application, as if it had been double-clicked in a file browser.
+   * You can use this method to run scripts, launch applications, and so on.Returns true immediately if the application launch was successful.
+   */
+  execute(): boolean;
+
+  /**
+   * Retrieves and returns the path for this file, relative to the specified base path, in URI notation.
+   * If no base path is supplied, the URI is relative to the path of the current folder.Returns a string containing the relative URI.
+   * @param basePath A base path in URI notation.
+   */
+  getRelativeURI(basePath: string): string;
+
+  /**
+   * Opens the referenced file for subsequent read/write operations. The method resolves any aliases to find the file.
+   * Returns true if the file was opened successfully.The method attempts to detect the encoding of the open file. It reads a few bytes at the current location and tries to detect the Byte Order Mark character 0xFFFE. If found, the current position is advanced behind the detected character and the encoding property is set to one of the strings UCS-2BE, UCS-2LE, UCS4-BE, UCS-4LE, or UTF-8. If the marker character is not found, it checks for zero bytes at the current location and makes an assumption about one of the above formats (except UTF-8). If everything fails, the encoding property is set to the system encoding.
+   * IMPORTANT: Be careful about opening a file more than once. The operating system usually permits you to do so, but if you start writing to the file using two different File objects, you can destroy your data.
+   * @param mode The read-write mode, a single-character string. One of these characters: r (read) Opens for reading. If the file does not exist or cannot be found, the call fails. w (write) Opens a file for writing. If the file exists, its contents are destroyed. If the file does not exist, creates a new, empty file. e (edit) Opens an existing file for reading and writing. a (append) Opens an existing file for reading and writing, and moves the current position to the end of the file.
+   * @param type In Mac OS, the type of a newly created file, a 4-character string. Ignored in Windows and UNIX.
+   * @param creator In Mac OS, the creator of a newly created file, a 4-character string. Ignored in Windows and UNIX.
+   */
+  open(mode: string, type?: string, creator?: string): boolean;
+
+  /**
+   * Opens the built-in platform-specific file-browsing dialog, in which the user can select an existing file or files, and creates new File objects to represent the selected files.
+   * Differs from the class method openDialog() in that it presets the current folder to this File object’s parent folder and the current file to this object’s associated file.
+   * If the user clicks OK, returns a File or Folder object for the selected file or folder, or an array of objects.
+   * If the user cancels, returns null.
+   * @param prompt A string containing the prompt text, if the dialog allows a prompt.
+   * @param filter A filter that limits the types of files displayed in the dialog. In Windows,a filter expression such as "Javascript files:*.jsx;All files:*.*". In Mac OS, a filter function that takes a File instance and returns true if the file should be included in the display, false if it should not.
+   * @param multiSelect When true, the user can select multiple files and the return value is an array.
+   */
+  openDlg(prompt?: string, filter?: any, multiSelect?: boolean): File;
+
+  /**
+   * Reads the contents of the file, starting at the current position.
+   * Returns a string that contains up to the specified number of characters. If a number of characters is not supplied, reads from the current position to the end of the file. If the file is encoded, multiple bytes might be read to create single Unicode characters.
+   * @param chars An integer specifying the number of characters to read.
+   */
+  read(chars?: number): string;
+
+  /**
+   * Reads a single text character from the file at the current position.
+   * Line feeds are recognized as CR, LF, CRLF or LFCR pairs.If the file is encoded, multiple bytes might be read to create a single Unicode character. Returns a string that contains the character.
+   */
+  readch(): string;
+
+  /**
+   * Reads a single line of text from the file at the current position.
+   * Line feeds are recognized as CR, LF, CRLF or LFCR pairs.. If the file is encoded, multiple bytes might be read to create single Unicode characters. Returns a string that contains the text.
+   */
+  readln(): string;
+
+  /**
+   * Deletes the file associated with this object from disk immediately, without moving it to the system trash.
+   * Does not resolve aliases; instead, deletes the referenced alias or shortcut file itself. Returns true if the file was successfully removed.
+   * IMPORTANT: Cannot be undone. It is recommended that you prompt the user for permission before deleting.
+   */
+  remove(): boolean;
+
+  /**
+   * Renames the associated file.
+   * Does not resolve aliases, but renames the referenced alias or shortcut file itself. Returns true if the file was successfully renamed.
+   * @param newName The new file name, with no path information.
+   */
+  rename(newName: string): boolean;
+
+  /**
+   * Attempts to resolve the file-system alias or shortcut that this object refers to.
+   * If successful, creates and returns a new File object that points to the resolved file system element. Returns null if this object does not refer to an alias, or if the alias could not be resolved.
+   */
+  resolve(): File;
+
+  /**
+   * Opens the built-in platform-specific file-browsing dialog, in which the user can select an existing file location to which to save information, and creates a new File object to represent the selected file.
+   * Differs from the class method saveDialog() in that it presets the current folder to this File object’s parent folder and the file to this object’s associated file.
+   * If the user clicks OK, returns a File object for the selected file.
+   * If the user cancels, returns null.
+   * @param prompt A string containing the prompt text, if the dialog allows a prompt.
+   * @param filter In Windows only, a filter that limits the types of files displayed in the dialog. In Windows only,a filter expression such as "Javascript files:*.jsx;All files:*.*". Not used In Mac OS.
+   */
+  saveDlg(prompt?: string, filter?: any): File;
+
+  /**
+   * Seeks to a given position in the file.
+   * The new position cannot be less than 0 or greater than the current file size. Returns true if the position was changed.
+   * @param pos The new current position in the file as an offset in bytes from the start, current position, or end, depending on the mode.
+   * @param mode The seek mode. One of: 0: Seek to absolute position, where pos=0 is the first byte of the file. This is the default. 1: Seek relative to the current position. 2. Seek backward from the end of the file.
+   */
+  seek(pos: number, mode?: number): boolean;
+
+  /**
+   * Retrieves the current position as a byte offset from the start of the file.
+   * Returns a number, the position index.
+   */
+  tell(): number;
+
+  /**
+   * Creates and returns a serialized string representation of this object.
+   * Pass the resulting string to eval() to recreate the object.
+   */
+  toSource(): string;
+
+  /**
+   * Converts this object to a string.
+   */
+  toString(): string;
+
+  /**
+   * Writes the specified text to the file at the current position.
+   * You can supply multiple text values; the strings are concatenated to form a single string.For encoded files, writing a single Unicode character may write multiple bytes. Returns true if the write was successful.IMPORTANT: Be careful not to write to a file that is open in another application or object, as this can overwrite existing data.
+   * @param text A text string to be written.
+   */
+  write(text: string): boolean;
+
+  /**
+   * Writes a string to the file at the current position and appends a line-feed sequence.
+   * You can supply multiple text values. The strings are concatenated into a single string, which is written in the file followed by one line-feed sequence, of the style specified by this object's linefeed property.For encoded files, writing a single Unicode character may write multiple bytes.Returns true if the write was successful.IMPORTANT: Be careful not to write to a file that is open in another application or object, as this can overwrite existing data.
+   * @param text A text string to be written.
+   */
+  writeln(text: string): boolean;
+}
+
+interface FolderConstructor {
+  readonly prototype: Folder;
+
+  /**
+   * Creates and returns a new Folder object referring to a given file-system location.
+   * If the path name refers to an already existing disk file, a File object is returned instead.Returns the new Folder object.
+   * @param path The absolute or relative path to the folder associated with this object, specified in URI format. The value stored in the object is the absolute path.The path need not refer to an existing folder. If the path refers to an existing file, rather than a folder: The Folder() function returns a File object instead of a Folder object. The new operator returns a Folder object for a nonexisting folder with the same name.
+   */
+  new (path?: string): Folder;
+  (path?: string): Folder;
+
+  /**
+   * The folder containing the application data for all users.
+   * In Windows, the value of %APPDATA% (by default, C:\\Documents and Settings\\All Users\\Application Data)
+   * In Mac OS, /Library/Application Support
+   */
+  readonly appData: Folder;
+
+  /**
+   * In Mac OS, a Folder object for the folder containing the bundle of the running application.
+   */
+  readonly appPackage: Folder;
+
+  /**
+   * A Folder object for the folder containing common files for all programs installed by the user.
+   * In Windows, the value of %CommonProgramFiles% (by default, C:\\Program Files\\Common Files)
+   * In Mac OS, /Library/Application Support
+   */
+  readonly commonFiles: Folder;
+
+  /**
+   * A Folder object for the current folder.
+   * Assign a Folder object or a string containing the new path name to set the current folder. This is a class property accessed through the Folder constructor.
+   */
+  current: Folder;
+
+  /**
+   * A Folder object for the folder that contains the user’s desktop.
+   * In Windows, C:\\Documents and Settings\\username\\Desktop
+   * In Mac OS, ~/Desktop
+   */
+  readonly desktop: Folder;
+
+  /**
+   * The name of the current file system.
+   * One of "Windows", "Macintosh", or "Unix".
+   */
+  readonly fs: string;
+
+  /**
+   * A folder pointing to the user's My Documents folder.
+   * In Windows, C:\\Documents and Settings\\username\\My Documents
+   * In Mac OS,~/Documents
+   */
+  readonly myDocuments: Folder;
+
+  /**
+   * A Folder object for the folder containing the executable image of the running application.
+   */
+  readonly startup: Folder;
+
+  /**
+   * A Folder object for the folder containing the operating system files.
+   * In Windows, the value of %windir% (by default, C:\\Windows)
+   * In Mac OS, /System
+   */
+  readonly system: Folder;
+
+  /**
+   * A Folder object for the default folder for temporary files.
+   */
+  readonly temp: Folder;
+
+  /**
+   * A Folder object for the folder containing deleted items. On Windows, the trash folder is a virtual
+   * folder containing a database; therefore, the property value is null on Windows.
+   */
+  readonly trash: Folder;
+
+  /**
+   * A Folder object for the folder containing the user's application data.
+   * In Windows, the value of %USERDATA% (by default, C:\\Documents and Settings\\username\\Application Data)
+   * In Mac OS,~/Library/Application Support.
+   */
+  readonly userData: Folder;
+
+  /**
+   * Decodes a UTF-8 encoded string as required by RFC 2396, and returns the decoded string.
+   * See also String.decodeURI().
+   * @param uri The UTF-8 string to decode.
+   */
+  decode(uri: string): string;
+
+  /**
+   * Encodes a string as required by RFC 2396, and returns the encoded string.
+   * All special characters are encoded in UTF-8 and stored as escaped characters starting with the percent sign followed by two hexadecimal digits. For example, the string "my file" is encoded as "my%20file".
+   * Special characters are those with a numeric value greater than 127, except the following: / - _ . ! ~ * ' ( )
+   * See also encodeURI().
+   * @param name The string to encode.
+   */
+  encode(name: string): string;
+
+  /**
+   * Reports whether a given encoding is available.
+   * @param name The encoding name. Typical values are "ASCII", "binary", or "UTF-8".For a complete list of supported encodings, see the JavaScript Tools Guide.
+   */
+  isEncodingAvailable(name: string): boolean;
+
+  /**
+   * Opens the built-in platform-specific file-browsing dialog, and creates a new File or Folder object for the selected file or folder.
+   * Differs from the object method selectDlg() in that it does not preselect a folder.
+   * If the user clicks OK, returns a File or Folder object for the selected file or folder.
+   * If the user cancels, returns null.
+   * @param prompt The prompt text, if the dialog allows a prompt.
+   */
+  selectDialog(prompt?: string): Folder;
+}
+declare const Folder: FolderConstructor;
+
+/**
+ * Represents a file-system folder or directory in a platform-independent manner.
+ */
+interface Folder {
+  /**
+   * The full path name for the referenced folder in URI notation.
+   */
+  readonly absoluteURI: string;
+
+  /**
+   * When true, the object refers to a file system alias or shortcut.
+   */
+  readonly alias: boolean;
+
+  /**
+   * The creation date of the referenced folder, or null if the object does not refer to a folder on disk.
+   */
+  readonly created: Date;
+
+  /**
+   * The localized name portion of the absolute URI for the referenced folder, without the path specification.
+   */
+  readonly displayName: string;
+
+  /**
+   * A message describing the most recent file system error.
+   * Typically set by the file system, but a script can set it. Setting this value clears any error message and resets the error bit for opened files. Contains the empty string if there is no error.
+   */
+  error: string;
+
+  /**
+   * When true, this object refers to a folder that currently exists in the file system.
+   */
+  readonly exists: boolean;
+
+  /**
+   * The platform-specific name of the referenced folder as a full path name.
+   */
+  readonly fsName: string;
+
+  /**
+   * The full path name for the referenced folder in URI notation. .
+   */
+  readonly fullName: string;
+
+  /**
+   * The date of the referenced folder's last modification, or null if the object does not refer to a folder on disk.
+   */
+  readonly modified: Date;
+
+  /**
+   * The folder name portion of the absolute URI for the referenced file, without the path specification.
+   */
+  readonly name: string;
+
+  /**
+   * TThe Folder object for the folder that contains this folder, or null if this object refers to the root folder of a volume.
+   */
+  readonly parent: Folder;
+
+  /**
+   * The path portion of the object absolute URI for the referenced file, without the folder name.
+   */
+  readonly path: string;
+
+  /**
+   * The path name for the referenced folder in URI notation, relative to the current folder.
+   */
+  readonly relativeURI: string;
+
+  /**
+   * Changes the path specification of the referenced folder.
+   * @param path A string containing the new path, absolute or relative to the current folder.
+   */
+  changePath(path: string): boolean;
+
+  /**
+   * Creates a folder at the location given by this object's path property.
+   * Returns true if the folder was created.
+   */
+  create(): boolean;
+
+  /**
+   * Opens this folder in the platform-specific file browser (as if it had been double-clicked in the file browser).
+   * Returns true immediately if the folder was opened successfully.
+   */
+  execute(): boolean;
+
+  /**
+   * Retrieves the contents of this folder, filtered by the supplied mask.
+   * Returns an array of File and Folder objects, or null if this object's referenced folder does not exist.
+   * @param mask A search mask for file names, specified as a string or a function. A mask string can contain question mark (?) and asterisk (*) wild cards. Default is "*", which matches all file names. Can also be the name of a function that takes a File or Folder object as its argument. It is called for each file or folder found in the search; if it returns true, the object is added to the return array. NOTE: In Windows, all aliases end with the extension .lnk. ExtendScript strips this from the file name when found, in order to preserve compatibility with other operating systems. You can search for all aliases by supplying the search mask "*.lnk", but note that such code is not portable.
+   */
+  getFiles(mask: any): Array<File | Folder>;
+
+  /**
+   * Retrieves and returns the path for this file, relative to the specified base path, in URI notation.
+   * If no base path is supplied, the URI is relative to the path of the current folder.Returns a string containing the relative URI.
+   * @param basePath A base path in URI notation.
+   */
+  getRelativeURI(basePath?: string): string;
+
+  /**
+   * Deletes the folder associated with this object from disk immediately, without moving it to the system trash.
+   * Folders must be empty before they can be deleted. Does not resolve aliases; instead, deletes the referenced alias or shortcut file itself. Returns true if the file was successfully removed.
+   * IMPORTANT: Cannot be undone. It is recommended that you prompt the user for permission before deleting.
+   */
+  remove(): boolean;
+
+  /**
+   * Renames the associated folder.
+   * Does not resolve aliases, but renames the referenced alias or shortcut file itself. Returns true if the folder was successfully renamed.
+   * @param newName The new folder name, with no path information.
+   */
+  rename(newName: string): boolean;
+
+  /**
+   * Attempts to resolve the file-system alias or shortcut that this object refers to.
+   * If successful, creates and returns a new Folder object that points to the resolved file system element. Returns null if this object does not refer to an alias, or if the alias could not be resolved.
+   */
+  resolve(): Folder;
+
+  /**
+   * Opens the built-in platform-specific file-browsing dialog, and creates a new File or Folder object for the selected file or folder.
+   * Differs from the class method selectDialog() in that it preselects this folder.
+   * If the user clicks OK, returns a File or Folder object for the selected file or folder.
+   * If the user cancels, returns null.
+   * @param prompt The prompt text, if the dialog allows a prompt.
+   */
+  selectDlg(prompt?: string): Folder;
+
+  /**
+   * Creates and returns a serialized string representation of this object.
+   * Pass the resulting string to eval() to recreate the object.
+   */
+  toSource(): string;
+
+  /**
+   * Converts this object to a string.
+   */
+  toString(): string;
+}
+
+interface SocketConstructor {
+  readonly prototype: Socket;
+
+  /**
+   * Creates a new Socket object.
+   */
+  new (): Socket;
+  (): Socket;
+}
+declare const Socket: SocketConstructor;
+
+/**
+ * Creates a TCP/IP connection, or establishes a TCP/IP server.
+ */
+interface Socket {
+  /**
+   * When true, the connection is active.
+   */
+  readonly connected: boolean;
+
+  /**
+   * Sets or retrieves the name of the encoding used to transmit data.
+   * Typical values are "ASCII", "BINARY", or "UTF-8".
+   */
+  encoding: string;
+
+  /**
+   * When true, the receive buffer is empty.
+   */
+  readonly eof: boolean;
+
+  /**
+   * A message describing the most recent error. Setting this value clears any error message.
+   */
+  error: string;
+
+  /**
+   * The name of the remote computer when a connection is established.
+   * If the connection is shut down or does not exist, the property contains the empty string.
+   */
+  readonly host: string;
+
+  /**
+   * The timeout in seconds to be applied to read or write operations.
+   */
+  timeout: number;
+
+  /**
+   * Terminates the open connection.
+   * Returns true if the connection was closed, false on I/O errors.
+   * Deleting the object also closes the connection, but not until JavaScript garbage-collects the object. The connection might stay open longer than you wish if you do not close it explicitly.
+   */
+  close(): boolean;
+
+  /**
+   * Instructs the object to start listening for an incoming connection.
+   * The call to open() and the call to listen()are mutually exclusive. Call one function or the other, not both.
+   * @param port The TCP/IP port number to listen on. Valid port numbers are 1 to 65535. Typical values are 80 for a Web server, 23 for a Telnet server and so on.
+   * @param encoding The encoding to be used for the connection Typical values are "ASCII", "BINARY", or "UTF-8".
+   */
+  listen(port: number, encoding?: string): boolean;
+
+  /**
+   * Opens the connection for subsequent read/write operations.
+   * The call to open() and the call to listen() are mutually exclusive. Call one function or the other, not both.
+   * @param host The server to connect to. This can be a DNS name, an IPv4 address, or an IPv6 address, followed by a colon and a port number.
+   * @param encoding The encoding to be used for the connection Typical values are "ASCII", "binary", or "UTF-8".
+   */
+  open(host: string, encoding?: string): boolean;
+
+  /**
+   * Checks a listening object for a new incoming connection.
+   * If a connection request was detected, the method returns a new Socket object that wraps the new connection. Use this connection object to communicate with the remote computer. After use, close the connection and delete the JavaScript object. If no new connection request was detected, the method returns null.
+   */
+  poll(): Socket;
+
+  /**
+   * Reads up to the specified number of characters from the connection. CR characters are ignored unless the encoding is set to "BINARY".
+   * Returns a string that contains up to the number of characters that were supposed to be read, or the number of characters read before the connection closed or timed out.
+   * @param count The number of characters to read. If not supplied, the connection attempts to read as many characters it can get and returns immediately.
+   */
+  read(count?: number): string;
+
+  /**
+   * Reads one line of text up to the next line feed.
+   * Line feeds are recognized as LF or CRLF pairs. CR characters are ignored. Returns a string containing the characters.
+   */
+  readln(): string;
+
+  /**
+   * Concatenates all arguments into a single string and writes that string to the connection.
+   * @param text Any number of string values. All arguments are concatenated to form the string to be written. CRLF sequences are converted to LFs unless the encoding is set to "BINARY".
+   */
+  write(text: string): boolean;
+
+  /**
+   * Concatenates all arguments into a single string, appends a LF character, and writes that string to the connection.
+   * @param text Any number of string values. All arguments are concatenated to form the string to be written. CRLF sequences are converted to LFs unless the encoding is set to "BINARY".
+   */
+  writeln(text: string): boolean;
+}
+
+/**
+ * Provides information about a method, a property or a method parameters.
+ */
+interface ReflectionInfo {
+  /**
+   * The description of method or function arguments.
+   */
+  readonly arguments: ReflectionInfo[];
+
+  /**
+   * The data type.
+   */
+  readonly dataType: string;
+
+  /**
+   * The default value.
+   */
+  readonly defaultValue: any;
+
+  /**
+   * The long description text.
+   */
+  readonly description: string;
+
+  /**
+   * The short description text.
+   */
+  readonly help: string;
+
+  /**
+   * Contains true if the class describes a collection class.
+   */
+  readonly isCollection: boolean;
+
+  /**
+   * The maximum value.
+   */
+  readonly max: number;
+
+  /**
+   * The minimum value.
+   */
+  readonly min: number;
+
+  /**
+   * The element name.
+   */
+  readonly name: string;
+
+  /**
+   * The class object that this element belongs to.
+   */
+  readonly parent: Reflection;
+
+  /**
+   * Sample code, if present.
+   */
+  readonly sampleCode: string;
+
+  /**
+   * A file containing sample code. May be null.
+   */
+  readonly sampleFile: File;
+
+  /**
+   * The element type.
+   * One of unknown, readonly, readwrite, createonly, method or parameter.
+   */
+  readonly type: string;
+}
+declare const ReflectionInfo: ReflectionInfo;
+
+/**
+ * Provides information about a class.
+ */
+interface Reflection {
+  /**
+   * The long description text.
+   */
+  readonly description: string;
+
+  /**
+   * The short description text.
+   */
+  readonly help: string;
+
+  /**
+   * An array of method descriptions.
+   */
+  readonly methods: ReflectionInfo[];
+
+  /**
+   * The class name.
+   */
+  readonly name: string;
+
+  /**
+   * An array of property descriptions.
+   */
+  readonly properties: ReflectionInfo[];
+
+  /**
+   * Sample code, if present.
+   */
+  readonly sampleCode: string;
+
+  /**
+   * A file containing sample code. May be null.
+   */
+  readonly sampleFile: File;
+
+  /**
+   * An array of class method descriptions.
+   */
+  readonly staticMethods: ReflectionInfo[];
+
+  /**
+   * An array of class property descriptions.
+   */
+  readonly staticProperties: ReflectionInfo[];
+
+  /**
+   * Finds an element description by name.
+   * @param name The name of the element to find.
+   */
+  find(name: string): ReflectionInfo;
+
+  /**
+   * Returns this class information as XML in OMV format.
+   */
+  toXML(): XML;
+}
+declare const Reflection: Reflection;
+
+interface QNameConstructor {
+  readonly prototype: QName;
+
+  /**
+   * Creates a QName object.
+   * @param uri The URI, specified as a Namespace object, an existing QName object, or string. If this is a Namespace object, the URI is set to the namespace URI, and there is no local name. If this is a QName object, the URI and localName is set to those of that object. If this is a string, the URI is set to that string.
+   * @param name The local name. Used only if URI is given as a string.
+   */
+  new (uri: any, name?: string): QName;
+  (uri: any, name?: string): QName;
+}
+declare const QName: QNameConstructor;
+
+/**
+ * A qualified XML name, containing the URI and the local name.
+ */
+interface QName {
+  /**
+   * The local name part of the qualified name.
+   */
+  readonly localName: string;
+
+  /**
+   * The URI part of the qualified name.
+   */
+  readonly uri: string;
+}
+
+interface NamespaceConstructor {
+  readonly prototype: Namespace;
+
+  /**
+   * Creates a Namespace object.
+   * @param prefix The URIprefix, specified as an existing Namespace object, QName object, or string. If this is a Namespace or a QName object, the URI and prefix are set to that of the object. If this is a string, the prefix is set to that string, and the URI must be specified.
+   * @param uri The URI if the prefix is specified as a string.
+   */
+  new (prefix: any, uri?: string): Namespace;
+  (prefix: any, uri?: string): Namespace;
+}
+declare const Namespace: NamespaceConstructor;
+
+/**
+ * A XML namespace object.
+ */
+interface Namespace {
+  /**
+   * The named prefix.
+   */
+  readonly prefix: string;
+
+  /**
+   * The URI.
+   */
+  readonly uri: string;
+}
+
+interface XMLConstructor {
+  readonly prototype: XML;
+
+  /**
+   * Parses an XML string. Throws an error if the XML is incorrect.
+   * @param text The text to parse.
+   */
+  new (text: string): XML;
+  (text: string): XML;
+
+  /**
+   * Controls whether XML comments should be parsed (false) or ignored (true).
+   */
+  ignoreComments: boolean;
+
+  /**
+   * Controls whether XML preprocessing instructions should be parsed (false) or ignored (true).
+   */
+  ignoreProcessingInstructions: boolean;
+
+  /**
+   * Controls whether whitespace should be parsed (false) or ignored (true).
+   */
+  ignoreWhitespace: boolean;
+
+  /**
+   * The number of spaces used to indent pretty-printed XML.
+   */
+  prettyIndent: number;
+
+  /**
+   * When true, XML is pretty-printed when converting to a string.
+   */
+  prettyPrinting: boolean;
+
+  /**
+   * Returns an object containing the default parsing and print settings for XML.
+   */
+  defaultSettings(): object;
+
+  /**
+   * Sets the parsing and print setting for XML using an object returned by the settings() method.
+   * @param obj The object containing the settings to set.
+   */
+  setSettings(obj: object): void;
+
+  /**
+   * Returns an object containing the current parsing and print settings for XML.
+   */
+  settings(): object;
+}
+declare const XML: XMLConstructor;
+
+/**
+ * Wraps XML into an object.
+ */
+interface XML {
+  /**
+   * Adds a namespace declaration to the node. Returns the XML object itself.
+   * @param namespace The namespace to add.
+   */
+  addNamespace(namespace: Namespace): XML;
+
+  /**
+   * Appends the given XML to this XML as a child. Returns the XML object itself.
+   * If the argument is not XML, creates a new XML element containing the argument as text. The element name of that new XML is the same as the last element in the original XML.
+   * @param child The child XML to add.
+   */
+  appendChild(child: XML): XML;
+
+  /**
+   * Returns a list containing all attribute elements matching the given name.
+   * @param name The attribute name to look for.
+   */
+  attribute(name: string): XML;
+
+  /**
+   * Returns a list containing all attribute elements.
+   */
+  attributes(): XML;
+
+  /**
+   * Returns a list containing all children of this XML matching the given element name.
+   * If the argument is a number, uses the number as index into the array of children.
+   * @param name The name or the index of the child element.
+   */
+  child(name: string): XML;
+
+  /**
+   * Returns a number representing the ordinal position of this XML object within the context of its parent.
+   */
+  childIndex(): number;
+
+  /**
+   * Returns an XML object containing all the properties of this XML object in order.
+   */
+  children(): XML;
+
+  /**
+   * Returns an XML object containing the properties of this XML object that represent XML comments.
+   */
+  comments(): XML;
+
+  /**
+   * Checks if this XML object contains the given XML object.
+   * @param xml The XML to search for.
+   */
+  contains(xml: XML): boolean;
+
+  /**
+   * Creates a copy of this XML object.
+   */
+  copy(): XML;
+
+  /**
+   * Returns all the XML-valued descendants of this XML object with the given name.
+   * If the name parameter is omitted, returns all descendants of this XML object.
+   * @param name The name of the descendant to find.
+   */
+  descendants(name?: string): XML;
+
+  /**
+   * Returns a list of XML children that are elements with a given name, or all children that are XML elements.
+   * @param name The element name. If not supplied, gets all children that are XML elements.
+   */
+  elements(name?: string): XML;
+
+  /**
+   * Reports whether this XML object contains complex content.
+   * An XML object is considered to contain complex content if it represents an XML element that has child elements. XML objects representing attributes, comments, processing instructions and text nodes do not have complex content. The existence of attributes, comments, processing instructions and text nodes within an XML object is not significant in determining if it has complex content.
+   */
+  hasComplexContent(): boolean;
+
+  /**
+   * Reports whether this XML object contains simple content.
+   * An XML object is considered to contain simple content if it represents a text node, represents an attribute node or if it represents an XML element that has no child elements. XML objects representing comments and processing instructions do not have simple content. The existence of attributes, comments, processing instructions and text nodes within an XML object is not significant in determining if it has simple content.
+   */
+  hasSimpleContent(): boolean;
+
+  /**
+   * Returns an array of Namespace objects mirroring the current list of valid namespaces at this element.
+   * The last element of thereturned array is the default namespace.
+   */
+  inScopeNamespaces(): Namespace[];
+
+  /**
+   * Inserts the given child2 after the given child1 in this XML object and returns this XML object.
+   * If child1 is null, the method inserts child2 before all children of this XML object (that is, after none of them). If child1 does not exist in this XML object, the method returns without modifying this XML object.
+   * @param child1 The child to insert the other child after. If null, the method inserts child2 before all children of this XML object.
+   * @param child2 The XML to insert.
+   */
+  insertChildAfter(child1: XML, child2: XML): void;
+
+  /**
+   * Inserts the given child2 before the given child1 in this XML object and returns this XML object.
+   * If child1 is null, the method inserts child2 after all children of this XML object (that is, before none of them). If child1 does not exist in this XML object, the method returns without modifying this XML object.
+   * @param child1 The child to search for. If null, the method inserts child2 after all children of this XML object.
+   * @param child2 The XML to insert.
+   */
+  insertChildBefore(child1: XML, child2: XML): void;
+
+  /**
+   * Returns the number of elements contained in an XML list. If this XML object is not a list, returns 1.
+   */
+  length(): number;
+
+  /**
+   * Returns the local name of this XML object.
+   * This value corresponds to the element name unless the name has a namespace prefix. For example, if the element has the name "ns:tag", the return value is "tag".
+   */
+  localName(): string;
+
+  /**
+   * Returns a QName object containing the URI and the local name of the element.
+   */
+  name(): QName;
+
+  /**
+   * Returns a Namespace object containing the namespace URI of the current element.
+   */
+  namespace(): Namespace;
+
+  /**
+   * Returns an array containing all namespace declarations of this XML object.
+   */
+  namespaceDeclarations(): Namespace[];
+
+  /**
+   * Returns the type of this XML object as one of the strings "element", "attribute", "comment", "processing-instruction", or "text".
+   */
+  nodeKind(): string;
+
+  /**
+   * Puts all text nodes in this and all descendant XML objects into a normal form by merging adjacent text nodes and eliminating empty text nodes. Returns this XML object.
+   */
+  normalize(): XML;
+
+  /**
+   * Returns the parent object of this XML object.
+   * The root object, as returned by the XML constructor, does not have a parent and returns null. Note that the E4X standard does not define what happens if this XML object is a list containing elements with multiple parents.
+   */
+  parent(): XML;
+
+  /**
+   * Inserts a given child into this object before its existing XML properties, and returns this XML object.
+   * @param child The XML to insert.
+   */
+  prependChild(child: XML): XML;
+
+  /**
+   * Returns a list of preprocessing instructions.
+   * Collects processing-instructions with the given name, if supplied. Otherwise, returns an XML list containing all the children of this XML object that are processing-instructions regardless of their name.
+   * @param name The name of the preprocessing instruction to return.
+   */
+  processingInstructions(name?: string): XML;
+
+  /**
+   * Removes the given namespace from this XML, and returns this XML.
+   * @param namespace The namespace to remove.
+   */
+  removeNamespace(namespace: Namespace): XML;
+
+  /**
+   * Replaces the value of specified XML properties of this XML object returns this XML object.
+   * This method acts like the assignment operator.
+   * @param name The property name. Can be a numeric property name, a name for a set of XML elements, or the properties wildcard “*”. If this XML object contains no properties that match the name, the method returns without modifying this XML object.
+   * @param value The XML with which to replace the value of the matching property. Can be an XML object, XML list or any value that can be converted to a String with toString().
+   */
+  replace(name: string, value: XML): XML;
+
+  /**
+   * Replaces all of the XML-valued properties in this object with a new value, and returns this XML object.
+   * @param value The new value, which can be a single XML object or an XML list.
+   */
+  setChildren(value: XML): XML;
+
+  /**
+   * Replaces the local name of this XML objectwith a string constructed from the given name
+   * The local name is any part behind a colon character. If there is no colon, it is the entire name.
+   * @param name The name to set.
+   */
+  setLocalName(name: string): void;
+
+  /**
+   * Replaces the name of this XML object with the given QName object.
+   * @param name The fully qualified name.
+   */
+  setName(name: QName): void;
+
+  /**
+   * Sets the namespace for this XML element.
+   * If the namespace has not been declared in the tree above this element, adds a namespace declaration.
+   * @param namespace The namespace to set.
+   */
+  setNamespace(namespace: Namespace): void;
+
+  /**
+   * Returns an XML list containing all XML properties of this XML object that represent XML text nodes.
+   */
+  text(): XML;
+
+  /**
+   * Returns the string representation of this object.
+   * For text and attribute nodes, this is the textual value of the node; for other elements, this is the result of calling the toXMLString() method. If this XML object is a list, concatenates the result of calling toString() on each element.
+   */
+  toString(): string;
+
+  /**
+   * Returns an XML-encoded string representation of this XML object.
+   * Always includes the start tag, attributes and end tag of the XML object regardless of its content. It is provided for cases when the default XML to string conversion rules are not desired. Interprets the global settings XML.prettyPrint and XML.prettyIndent.
+   */
+  toXMLString(): string;
+
+  /**
+   * Evaluates the given XPath expression in accordance with the W3C XPath recommendation, using this XML object as the context node.
+   * @param expr The XPath expression to use.
+   */
+  xpath(expr: string): XML;
+}
+
+/**
+ * An XML list object.
+ * In this implementation, an XMLList object is synonymous to the XML object. The constructor accepts an XML list, but everything else works like theXML object.
+ */
+interface XMLList {}
+declare const XMLList: XMLList;
+
+interface UnitValueConstructor {
+  readonly prototype: UnitValue;
+
+  /**
+   * Creates a new UnitValue object.
+   */
+  new (value: string | UnitValue): UnitValue;
+  (value: string | UnitValue): UnitValue;
+
+  /**
+   * The base unit for all conversions.
+   */
+  baseUnit: UnitValue;
+}
+declare const UnitValue: UnitValueConstructor;
+
+/**
+ * Represents a measurement as a combination of values and unit.
+ * Note that this object is not available in all applications.
+ */
+interface UnitValue {
+  /**
+   * The base unit.
+   */
+  baseUnit: UnitValue;
+
+  /**
+   * The unit name.
+   */
+  readonly type: string;
+
+  /**
+   * The numeric value.
+   */
+  value: number;
+
+  /**
+   * Returns this instance as a different unit.
+   * @param unitName The unit name.
+   */
+  as(unitName: string): UnitValue;
+
+  /**
+   * Converts this instance to a different unit.
+   * @param unitName The unit name.
+   */
+  convert(unitName: string): any;
+}
+
+/**
+ * Only for TypeScript compatibility
+ */
+interface CallableFunction extends Function {}
+
+interface NewableFunction extends Function {}
+
+interface IArguments {
+  [index: number]: any;
+  length: number;
+  callee: Function;
+}
+
+/**
+ * Make all properties in T optional
+ */
+type Partial<T> = { [P in keyof T]?: T[P] };
+
+/**
+ * Make all properties in T readonly
+ */
+type Readonly<T> = { readonly [P in keyof T]: T[P] };
+
+/**
+ * From T pick a set of properties K
+ */
+type Pick<T, K extends keyof T> = { [P in K]: T[P] };
+
+/**
+ * Construct a type with a set of properties K of type T
+ */
+type Record<K extends string, T> = { [P in K]: T };
 
 /**
  * The global BridgeTalk object.
@@ -122409,6 +124914,1258 @@ interface $ {
 }
 declare const $: $;
 
+
+interface FileConstructor {
+  readonly prototype: File;
+
+  /**
+   * Creates and returns a new File object referring to a given file system location.
+   * @param path The full or partial path name of the file,in platform-specific or URI format. The value stored in the object is the absolute path. The file that the path refers to does not need to exist.If the path refers to an existing folder: The File function returns a Folder object instead of a File object. The new operator returns a File object for a nonexisting file with the same name.
+   */
+  new (path?: string): File;
+  (path?: string): File;
+
+  /**
+   * The name of the file system.
+   * This is a class property accessed through the File constructor. Valid values are "Windows", "Macintosh", and "Unix".
+   */
+  readonly fs: string;
+
+  /**
+   * Decodes a UTF-8 encoded string as required by RFC 2396, and returns the decoded string.
+   * See also String.decodeURI().
+   * @param uri The UTF-8 encoded string to decode.
+   */
+  decode(uri: string): string;
+
+  /**
+   * Encodes a string as required by RFC 2396, and returns the encoded string.
+   * All special characters are encoded in UTF-8 and stored as escaped characters starting with the percent sign followed by two hexadecimal digits. For example, the string "my file" is encoded as "my%20file".
+   * Special characters are those with a numeric value greater than 127, except the following: / - _ . ! ~ * ' ( )
+   * See also encodeURI().
+   * @param name The string to encode.
+   */
+  encode(name: string): string;
+
+  /**
+   * Reports whether a given encoding is available.
+   * @param name The encoding name. Typical values are "ASCII", "binary", or "UTF-8".For a complete list of supported encodings, see the JavaScript Tools Guide.
+   */
+  isEncodingAvailable(name: string): boolean;
+
+  /**
+   * Opens a dialog so the user can select one or more files to open.
+   * Opens the built-in platform-specific file-browsing dialog in which a user can select an existing file or multiple files, and creates new File objects to represent the selected files.
+   * If the user clicks OK, returns a File object for the selected file, or an array of objects if multiple files are selected.
+   * If the user cancels, returns null.
+   * @param prompt The prompt text, displayed if the dialog allows a prompt.
+   * @param filter A filter that limits the types of files displayed in the dialog. In Windows,a filter expression such as "Javascript files:*.jsx;All files:*.*". In Mac OS, a filter function that takes a File instance and returns true if the file should be included in the display, false if it should not.
+   * @param multiSelect When true, the user can select multiple files and the return value is an array.
+   */
+  openDialog(prompt?: string, filter?: any, multiSelect?: boolean): File;
+
+  /**
+   * Opens a dialog so the user can select a file name to save to.
+   * Opens the built-in platform-specific file-browsing dialog in which a user can select an existing file location to which to save information, and creates a new File object to represent the selected file location.
+   * If the user clicks OK, returns a File object for the selected file location.
+   * If the user cancels, returns null.
+   * @param prompt The prompt text, displayed if the dialog allows a prompt.
+   * @param filter In Windows only, a filter that limits the types of files displayed in the dialog. In Windows only,a filter expression such as "Javascript files:*.jsx;All files:*.*". Not used In Mac OS.
+   */
+  saveDialog(prompt?: string, filter?: any): File;
+}
+declare const File: FileConstructor;
+
+/**
+ * Represents a file in the local file system in a platform-independent manner.
+ */
+interface File {
+  /**
+   * The full path name for the referenced file in URI notation.
+   */
+  readonly absoluteURI: string;
+
+  /**
+   * If true, the object refers to a file system alias or shortcut.
+   */
+  readonly alias: boolean;
+
+  /**
+   * The creation date of the referenced file, or null if the object does not refer to a file on disk.
+   */
+  readonly created: Date;
+
+  /**
+   * In Mac OS, the file creator as a four-character string. In Windows or UNIX, value is "????".
+   */
+  readonly creator: string;
+
+  /**
+   * The localized name of the referenced file, without the path specification.
+   */
+  readonly displayName: string;
+
+  /**
+   * Gets or sets the encoding for subsequent read/write operations.
+   * One of the encoding constants listed in the JavaScript Tools Guide. If the value is not recognized, uses the system default encoding.A special encoder, BINARY, is used to read binary files. It stores each byte of the file as one Unicode character regardless of any encoding. When writing, the lower byte of each Unicode character is treated as a single byte to write.
+   */
+  encoding: string;
+
+  /**
+   * When true, a read attempt caused the current position to be at the end of the file, or the file is not open.
+   */
+  readonly eof: boolean;
+
+  /**
+   * A string containing a message describing the most recent file system error.
+   * Typically set by the file system, but a script can set it. Setting this value clears any error message and resets the error bit for opened files. Contains the empty string if there is no error.
+   */
+  error: string;
+
+  /**
+   * If true, this object refers to a file or file-system alias that actually exists in the file system.
+   */
+  readonly exists: boolean;
+
+  /**
+   * The platform-specific full path name for the referenced file.
+   */
+  readonly fsName: string;
+
+  /**
+   * The full path name for the referenced file in URI notation.
+   */
+  readonly fullName: string;
+
+  /**
+   * When true, the file is not shown in the platform-specific file browser.
+   * If the object references a file-system alias or shortcut, the flag is altered on the alias, not on the original file.
+   */
+  hidden: boolean;
+
+  /**
+   * The size of the file in bytes.
+   * Can be set only for a file that is not open, in which case it truncates or pads the file with 0-bytes to the new length.
+   */
+  length: number;
+
+  /**
+   * How line feed characters are written in the file system.
+   * One of the values "Windows", "Macintosh", or "Unix".
+   */
+  lineFeed: string;
+
+  /**
+   * The date of the referenced file's last modification, or null if the object does not refer to a file on the disk.
+   */
+  readonly modified: Date;
+
+  /**
+   * The file name portion of the absolute URI for the referenced file, without the path specification.
+   */
+  readonly name: string;
+
+  /**
+   * The Folder object for the folder that contains this file.
+   */
+  readonly parent: Folder;
+
+  /**
+   * The path portion of the absolute URI for the referenced file, without the file name.
+   */
+  readonly path: string;
+
+  /**
+   * When true, prevents the file from being altered or deleted.
+   * If the referenced file is a file-system alias or shortcut, the flag is altered on the alias, not on the original file.
+   */
+  readonly: boolean;
+
+  /**
+   * The path name for the object in URI notation, relative to the current folder.
+   */
+  readonly relativeURI: string;
+
+  /**
+   * The file type as a four-character string.
+   * In Mac OS, the Mac OS file type.
+   * In Windows, "appl" for .EXE files, "shlb" for .DLL files and "TEXT" for any other file.
+   */
+  readonly type: string;
+
+  /**
+   * Changes the path specification of the referenced file.
+   * @param path A string containing the new path, absolute or relative to the current folder.
+   */
+  changePath(path: string): boolean;
+
+  /**
+   * Closes this open file.
+   * Returns true if the file was closed successfully, false if an I/O error occurred.
+   */
+  close(): boolean;
+
+  /**
+   * Copies this object’s referenced file to the specified target location.
+   * Resolves any aliases to find the source file. If a file exists at the target location, it is overwritten.
+   * Returns true if the copy was successful.
+   * @param target A string with the URI path to the target location, or a File object that references the target location.
+   */
+  copy(target: string): boolean;
+
+  /**
+   * Makes this file a file-system alias or shortcut to the specified file.
+   * The referenced file for this object must not yet exist on disk. Returns true if the operation was successful.
+   * @param path A string containing the path of the target file.
+   */
+  createAlias(path: string): void;
+
+  /**
+   * Executes or opens this file using the appropriate application, as if it had been double-clicked in a file browser.
+   * You can use this method to run scripts, launch applications, and so on.Returns true immediately if the application launch was successful.
+   */
+  execute(): boolean;
+
+  /**
+   * Retrieves and returns the path for this file, relative to the specified base path, in URI notation.
+   * If no base path is supplied, the URI is relative to the path of the current folder.Returns a string containing the relative URI.
+   * @param basePath A base path in URI notation.
+   */
+  getRelativeURI(basePath: string): string;
+
+  /**
+   * Opens the referenced file for subsequent read/write operations. The method resolves any aliases to find the file.
+   * Returns true if the file was opened successfully.The method attempts to detect the encoding of the open file. It reads a few bytes at the current location and tries to detect the Byte Order Mark character 0xFFFE. If found, the current position is advanced behind the detected character and the encoding property is set to one of the strings UCS-2BE, UCS-2LE, UCS4-BE, UCS-4LE, or UTF-8. If the marker character is not found, it checks for zero bytes at the current location and makes an assumption about one of the above formats (except UTF-8). If everything fails, the encoding property is set to the system encoding.
+   * IMPORTANT: Be careful about opening a file more than once. The operating system usually permits you to do so, but if you start writing to the file using two different File objects, you can destroy your data.
+   * @param mode The read-write mode, a single-character string. One of these characters: r (read) Opens for reading. If the file does not exist or cannot be found, the call fails. w (write) Opens a file for writing. If the file exists, its contents are destroyed. If the file does not exist, creates a new, empty file. e (edit) Opens an existing file for reading and writing. a (append) Opens an existing file for reading and writing, and moves the current position to the end of the file.
+   * @param type In Mac OS, the type of a newly created file, a 4-character string. Ignored in Windows and UNIX.
+   * @param creator In Mac OS, the creator of a newly created file, a 4-character string. Ignored in Windows and UNIX.
+   */
+  open(mode: string, type?: string, creator?: string): boolean;
+
+  /**
+   * Opens the built-in platform-specific file-browsing dialog, in which the user can select an existing file or files, and creates new File objects to represent the selected files.
+   * Differs from the class method openDialog() in that it presets the current folder to this File object’s parent folder and the current file to this object’s associated file.
+   * If the user clicks OK, returns a File or Folder object for the selected file or folder, or an array of objects.
+   * If the user cancels, returns null.
+   * @param prompt A string containing the prompt text, if the dialog allows a prompt.
+   * @param filter A filter that limits the types of files displayed in the dialog. In Windows,a filter expression such as "Javascript files:*.jsx;All files:*.*". In Mac OS, a filter function that takes a File instance and returns true if the file should be included in the display, false if it should not.
+   * @param multiSelect When true, the user can select multiple files and the return value is an array.
+   */
+  openDlg(prompt?: string, filter?: any, multiSelect?: boolean): File;
+
+  /**
+   * Reads the contents of the file, starting at the current position.
+   * Returns a string that contains up to the specified number of characters. If a number of characters is not supplied, reads from the current position to the end of the file. If the file is encoded, multiple bytes might be read to create single Unicode characters.
+   * @param chars An integer specifying the number of characters to read.
+   */
+  read(chars?: number): string;
+
+  /**
+   * Reads a single text character from the file at the current position.
+   * Line feeds are recognized as CR, LF, CRLF or LFCR pairs.If the file is encoded, multiple bytes might be read to create a single Unicode character. Returns a string that contains the character.
+   */
+  readch(): string;
+
+  /**
+   * Reads a single line of text from the file at the current position.
+   * Line feeds are recognized as CR, LF, CRLF or LFCR pairs.. If the file is encoded, multiple bytes might be read to create single Unicode characters. Returns a string that contains the text.
+   */
+  readln(): string;
+
+  /**
+   * Deletes the file associated with this object from disk immediately, without moving it to the system trash.
+   * Does not resolve aliases; instead, deletes the referenced alias or shortcut file itself. Returns true if the file was successfully removed.
+   * IMPORTANT: Cannot be undone. It is recommended that you prompt the user for permission before deleting.
+   */
+  remove(): boolean;
+
+  /**
+   * Renames the associated file.
+   * Does not resolve aliases, but renames the referenced alias or shortcut file itself. Returns true if the file was successfully renamed.
+   * @param newName The new file name, with no path information.
+   */
+  rename(newName: string): boolean;
+
+  /**
+   * Attempts to resolve the file-system alias or shortcut that this object refers to.
+   * If successful, creates and returns a new File object that points to the resolved file system element. Returns null if this object does not refer to an alias, or if the alias could not be resolved.
+   */
+  resolve(): File;
+
+  /**
+   * Opens the built-in platform-specific file-browsing dialog, in which the user can select an existing file location to which to save information, and creates a new File object to represent the selected file.
+   * Differs from the class method saveDialog() in that it presets the current folder to this File object’s parent folder and the file to this object’s associated file.
+   * If the user clicks OK, returns a File object for the selected file.
+   * If the user cancels, returns null.
+   * @param prompt A string containing the prompt text, if the dialog allows a prompt.
+   * @param filter In Windows only, a filter that limits the types of files displayed in the dialog. In Windows only,a filter expression such as "Javascript files:*.jsx;All files:*.*". Not used In Mac OS.
+   */
+  saveDlg(prompt?: string, filter?: any): File;
+
+  /**
+   * Seeks to a given position in the file.
+   * The new position cannot be less than 0 or greater than the current file size. Returns true if the position was changed.
+   * @param pos The new current position in the file as an offset in bytes from the start, current position, or end, depending on the mode.
+   * @param mode The seek mode. One of: 0: Seek to absolute position, where pos=0 is the first byte of the file. This is the default. 1: Seek relative to the current position. 2. Seek backward from the end of the file.
+   */
+  seek(pos: number, mode?: number): boolean;
+
+  /**
+   * Retrieves the current position as a byte offset from the start of the file.
+   * Returns a number, the position index.
+   */
+  tell(): number;
+
+  /**
+   * Creates and returns a serialized string representation of this object.
+   * Pass the resulting string to eval() to recreate the object.
+   */
+  toSource(): string;
+
+  /**
+   * Converts this object to a string.
+   */
+  toString(): string;
+
+  /**
+   * Writes the specified text to the file at the current position.
+   * You can supply multiple text values; the strings are concatenated to form a single string.For encoded files, writing a single Unicode character may write multiple bytes. Returns true if the write was successful.IMPORTANT: Be careful not to write to a file that is open in another application or object, as this can overwrite existing data.
+   * @param text A text string to be written.
+   */
+  write(text: string): boolean;
+
+  /**
+   * Writes a string to the file at the current position and appends a line-feed sequence.
+   * You can supply multiple text values. The strings are concatenated into a single string, which is written in the file followed by one line-feed sequence, of the style specified by this object's linefeed property.For encoded files, writing a single Unicode character may write multiple bytes.Returns true if the write was successful.IMPORTANT: Be careful not to write to a file that is open in another application or object, as this can overwrite existing data.
+   * @param text A text string to be written.
+   */
+  writeln(text: string): boolean;
+}
+
+interface FolderConstructor {
+  readonly prototype: Folder;
+
+  /**
+   * Creates and returns a new Folder object referring to a given file-system location.
+   * If the path name refers to an already existing disk file, a File object is returned instead.Returns the new Folder object.
+   * @param path The absolute or relative path to the folder associated with this object, specified in URI format. The value stored in the object is the absolute path.The path need not refer to an existing folder. If the path refers to an existing file, rather than a folder: The Folder() function returns a File object instead of a Folder object. The new operator returns a Folder object for a nonexisting folder with the same name.
+   */
+  new (path?: string): Folder;
+  (path?: string): Folder;
+
+  /**
+   * The folder containing the application data for all users.
+   * In Windows, the value of %APPDATA% (by default, C:\\Documents and Settings\\All Users\\Application Data)
+   * In Mac OS, /Library/Application Support
+   */
+  readonly appData: Folder;
+
+  /**
+   * In Mac OS, a Folder object for the folder containing the bundle of the running application.
+   */
+  readonly appPackage: Folder;
+
+  /**
+   * A Folder object for the folder containing common files for all programs installed by the user.
+   * In Windows, the value of %CommonProgramFiles% (by default, C:\\Program Files\\Common Files)
+   * In Mac OS, /Library/Application Support
+   */
+  readonly commonFiles: Folder;
+
+  /**
+   * A Folder object for the current folder.
+   * Assign a Folder object or a string containing the new path name to set the current folder. This is a class property accessed through the Folder constructor.
+   */
+  current: Folder;
+
+  /**
+   * A Folder object for the folder that contains the user’s desktop.
+   * In Windows, C:\\Documents and Settings\\username\\Desktop
+   * In Mac OS, ~/Desktop
+   */
+  readonly desktop: Folder;
+
+  /**
+   * The name of the current file system.
+   * One of "Windows", "Macintosh", or "Unix".
+   */
+  readonly fs: string;
+
+  /**
+   * A folder pointing to the user's My Documents folder.
+   * In Windows, C:\\Documents and Settings\\username\\My Documents
+   * In Mac OS,~/Documents
+   */
+  readonly myDocuments: Folder;
+
+  /**
+   * A Folder object for the folder containing the executable image of the running application.
+   */
+  readonly startup: Folder;
+
+  /**
+   * A Folder object for the folder containing the operating system files.
+   * In Windows, the value of %windir% (by default, C:\\Windows)
+   * In Mac OS, /System
+   */
+  readonly system: Folder;
+
+  /**
+   * A Folder object for the default folder for temporary files.
+   */
+  readonly temp: Folder;
+
+  /**
+   * A Folder object for the folder containing deleted items. On Windows, the trash folder is a virtual
+   * folder containing a database; therefore, the property value is null on Windows.
+   */
+  readonly trash: Folder;
+
+  /**
+   * A Folder object for the folder containing the user's application data.
+   * In Windows, the value of %USERDATA% (by default, C:\\Documents and Settings\\username\\Application Data)
+   * In Mac OS,~/Library/Application Support.
+   */
+  readonly userData: Folder;
+
+  /**
+   * Decodes a UTF-8 encoded string as required by RFC 2396, and returns the decoded string.
+   * See also String.decodeURI().
+   * @param uri The UTF-8 string to decode.
+   */
+  decode(uri: string): string;
+
+  /**
+   * Encodes a string as required by RFC 2396, and returns the encoded string.
+   * All special characters are encoded in UTF-8 and stored as escaped characters starting with the percent sign followed by two hexadecimal digits. For example, the string "my file" is encoded as "my%20file".
+   * Special characters are those with a numeric value greater than 127, except the following: / - _ . ! ~ * ' ( )
+   * See also encodeURI().
+   * @param name The string to encode.
+   */
+  encode(name: string): string;
+
+  /**
+   * Reports whether a given encoding is available.
+   * @param name The encoding name. Typical values are "ASCII", "binary", or "UTF-8".For a complete list of supported encodings, see the JavaScript Tools Guide.
+   */
+  isEncodingAvailable(name: string): boolean;
+
+  /**
+   * Opens the built-in platform-specific file-browsing dialog, and creates a new File or Folder object for the selected file or folder.
+   * Differs from the object method selectDlg() in that it does not preselect a folder.
+   * If the user clicks OK, returns a File or Folder object for the selected file or folder.
+   * If the user cancels, returns null.
+   * @param prompt The prompt text, if the dialog allows a prompt.
+   */
+  selectDialog(prompt?: string): Folder;
+}
+declare const Folder: FolderConstructor;
+
+/**
+ * Represents a file-system folder or directory in a platform-independent manner.
+ */
+interface Folder {
+  /**
+   * The full path name for the referenced folder in URI notation.
+   */
+  readonly absoluteURI: string;
+
+  /**
+   * When true, the object refers to a file system alias or shortcut.
+   */
+  readonly alias: boolean;
+
+  /**
+   * The creation date of the referenced folder, or null if the object does not refer to a folder on disk.
+   */
+  readonly created: Date;
+
+  /**
+   * The localized name portion of the absolute URI for the referenced folder, without the path specification.
+   */
+  readonly displayName: string;
+
+  /**
+   * A message describing the most recent file system error.
+   * Typically set by the file system, but a script can set it. Setting this value clears any error message and resets the error bit for opened files. Contains the empty string if there is no error.
+   */
+  error: string;
+
+  /**
+   * When true, this object refers to a folder that currently exists in the file system.
+   */
+  readonly exists: boolean;
+
+  /**
+   * The platform-specific name of the referenced folder as a full path name.
+   */
+  readonly fsName: string;
+
+  /**
+   * The full path name for the referenced folder in URI notation. .
+   */
+  readonly fullName: string;
+
+  /**
+   * The date of the referenced folder's last modification, or null if the object does not refer to a folder on disk.
+   */
+  readonly modified: Date;
+
+  /**
+   * The folder name portion of the absolute URI for the referenced file, without the path specification.
+   */
+  readonly name: string;
+
+  /**
+   * TThe Folder object for the folder that contains this folder, or null if this object refers to the root folder of a volume.
+   */
+  readonly parent: Folder;
+
+  /**
+   * The path portion of the object absolute URI for the referenced file, without the folder name.
+   */
+  readonly path: string;
+
+  /**
+   * The path name for the referenced folder in URI notation, relative to the current folder.
+   */
+  readonly relativeURI: string;
+
+  /**
+   * Changes the path specification of the referenced folder.
+   * @param path A string containing the new path, absolute or relative to the current folder.
+   */
+  changePath(path: string): boolean;
+
+  /**
+   * Creates a folder at the location given by this object's path property.
+   * Returns true if the folder was created.
+   */
+  create(): boolean;
+
+  /**
+   * Opens this folder in the platform-specific file browser (as if it had been double-clicked in the file browser).
+   * Returns true immediately if the folder was opened successfully.
+   */
+  execute(): boolean;
+
+  /**
+   * Retrieves the contents of this folder, filtered by the supplied mask.
+   * Returns an array of File and Folder objects, or null if this object's referenced folder does not exist.
+   * @param mask A search mask for file names, specified as a string or a function. A mask string can contain question mark (?) and asterisk (*) wild cards. Default is "*", which matches all file names. Can also be the name of a function that takes a File or Folder object as its argument. It is called for each file or folder found in the search; if it returns true, the object is added to the return array. NOTE: In Windows, all aliases end with the extension .lnk. ExtendScript strips this from the file name when found, in order to preserve compatibility with other operating systems. You can search for all aliases by supplying the search mask "*.lnk", but note that such code is not portable.
+   */
+  getFiles(mask: any): Array<File | Folder>;
+
+  /**
+   * Retrieves and returns the path for this file, relative to the specified base path, in URI notation.
+   * If no base path is supplied, the URI is relative to the path of the current folder.Returns a string containing the relative URI.
+   * @param basePath A base path in URI notation.
+   */
+  getRelativeURI(basePath?: string): string;
+
+  /**
+   * Deletes the folder associated with this object from disk immediately, without moving it to the system trash.
+   * Folders must be empty before they can be deleted. Does not resolve aliases; instead, deletes the referenced alias or shortcut file itself. Returns true if the file was successfully removed.
+   * IMPORTANT: Cannot be undone. It is recommended that you prompt the user for permission before deleting.
+   */
+  remove(): boolean;
+
+  /**
+   * Renames the associated folder.
+   * Does not resolve aliases, but renames the referenced alias or shortcut file itself. Returns true if the folder was successfully renamed.
+   * @param newName The new folder name, with no path information.
+   */
+  rename(newName: string): boolean;
+
+  /**
+   * Attempts to resolve the file-system alias or shortcut that this object refers to.
+   * If successful, creates and returns a new Folder object that points to the resolved file system element. Returns null if this object does not refer to an alias, or if the alias could not be resolved.
+   */
+  resolve(): Folder;
+
+  /**
+   * Opens the built-in platform-specific file-browsing dialog, and creates a new File or Folder object for the selected file or folder.
+   * Differs from the class method selectDialog() in that it preselects this folder.
+   * If the user clicks OK, returns a File or Folder object for the selected file or folder.
+   * If the user cancels, returns null.
+   * @param prompt The prompt text, if the dialog allows a prompt.
+   */
+  selectDlg(prompt?: string): Folder;
+
+  /**
+   * Creates and returns a serialized string representation of this object.
+   * Pass the resulting string to eval() to recreate the object.
+   */
+  toSource(): string;
+
+  /**
+   * Converts this object to a string.
+   */
+  toString(): string;
+}
+
+interface SocketConstructor {
+  readonly prototype: Socket;
+
+  /**
+   * Creates a new Socket object.
+   */
+  new (): Socket;
+  (): Socket;
+}
+declare const Socket: SocketConstructor;
+
+/**
+ * Creates a TCP/IP connection, or establishes a TCP/IP server.
+ */
+interface Socket {
+  /**
+   * When true, the connection is active.
+   */
+  readonly connected: boolean;
+
+  /**
+   * Sets or retrieves the name of the encoding used to transmit data.
+   * Typical values are "ASCII", "BINARY", or "UTF-8".
+   */
+  encoding: string;
+
+  /**
+   * When true, the receive buffer is empty.
+   */
+  readonly eof: boolean;
+
+  /**
+   * A message describing the most recent error. Setting this value clears any error message.
+   */
+  error: string;
+
+  /**
+   * The name of the remote computer when a connection is established.
+   * If the connection is shut down or does not exist, the property contains the empty string.
+   */
+  readonly host: string;
+
+  /**
+   * The timeout in seconds to be applied to read or write operations.
+   */
+  timeout: number;
+
+  /**
+   * Terminates the open connection.
+   * Returns true if the connection was closed, false on I/O errors.
+   * Deleting the object also closes the connection, but not until JavaScript garbage-collects the object. The connection might stay open longer than you wish if you do not close it explicitly.
+   */
+  close(): boolean;
+
+  /**
+   * Instructs the object to start listening for an incoming connection.
+   * The call to open() and the call to listen()are mutually exclusive. Call one function or the other, not both.
+   * @param port The TCP/IP port number to listen on. Valid port numbers are 1 to 65535. Typical values are 80 for a Web server, 23 for a Telnet server and so on.
+   * @param encoding The encoding to be used for the connection Typical values are "ASCII", "BINARY", or "UTF-8".
+   */
+  listen(port: number, encoding?: string): boolean;
+
+  /**
+   * Opens the connection for subsequent read/write operations.
+   * The call to open() and the call to listen() are mutually exclusive. Call one function or the other, not both.
+   * @param host The server to connect to. This can be a DNS name, an IPv4 address, or an IPv6 address, followed by a colon and a port number.
+   * @param encoding The encoding to be used for the connection Typical values are "ASCII", "binary", or "UTF-8".
+   */
+  open(host: string, encoding?: string): boolean;
+
+  /**
+   * Checks a listening object for a new incoming connection.
+   * If a connection request was detected, the method returns a new Socket object that wraps the new connection. Use this connection object to communicate with the remote computer. After use, close the connection and delete the JavaScript object. If no new connection request was detected, the method returns null.
+   */
+  poll(): Socket;
+
+  /**
+   * Reads up to the specified number of characters from the connection. CR characters are ignored unless the encoding is set to "BINARY".
+   * Returns a string that contains up to the number of characters that were supposed to be read, or the number of characters read before the connection closed or timed out.
+   * @param count The number of characters to read. If not supplied, the connection attempts to read as many characters it can get and returns immediately.
+   */
+  read(count?: number): string;
+
+  /**
+   * Reads one line of text up to the next line feed.
+   * Line feeds are recognized as LF or CRLF pairs. CR characters are ignored. Returns a string containing the characters.
+   */
+  readln(): string;
+
+  /**
+   * Concatenates all arguments into a single string and writes that string to the connection.
+   * @param text Any number of string values. All arguments are concatenated to form the string to be written. CRLF sequences are converted to LFs unless the encoding is set to "BINARY".
+   */
+  write(text: string): boolean;
+
+  /**
+   * Concatenates all arguments into a single string, appends a LF character, and writes that string to the connection.
+   * @param text Any number of string values. All arguments are concatenated to form the string to be written. CRLF sequences are converted to LFs unless the encoding is set to "BINARY".
+   */
+  writeln(text: string): boolean;
+}
+
+/**
+ * Provides information about a method, a property or a method parameters.
+ */
+interface ReflectionInfo {
+  /**
+   * The description of method or function arguments.
+   */
+  readonly arguments: ReflectionInfo[];
+
+  /**
+   * The data type.
+   */
+  readonly dataType: string;
+
+  /**
+   * The default value.
+   */
+  readonly defaultValue: any;
+
+  /**
+   * The long description text.
+   */
+  readonly description: string;
+
+  /**
+   * The short description text.
+   */
+  readonly help: string;
+
+  /**
+   * Contains true if the class describes a collection class.
+   */
+  readonly isCollection: boolean;
+
+  /**
+   * The maximum value.
+   */
+  readonly max: number;
+
+  /**
+   * The minimum value.
+   */
+  readonly min: number;
+
+  /**
+   * The element name.
+   */
+  readonly name: string;
+
+  /**
+   * The class object that this element belongs to.
+   */
+  readonly parent: Reflection;
+
+  /**
+   * Sample code, if present.
+   */
+  readonly sampleCode: string;
+
+  /**
+   * A file containing sample code. May be null.
+   */
+  readonly sampleFile: File;
+
+  /**
+   * The element type.
+   * One of unknown, readonly, readwrite, createonly, method or parameter.
+   */
+  readonly type: string;
+}
+declare const ReflectionInfo: ReflectionInfo;
+
+/**
+ * Provides information about a class.
+ */
+interface Reflection {
+  /**
+   * The long description text.
+   */
+  readonly description: string;
+
+  /**
+   * The short description text.
+   */
+  readonly help: string;
+
+  /**
+   * An array of method descriptions.
+   */
+  readonly methods: ReflectionInfo[];
+
+  /**
+   * The class name.
+   */
+  readonly name: string;
+
+  /**
+   * An array of property descriptions.
+   */
+  readonly properties: ReflectionInfo[];
+
+  /**
+   * Sample code, if present.
+   */
+  readonly sampleCode: string;
+
+  /**
+   * A file containing sample code. May be null.
+   */
+  readonly sampleFile: File;
+
+  /**
+   * An array of class method descriptions.
+   */
+  readonly staticMethods: ReflectionInfo[];
+
+  /**
+   * An array of class property descriptions.
+   */
+  readonly staticProperties: ReflectionInfo[];
+
+  /**
+   * Finds an element description by name.
+   * @param name The name of the element to find.
+   */
+  find(name: string): ReflectionInfo;
+
+  /**
+   * Returns this class information as XML in OMV format.
+   */
+  toXML(): XML;
+}
+declare const Reflection: Reflection;
+
+interface QNameConstructor {
+  readonly prototype: QName;
+
+  /**
+   * Creates a QName object.
+   * @param uri The URI, specified as a Namespace object, an existing QName object, or string. If this is a Namespace object, the URI is set to the namespace URI, and there is no local name. If this is a QName object, the URI and localName is set to those of that object. If this is a string, the URI is set to that string.
+   * @param name The local name. Used only if URI is given as a string.
+   */
+  new (uri: any, name?: string): QName;
+  (uri: any, name?: string): QName;
+}
+declare const QName: QNameConstructor;
+
+/**
+ * A qualified XML name, containing the URI and the local name.
+ */
+interface QName {
+  /**
+   * The local name part of the qualified name.
+   */
+  readonly localName: string;
+
+  /**
+   * The URI part of the qualified name.
+   */
+  readonly uri: string;
+}
+
+interface NamespaceConstructor {
+  readonly prototype: Namespace;
+
+  /**
+   * Creates a Namespace object.
+   * @param prefix The URIprefix, specified as an existing Namespace object, QName object, or string. If this is a Namespace or a QName object, the URI and prefix are set to that of the object. If this is a string, the prefix is set to that string, and the URI must be specified.
+   * @param uri The URI if the prefix is specified as a string.
+   */
+  new (prefix: any, uri?: string): Namespace;
+  (prefix: any, uri?: string): Namespace;
+}
+declare const Namespace: NamespaceConstructor;
+
+/**
+ * A XML namespace object.
+ */
+interface Namespace {
+  /**
+   * The named prefix.
+   */
+  readonly prefix: string;
+
+  /**
+   * The URI.
+   */
+  readonly uri: string;
+}
+
+interface XMLConstructor {
+  readonly prototype: XML;
+
+  /**
+   * Parses an XML string. Throws an error if the XML is incorrect.
+   * @param text The text to parse.
+   */
+  new (text: string): XML;
+  (text: string): XML;
+
+  /**
+   * Controls whether XML comments should be parsed (false) or ignored (true).
+   */
+  ignoreComments: boolean;
+
+  /**
+   * Controls whether XML preprocessing instructions should be parsed (false) or ignored (true).
+   */
+  ignoreProcessingInstructions: boolean;
+
+  /**
+   * Controls whether whitespace should be parsed (false) or ignored (true).
+   */
+  ignoreWhitespace: boolean;
+
+  /**
+   * The number of spaces used to indent pretty-printed XML.
+   */
+  prettyIndent: number;
+
+  /**
+   * When true, XML is pretty-printed when converting to a string.
+   */
+  prettyPrinting: boolean;
+
+  /**
+   * Returns an object containing the default parsing and print settings for XML.
+   */
+  defaultSettings(): object;
+
+  /**
+   * Sets the parsing and print setting for XML using an object returned by the settings() method.
+   * @param obj The object containing the settings to set.
+   */
+  setSettings(obj: object): void;
+
+  /**
+   * Returns an object containing the current parsing and print settings for XML.
+   */
+  settings(): object;
+}
+declare const XML: XMLConstructor;
+
+/**
+ * Wraps XML into an object.
+ */
+interface XML {
+  /**
+   * Adds a namespace declaration to the node. Returns the XML object itself.
+   * @param namespace The namespace to add.
+   */
+  addNamespace(namespace: Namespace): XML;
+
+  /**
+   * Appends the given XML to this XML as a child. Returns the XML object itself.
+   * If the argument is not XML, creates a new XML element containing the argument as text. The element name of that new XML is the same as the last element in the original XML.
+   * @param child The child XML to add.
+   */
+  appendChild(child: XML): XML;
+
+  /**
+   * Returns a list containing all attribute elements matching the given name.
+   * @param name The attribute name to look for.
+   */
+  attribute(name: string): XML;
+
+  /**
+   * Returns a list containing all attribute elements.
+   */
+  attributes(): XML;
+
+  /**
+   * Returns a list containing all children of this XML matching the given element name.
+   * If the argument is a number, uses the number as index into the array of children.
+   * @param name The name or the index of the child element.
+   */
+  child(name: string): XML;
+
+  /**
+   * Returns a number representing the ordinal position of this XML object within the context of its parent.
+   */
+  childIndex(): number;
+
+  /**
+   * Returns an XML object containing all the properties of this XML object in order.
+   */
+  children(): XML;
+
+  /**
+   * Returns an XML object containing the properties of this XML object that represent XML comments.
+   */
+  comments(): XML;
+
+  /**
+   * Checks if this XML object contains the given XML object.
+   * @param xml The XML to search for.
+   */
+  contains(xml: XML): boolean;
+
+  /**
+   * Creates a copy of this XML object.
+   */
+  copy(): XML;
+
+  /**
+   * Returns all the XML-valued descendants of this XML object with the given name.
+   * If the name parameter is omitted, returns all descendants of this XML object.
+   * @param name The name of the descendant to find.
+   */
+  descendants(name?: string): XML;
+
+  /**
+   * Returns a list of XML children that are elements with a given name, or all children that are XML elements.
+   * @param name The element name. If not supplied, gets all children that are XML elements.
+   */
+  elements(name?: string): XML;
+
+  /**
+   * Reports whether this XML object contains complex content.
+   * An XML object is considered to contain complex content if it represents an XML element that has child elements. XML objects representing attributes, comments, processing instructions and text nodes do not have complex content. The existence of attributes, comments, processing instructions and text nodes within an XML object is not significant in determining if it has complex content.
+   */
+  hasComplexContent(): boolean;
+
+  /**
+   * Reports whether this XML object contains simple content.
+   * An XML object is considered to contain simple content if it represents a text node, represents an attribute node or if it represents an XML element that has no child elements. XML objects representing comments and processing instructions do not have simple content. The existence of attributes, comments, processing instructions and text nodes within an XML object is not significant in determining if it has simple content.
+   */
+  hasSimpleContent(): boolean;
+
+  /**
+   * Returns an array of Namespace objects mirroring the current list of valid namespaces at this element.
+   * The last element of thereturned array is the default namespace.
+   */
+  inScopeNamespaces(): Namespace[];
+
+  /**
+   * Inserts the given child2 after the given child1 in this XML object and returns this XML object.
+   * If child1 is null, the method inserts child2 before all children of this XML object (that is, after none of them). If child1 does not exist in this XML object, the method returns without modifying this XML object.
+   * @param child1 The child to insert the other child after. If null, the method inserts child2 before all children of this XML object.
+   * @param child2 The XML to insert.
+   */
+  insertChildAfter(child1: XML, child2: XML): void;
+
+  /**
+   * Inserts the given child2 before the given child1 in this XML object and returns this XML object.
+   * If child1 is null, the method inserts child2 after all children of this XML object (that is, before none of them). If child1 does not exist in this XML object, the method returns without modifying this XML object.
+   * @param child1 The child to search for. If null, the method inserts child2 after all children of this XML object.
+   * @param child2 The XML to insert.
+   */
+  insertChildBefore(child1: XML, child2: XML): void;
+
+  /**
+   * Returns the number of elements contained in an XML list. If this XML object is not a list, returns 1.
+   */
+  length(): number;
+
+  /**
+   * Returns the local name of this XML object.
+   * This value corresponds to the element name unless the name has a namespace prefix. For example, if the element has the name "ns:tag", the return value is "tag".
+   */
+  localName(): string;
+
+  /**
+   * Returns a QName object containing the URI and the local name of the element.
+   */
+  name(): QName;
+
+  /**
+   * Returns a Namespace object containing the namespace URI of the current element.
+   */
+  namespace(): Namespace;
+
+  /**
+   * Returns an array containing all namespace declarations of this XML object.
+   */
+  namespaceDeclarations(): Namespace[];
+
+  /**
+   * Returns the type of this XML object as one of the strings "element", "attribute", "comment", "processing-instruction", or "text".
+   */
+  nodeKind(): string;
+
+  /**
+   * Puts all text nodes in this and all descendant XML objects into a normal form by merging adjacent text nodes and eliminating empty text nodes. Returns this XML object.
+   */
+  normalize(): XML;
+
+  /**
+   * Returns the parent object of this XML object.
+   * The root object, as returned by the XML constructor, does not have a parent and returns null. Note that the E4X standard does not define what happens if this XML object is a list containing elements with multiple parents.
+   */
+  parent(): XML;
+
+  /**
+   * Inserts a given child into this object before its existing XML properties, and returns this XML object.
+   * @param child The XML to insert.
+   */
+  prependChild(child: XML): XML;
+
+  /**
+   * Returns a list of preprocessing instructions.
+   * Collects processing-instructions with the given name, if supplied. Otherwise, returns an XML list containing all the children of this XML object that are processing-instructions regardless of their name.
+   * @param name The name of the preprocessing instruction to return.
+   */
+  processingInstructions(name?: string): XML;
+
+  /**
+   * Removes the given namespace from this XML, and returns this XML.
+   * @param namespace The namespace to remove.
+   */
+  removeNamespace(namespace: Namespace): XML;
+
+  /**
+   * Replaces the value of specified XML properties of this XML object returns this XML object.
+   * This method acts like the assignment operator.
+   * @param name The property name. Can be a numeric property name, a name for a set of XML elements, or the properties wildcard “*”. If this XML object contains no properties that match the name, the method returns without modifying this XML object.
+   * @param value The XML with which to replace the value of the matching property. Can be an XML object, XML list or any value that can be converted to a String with toString().
+   */
+  replace(name: string, value: XML): XML;
+
+  /**
+   * Replaces all of the XML-valued properties in this object with a new value, and returns this XML object.
+   * @param value The new value, which can be a single XML object or an XML list.
+   */
+  setChildren(value: XML): XML;
+
+  /**
+   * Replaces the local name of this XML objectwith a string constructed from the given name
+   * The local name is any part behind a colon character. If there is no colon, it is the entire name.
+   * @param name The name to set.
+   */
+  setLocalName(name: string): void;
+
+  /**
+   * Replaces the name of this XML object with the given QName object.
+   * @param name The fully qualified name.
+   */
+  setName(name: QName): void;
+
+  /**
+   * Sets the namespace for this XML element.
+   * If the namespace has not been declared in the tree above this element, adds a namespace declaration.
+   * @param namespace The namespace to set.
+   */
+  setNamespace(namespace: Namespace): void;
+
+  /**
+   * Returns an XML list containing all XML properties of this XML object that represent XML text nodes.
+   */
+  text(): XML;
+
+  /**
+   * Returns the string representation of this object.
+   * For text and attribute nodes, this is the textual value of the node; for other elements, this is the result of calling the toXMLString() method. If this XML object is a list, concatenates the result of calling toString() on each element.
+   */
+  toString(): string;
+
+  /**
+   * Returns an XML-encoded string representation of this XML object.
+   * Always includes the start tag, attributes and end tag of the XML object regardless of its content. It is provided for cases when the default XML to string conversion rules are not desired. Interprets the global settings XML.prettyPrint and XML.prettyIndent.
+   */
+  toXMLString(): string;
+
+  /**
+   * Evaluates the given XPath expression in accordance with the W3C XPath recommendation, using this XML object as the context node.
+   * @param expr The XPath expression to use.
+   */
+  xpath(expr: string): XML;
+}
+
+/**
+ * An XML list object.
+ * In this implementation, an XMLList object is synonymous to the XML object. The constructor accepts an XML list, but everything else works like theXML object.
+ */
+interface XMLList {}
+declare const XMLList: XMLList;
+
+interface UnitValueConstructor {
+  readonly prototype: UnitValue;
+
+  /**
+   * Creates a new UnitValue object.
+   */
+  new (value: string | UnitValue): UnitValue;
+  (value: string | UnitValue): UnitValue;
+
+  /**
+   * The base unit for all conversions.
+   */
+  baseUnit: UnitValue;
+}
+declare const UnitValue: UnitValueConstructor;
+
+/**
+ * Represents a measurement as a combination of values and unit.
+ * Note that this object is not available in all applications.
+ */
+interface UnitValue {
+  /**
+   * The base unit.
+   */
+  baseUnit: UnitValue;
+
+  /**
+   * The unit name.
+   */
+  readonly type: string;
+
+  /**
+   * The numeric value.
+   */
+  value: number;
+
+  /**
+   * Returns this instance as a different unit.
+   * @param unitName The unit name.
+   */
+  as(unitName: string): UnitValue;
+
+  /**
+   * Converts this instance to a different unit.
+   * @param unitName The unit name.
+   */
+  convert(unitName: string): any;
+}
+
+/**
+ * Only for TypeScript compatibility
+ */
+interface CallableFunction extends Function {}
+
+interface NewableFunction extends Function {}
+
+interface IArguments {
+  [index: number]: any;
+  length: number;
+  callee: Function;
+}
+
+/**
+ * Make all properties in T optional
+ */
+type Partial<T> = { [P in keyof T]?: T[P] };
+
+/**
+ * Make all properties in T readonly
+ */
+type Readonly<T> = { readonly [P in keyof T]: T[P] };
+
+/**
+ * From T pick a set of properties K
+ */
+type Pick<T, K extends keyof T> = { [P in K]: T[P] };
+
+/**
+ * Construct a type with a set of properties K of type T
+ */
+type Record<K extends string, T> = { [P in K]: T };
+
 /**
  * The global BridgeTalk object.
  */
@@ -130544,33 +134301,33 @@ interface $ {
   /**
    * The ExtendScript build information.
    */
-  readonly build: string
+  readonly build: string;
 
   /**
    * The ExtendScript build date.
    */
-  readonly buildDate: Date
+  readonly buildDate: Date;
 
   /**
    * The character used as the decimal point character in formatted numeric output.
    */
-  decimalPoint: string
+  decimalPoint: string;
 
   /**
    * The name of the current ExtendScript engine, if set.
    */
-  readonly engineName: string
+  readonly engineName: string;
 
   /**
    * The most recent run-time error information.
    * Assigning error text to this property generates a run-time error; however, the preferred way to generate a run-time error is to throw an Error object.
    */
-  error: Error
+  error: Error;
 
   /**
    * The file name of the current script.
    */
-  readonly fileName: string
+  readonly fileName: string;
 
   /**
    * Gets or sets low-level debug output flags.
@@ -130581,146 +134338,1398 @@ interface $ {
    * 0x0100 (256): Enables extended error handling (see strict).
    * 0x0200 (512): Enables the localization feature of the toString method. Equivalent to the localize property.
    */
-  flags: number
+  flags: number;
 
   /**
    * A reference to the global object, which contains the JavaScript global namespace.
    */
-  readonly global: any
+  readonly global: any;
 
   /**
    * A high-resolution timer, measuring the time in microseconds. The timer starts when ExtendScript is
    * initialized during the application startup sequence. Every read access resets the timer to Zero.
    */
-  readonly hiresTimer: number
+  readonly hiresTimer: number;
 
   /**
    * The path for include files for the current script.
    */
-  readonly includePath: string
+  readonly includePath: string;
 
   /**
    * The current debugging level, which enables or disables the JavaScript debugger.
    * One of 0 (no debugging), 1 (break on runtime errors), or 2 (full debug mode).
    */
-  level: number
+  level: number;
 
   /**
    * The current line number of the currently executing script.
    */
-  readonly line: number
+  readonly line: number;
 
   /**
    * Gets or sets the current locale.
    * The string contains five characters in the form LL_RR, where LL is an ISO 639 language specifier, and RR is an ISO 3166 region specifier.Initially, this is the value that the application or the platform returns for the current user. You can set it to temporarily change the locale for testing. To return to the application or platform setting, set to undefined, null, or the empty string.
    */
-  locale: string
+  locale: string;
 
   /**
    * Set to true to enable the extended localization features of the built-in toString() method.
    */
-  localize: boolean
+  localize: boolean;
 
   /**
    * The ExtendScript memory cache size, in bytes.
    */
-  memCache: number
+  memCache: number;
 
   /**
    * The current operating system version information.
    */
-  readonly os: string
+  readonly os: string;
 
   /**
    * An array of objects containing information about the display screens attached to your computer.
    * Each object has the properties left, top, right, bottom, which contain the four corners of each screen in global coordinates.A property primary is true if that object describes the primary display.
    */
-  readonly screens: object[]
+  readonly screens: object[];
 
   /**
    * The current stack trace.
    */
-  readonly stack: string
+  readonly stack: string;
 
   /**
    * Sets or clears strict mode for object modification.
    * When true, any attempt to write to a read-only property causes a runtime error. Some objects do not permit the creation of new properties when true.
    */
-  strict: any
+  strict: any;
 
   /**
    * The version number of the ExtendScript engine.
    * Formatted as a three-part number and description; for example: "3.92.95 (debug)".
    */
-  readonly version: string
+  readonly version: string;
 
   /**
    * Shows an About box for the ExtendScript component, and returns the text for the box.
    */
-  about(): string
+  about(): string;
 
   /**
    * Breaks execution at the current position.
    * @param condition A string containing a JavaScript statement to be used as a condition. If the statement evaluates to true or nonzero when this point is reached, execution stops.
    */
-  bp(condition?: any): void
+  bp(condition?: any): void;
 
   /**
    * Invokes the platform-specific color selection dialog, and returns the selected color.
    * @param color The color to be preselected in the dialog, as 0xRRGGBB, or -1 for the platform default.
    */
-  colorPicker(color: number): number
+  colorPicker(color: number): number;
 
   /**
    * Loads and evaluates a file.
    * @param file The file to load.
    * @param timeout An optional timeout in milliseconds.
    */
-  evalFile(file: File, timeout?: number): any
+  evalFile(file: File, timeout?: number): any;
 
   /**
    * Initiates garbage collection in the ExtendScript engine.
    */
-  gc(): void
+  gc(): void;
 
   /**
    * Retrieves the value of an environment variable.
    * @param name The name of the variable.
    */
-  getenv(name: string): string
+  getenv(name: string): string;
 
   /**
    * Sets the value of an environment variable.
    * @param name The name of the variable.
    * @param value The value of the variable.
    */
-  setenv(name: string, value: string): void
+  setenv(name: string, value: string): void;
 
   /**
    * Suspends the calling thread for a number of milliseconds.
    * During a sleep period, checks at 100 millisecond intervals to see whether the sleep should be terminated. This can happen if there is a break request, or if the script timeout has expired.
    * @param msecs Number of milliseconds to sleep.
    */
-  sleep(msecs: number): void
+  sleep(msecs: number): void;
 
   /**
    * Converts this object to a string.
    */
-  toString(): string
+  toString(): string;
 
   /**
    * Prints text to the Console.
    * @param text The text to print. All arguments are concatenated.
    */
-  write(text: any): void
+  write(text: any): void;
 
   /**
    * Prints text to the Console, and adds a newline character.
    * @param text The text to print. All arguments are concatenated.
    */
-  writeln(text: any): void
+  writeln(text: any): void;
 }
-declare const $: $
+declare const $: $;
+
+
+interface FileConstructor {
+  readonly prototype: File;
+
+  /**
+   * Creates and returns a new File object referring to a given file system location.
+   * @param path The full or partial path name of the file,in platform-specific or URI format. The value stored in the object is the absolute path. The file that the path refers to does not need to exist.If the path refers to an existing folder: The File function returns a Folder object instead of a File object. The new operator returns a File object for a nonexisting file with the same name.
+   */
+  new (path?: string): File;
+  (path?: string): File;
+
+  /**
+   * The name of the file system.
+   * This is a class property accessed through the File constructor. Valid values are "Windows", "Macintosh", and "Unix".
+   */
+  readonly fs: string;
+
+  /**
+   * Decodes a UTF-8 encoded string as required by RFC 2396, and returns the decoded string.
+   * See also String.decodeURI().
+   * @param uri The UTF-8 encoded string to decode.
+   */
+  decode(uri: string): string;
+
+  /**
+   * Encodes a string as required by RFC 2396, and returns the encoded string.
+   * All special characters are encoded in UTF-8 and stored as escaped characters starting with the percent sign followed by two hexadecimal digits. For example, the string "my file" is encoded as "my%20file".
+   * Special characters are those with a numeric value greater than 127, except the following: / - _ . ! ~ * ' ( )
+   * See also encodeURI().
+   * @param name The string to encode.
+   */
+  encode(name: string): string;
+
+  /**
+   * Reports whether a given encoding is available.
+   * @param name The encoding name. Typical values are "ASCII", "binary", or "UTF-8".For a complete list of supported encodings, see the JavaScript Tools Guide.
+   */
+  isEncodingAvailable(name: string): boolean;
+
+  /**
+   * Opens a dialog so the user can select one or more files to open.
+   * Opens the built-in platform-specific file-browsing dialog in which a user can select an existing file or multiple files, and creates new File objects to represent the selected files.
+   * If the user clicks OK, returns a File object for the selected file, or an array of objects if multiple files are selected.
+   * If the user cancels, returns null.
+   * @param prompt The prompt text, displayed if the dialog allows a prompt.
+   * @param filter A filter that limits the types of files displayed in the dialog. In Windows,a filter expression such as "Javascript files:*.jsx;All files:*.*". In Mac OS, a filter function that takes a File instance and returns true if the file should be included in the display, false if it should not.
+   * @param multiSelect When true, the user can select multiple files and the return value is an array.
+   */
+  openDialog(prompt?: string, filter?: any, multiSelect?: boolean): File;
+
+  /**
+   * Opens a dialog so the user can select a file name to save to.
+   * Opens the built-in platform-specific file-browsing dialog in which a user can select an existing file location to which to save information, and creates a new File object to represent the selected file location.
+   * If the user clicks OK, returns a File object for the selected file location.
+   * If the user cancels, returns null.
+   * @param prompt The prompt text, displayed if the dialog allows a prompt.
+   * @param filter In Windows only, a filter that limits the types of files displayed in the dialog. In Windows only,a filter expression such as "Javascript files:*.jsx;All files:*.*". Not used In Mac OS.
+   */
+  saveDialog(prompt?: string, filter?: any): File;
+}
+declare const File: FileConstructor;
+
+/**
+ * Represents a file in the local file system in a platform-independent manner.
+ */
+interface File {
+  /**
+   * The full path name for the referenced file in URI notation.
+   */
+  readonly absoluteURI: string;
+
+  /**
+   * If true, the object refers to a file system alias or shortcut.
+   */
+  readonly alias: boolean;
+
+  /**
+   * The creation date of the referenced file, or null if the object does not refer to a file on disk.
+   */
+  readonly created: Date;
+
+  /**
+   * In Mac OS, the file creator as a four-character string. In Windows or UNIX, value is "????".
+   */
+  readonly creator: string;
+
+  /**
+   * The localized name of the referenced file, without the path specification.
+   */
+  readonly displayName: string;
+
+  /**
+   * Gets or sets the encoding for subsequent read/write operations.
+   * One of the encoding constants listed in the JavaScript Tools Guide. If the value is not recognized, uses the system default encoding.A special encoder, BINARY, is used to read binary files. It stores each byte of the file as one Unicode character regardless of any encoding. When writing, the lower byte of each Unicode character is treated as a single byte to write.
+   */
+  encoding: string;
+
+  /**
+   * When true, a read attempt caused the current position to be at the end of the file, or the file is not open.
+   */
+  readonly eof: boolean;
+
+  /**
+   * A string containing a message describing the most recent file system error.
+   * Typically set by the file system, but a script can set it. Setting this value clears any error message and resets the error bit for opened files. Contains the empty string if there is no error.
+   */
+  error: string;
+
+  /**
+   * If true, this object refers to a file or file-system alias that actually exists in the file system.
+   */
+  readonly exists: boolean;
+
+  /**
+   * The platform-specific full path name for the referenced file.
+   */
+  readonly fsName: string;
+
+  /**
+   * The full path name for the referenced file in URI notation.
+   */
+  readonly fullName: string;
+
+  /**
+   * When true, the file is not shown in the platform-specific file browser.
+   * If the object references a file-system alias or shortcut, the flag is altered on the alias, not on the original file.
+   */
+  hidden: boolean;
+
+  /**
+   * The size of the file in bytes.
+   * Can be set only for a file that is not open, in which case it truncates or pads the file with 0-bytes to the new length.
+   */
+  length: number;
+
+  /**
+   * How line feed characters are written in the file system.
+   * One of the values "Windows", "Macintosh", or "Unix".
+   */
+  lineFeed: string;
+
+  /**
+   * The date of the referenced file's last modification, or null if the object does not refer to a file on the disk.
+   */
+  readonly modified: Date;
+
+  /**
+   * The file name portion of the absolute URI for the referenced file, without the path specification.
+   */
+  readonly name: string;
+
+  /**
+   * The Folder object for the folder that contains this file.
+   */
+  readonly parent: Folder;
+
+  /**
+   * The path portion of the absolute URI for the referenced file, without the file name.
+   */
+  readonly path: string;
+
+  /**
+   * When true, prevents the file from being altered or deleted.
+   * If the referenced file is a file-system alias or shortcut, the flag is altered on the alias, not on the original file.
+   */
+  readonly: boolean;
+
+  /**
+   * The path name for the object in URI notation, relative to the current folder.
+   */
+  readonly relativeURI: string;
+
+  /**
+   * The file type as a four-character string.
+   * In Mac OS, the Mac OS file type.
+   * In Windows, "appl" for .EXE files, "shlb" for .DLL files and "TEXT" for any other file.
+   */
+  readonly type: string;
+
+  /**
+   * Changes the path specification of the referenced file.
+   * @param path A string containing the new path, absolute or relative to the current folder.
+   */
+  changePath(path: string): boolean;
+
+  /**
+   * Closes this open file.
+   * Returns true if the file was closed successfully, false if an I/O error occurred.
+   */
+  close(): boolean;
+
+  /**
+   * Copies this object’s referenced file to the specified target location.
+   * Resolves any aliases to find the source file. If a file exists at the target location, it is overwritten.
+   * Returns true if the copy was successful.
+   * @param target A string with the URI path to the target location, or a File object that references the target location.
+   */
+  copy(target: string): boolean;
+
+  /**
+   * Makes this file a file-system alias or shortcut to the specified file.
+   * The referenced file for this object must not yet exist on disk. Returns true if the operation was successful.
+   * @param path A string containing the path of the target file.
+   */
+  createAlias(path: string): void;
+
+  /**
+   * Executes or opens this file using the appropriate application, as if it had been double-clicked in a file browser.
+   * You can use this method to run scripts, launch applications, and so on.Returns true immediately if the application launch was successful.
+   */
+  execute(): boolean;
+
+  /**
+   * Retrieves and returns the path for this file, relative to the specified base path, in URI notation.
+   * If no base path is supplied, the URI is relative to the path of the current folder.Returns a string containing the relative URI.
+   * @param basePath A base path in URI notation.
+   */
+  getRelativeURI(basePath: string): string;
+
+  /**
+   * Opens the referenced file for subsequent read/write operations. The method resolves any aliases to find the file.
+   * Returns true if the file was opened successfully.The method attempts to detect the encoding of the open file. It reads a few bytes at the current location and tries to detect the Byte Order Mark character 0xFFFE. If found, the current position is advanced behind the detected character and the encoding property is set to one of the strings UCS-2BE, UCS-2LE, UCS4-BE, UCS-4LE, or UTF-8. If the marker character is not found, it checks for zero bytes at the current location and makes an assumption about one of the above formats (except UTF-8). If everything fails, the encoding property is set to the system encoding.
+   * IMPORTANT: Be careful about opening a file more than once. The operating system usually permits you to do so, but if you start writing to the file using two different File objects, you can destroy your data.
+   * @param mode The read-write mode, a single-character string. One of these characters: r (read) Opens for reading. If the file does not exist or cannot be found, the call fails. w (write) Opens a file for writing. If the file exists, its contents are destroyed. If the file does not exist, creates a new, empty file. e (edit) Opens an existing file for reading and writing. a (append) Opens an existing file for reading and writing, and moves the current position to the end of the file.
+   * @param type In Mac OS, the type of a newly created file, a 4-character string. Ignored in Windows and UNIX.
+   * @param creator In Mac OS, the creator of a newly created file, a 4-character string. Ignored in Windows and UNIX.
+   */
+  open(mode: string, type?: string, creator?: string): boolean;
+
+  /**
+   * Opens the built-in platform-specific file-browsing dialog, in which the user can select an existing file or files, and creates new File objects to represent the selected files.
+   * Differs from the class method openDialog() in that it presets the current folder to this File object’s parent folder and the current file to this object’s associated file.
+   * If the user clicks OK, returns a File or Folder object for the selected file or folder, or an array of objects.
+   * If the user cancels, returns null.
+   * @param prompt A string containing the prompt text, if the dialog allows a prompt.
+   * @param filter A filter that limits the types of files displayed in the dialog. In Windows,a filter expression such as "Javascript files:*.jsx;All files:*.*". In Mac OS, a filter function that takes a File instance and returns true if the file should be included in the display, false if it should not.
+   * @param multiSelect When true, the user can select multiple files and the return value is an array.
+   */
+  openDlg(prompt?: string, filter?: any, multiSelect?: boolean): File;
+
+  /**
+   * Reads the contents of the file, starting at the current position.
+   * Returns a string that contains up to the specified number of characters. If a number of characters is not supplied, reads from the current position to the end of the file. If the file is encoded, multiple bytes might be read to create single Unicode characters.
+   * @param chars An integer specifying the number of characters to read.
+   */
+  read(chars?: number): string;
+
+  /**
+   * Reads a single text character from the file at the current position.
+   * Line feeds are recognized as CR, LF, CRLF or LFCR pairs.If the file is encoded, multiple bytes might be read to create a single Unicode character. Returns a string that contains the character.
+   */
+  readch(): string;
+
+  /**
+   * Reads a single line of text from the file at the current position.
+   * Line feeds are recognized as CR, LF, CRLF or LFCR pairs.. If the file is encoded, multiple bytes might be read to create single Unicode characters. Returns a string that contains the text.
+   */
+  readln(): string;
+
+  /**
+   * Deletes the file associated with this object from disk immediately, without moving it to the system trash.
+   * Does not resolve aliases; instead, deletes the referenced alias or shortcut file itself. Returns true if the file was successfully removed.
+   * IMPORTANT: Cannot be undone. It is recommended that you prompt the user for permission before deleting.
+   */
+  remove(): boolean;
+
+  /**
+   * Renames the associated file.
+   * Does not resolve aliases, but renames the referenced alias or shortcut file itself. Returns true if the file was successfully renamed.
+   * @param newName The new file name, with no path information.
+   */
+  rename(newName: string): boolean;
+
+  /**
+   * Attempts to resolve the file-system alias or shortcut that this object refers to.
+   * If successful, creates and returns a new File object that points to the resolved file system element. Returns null if this object does not refer to an alias, or if the alias could not be resolved.
+   */
+  resolve(): File;
+
+  /**
+   * Opens the built-in platform-specific file-browsing dialog, in which the user can select an existing file location to which to save information, and creates a new File object to represent the selected file.
+   * Differs from the class method saveDialog() in that it presets the current folder to this File object’s parent folder and the file to this object’s associated file.
+   * If the user clicks OK, returns a File object for the selected file.
+   * If the user cancels, returns null.
+   * @param prompt A string containing the prompt text, if the dialog allows a prompt.
+   * @param filter In Windows only, a filter that limits the types of files displayed in the dialog. In Windows only,a filter expression such as "Javascript files:*.jsx;All files:*.*". Not used In Mac OS.
+   */
+  saveDlg(prompt?: string, filter?: any): File;
+
+  /**
+   * Seeks to a given position in the file.
+   * The new position cannot be less than 0 or greater than the current file size. Returns true if the position was changed.
+   * @param pos The new current position in the file as an offset in bytes from the start, current position, or end, depending on the mode.
+   * @param mode The seek mode. One of: 0: Seek to absolute position, where pos=0 is the first byte of the file. This is the default. 1: Seek relative to the current position. 2. Seek backward from the end of the file.
+   */
+  seek(pos: number, mode?: number): boolean;
+
+  /**
+   * Retrieves the current position as a byte offset from the start of the file.
+   * Returns a number, the position index.
+   */
+  tell(): number;
+
+  /**
+   * Creates and returns a serialized string representation of this object.
+   * Pass the resulting string to eval() to recreate the object.
+   */
+  toSource(): string;
+
+  /**
+   * Converts this object to a string.
+   */
+  toString(): string;
+
+  /**
+   * Writes the specified text to the file at the current position.
+   * You can supply multiple text values; the strings are concatenated to form a single string.For encoded files, writing a single Unicode character may write multiple bytes. Returns true if the write was successful.IMPORTANT: Be careful not to write to a file that is open in another application or object, as this can overwrite existing data.
+   * @param text A text string to be written.
+   */
+  write(text: string): boolean;
+
+  /**
+   * Writes a string to the file at the current position and appends a line-feed sequence.
+   * You can supply multiple text values. The strings are concatenated into a single string, which is written in the file followed by one line-feed sequence, of the style specified by this object's linefeed property.For encoded files, writing a single Unicode character may write multiple bytes.Returns true if the write was successful.IMPORTANT: Be careful not to write to a file that is open in another application or object, as this can overwrite existing data.
+   * @param text A text string to be written.
+   */
+  writeln(text: string): boolean;
+}
+
+interface FolderConstructor {
+  readonly prototype: Folder;
+
+  /**
+   * Creates and returns a new Folder object referring to a given file-system location.
+   * If the path name refers to an already existing disk file, a File object is returned instead.Returns the new Folder object.
+   * @param path The absolute or relative path to the folder associated with this object, specified in URI format. The value stored in the object is the absolute path.The path need not refer to an existing folder. If the path refers to an existing file, rather than a folder: The Folder() function returns a File object instead of a Folder object. The new operator returns a Folder object for a nonexisting folder with the same name.
+   */
+  new (path?: string): Folder;
+  (path?: string): Folder;
+
+  /**
+   * The folder containing the application data for all users.
+   * In Windows, the value of %APPDATA% (by default, C:\\Documents and Settings\\All Users\\Application Data)
+   * In Mac OS, /Library/Application Support
+   */
+  readonly appData: Folder;
+
+  /**
+   * In Mac OS, a Folder object for the folder containing the bundle of the running application.
+   */
+  readonly appPackage: Folder;
+
+  /**
+   * A Folder object for the folder containing common files for all programs installed by the user.
+   * In Windows, the value of %CommonProgramFiles% (by default, C:\\Program Files\\Common Files)
+   * In Mac OS, /Library/Application Support
+   */
+  readonly commonFiles: Folder;
+
+  /**
+   * A Folder object for the current folder.
+   * Assign a Folder object or a string containing the new path name to set the current folder. This is a class property accessed through the Folder constructor.
+   */
+  current: Folder;
+
+  /**
+   * A Folder object for the folder that contains the user’s desktop.
+   * In Windows, C:\\Documents and Settings\\username\\Desktop
+   * In Mac OS, ~/Desktop
+   */
+  readonly desktop: Folder;
+
+  /**
+   * The name of the current file system.
+   * One of "Windows", "Macintosh", or "Unix".
+   */
+  readonly fs: string;
+
+  /**
+   * A folder pointing to the user's My Documents folder.
+   * In Windows, C:\\Documents and Settings\\username\\My Documents
+   * In Mac OS,~/Documents
+   */
+  readonly myDocuments: Folder;
+
+  /**
+   * A Folder object for the folder containing the executable image of the running application.
+   */
+  readonly startup: Folder;
+
+  /**
+   * A Folder object for the folder containing the operating system files.
+   * In Windows, the value of %windir% (by default, C:\\Windows)
+   * In Mac OS, /System
+   */
+  readonly system: Folder;
+
+  /**
+   * A Folder object for the default folder for temporary files.
+   */
+  readonly temp: Folder;
+
+  /**
+   * A Folder object for the folder containing deleted items. On Windows, the trash folder is a virtual
+   * folder containing a database; therefore, the property value is null on Windows.
+   */
+  readonly trash: Folder;
+
+  /**
+   * A Folder object for the folder containing the user's application data.
+   * In Windows, the value of %USERDATA% (by default, C:\\Documents and Settings\\username\\Application Data)
+   * In Mac OS,~/Library/Application Support.
+   */
+  readonly userData: Folder;
+
+  /**
+   * Decodes a UTF-8 encoded string as required by RFC 2396, and returns the decoded string.
+   * See also String.decodeURI().
+   * @param uri The UTF-8 string to decode.
+   */
+  decode(uri: string): string;
+
+  /**
+   * Encodes a string as required by RFC 2396, and returns the encoded string.
+   * All special characters are encoded in UTF-8 and stored as escaped characters starting with the percent sign followed by two hexadecimal digits. For example, the string "my file" is encoded as "my%20file".
+   * Special characters are those with a numeric value greater than 127, except the following: / - _ . ! ~ * ' ( )
+   * See also encodeURI().
+   * @param name The string to encode.
+   */
+  encode(name: string): string;
+
+  /**
+   * Reports whether a given encoding is available.
+   * @param name The encoding name. Typical values are "ASCII", "binary", or "UTF-8".For a complete list of supported encodings, see the JavaScript Tools Guide.
+   */
+  isEncodingAvailable(name: string): boolean;
+
+  /**
+   * Opens the built-in platform-specific file-browsing dialog, and creates a new File or Folder object for the selected file or folder.
+   * Differs from the object method selectDlg() in that it does not preselect a folder.
+   * If the user clicks OK, returns a File or Folder object for the selected file or folder.
+   * If the user cancels, returns null.
+   * @param prompt The prompt text, if the dialog allows a prompt.
+   */
+  selectDialog(prompt?: string): Folder;
+}
+declare const Folder: FolderConstructor;
+
+/**
+ * Represents a file-system folder or directory in a platform-independent manner.
+ */
+interface Folder {
+  /**
+   * The full path name for the referenced folder in URI notation.
+   */
+  readonly absoluteURI: string;
+
+  /**
+   * When true, the object refers to a file system alias or shortcut.
+   */
+  readonly alias: boolean;
+
+  /**
+   * The creation date of the referenced folder, or null if the object does not refer to a folder on disk.
+   */
+  readonly created: Date;
+
+  /**
+   * The localized name portion of the absolute URI for the referenced folder, without the path specification.
+   */
+  readonly displayName: string;
+
+  /**
+   * A message describing the most recent file system error.
+   * Typically set by the file system, but a script can set it. Setting this value clears any error message and resets the error bit for opened files. Contains the empty string if there is no error.
+   */
+  error: string;
+
+  /**
+   * When true, this object refers to a folder that currently exists in the file system.
+   */
+  readonly exists: boolean;
+
+  /**
+   * The platform-specific name of the referenced folder as a full path name.
+   */
+  readonly fsName: string;
+
+  /**
+   * The full path name for the referenced folder in URI notation. .
+   */
+  readonly fullName: string;
+
+  /**
+   * The date of the referenced folder's last modification, or null if the object does not refer to a folder on disk.
+   */
+  readonly modified: Date;
+
+  /**
+   * The folder name portion of the absolute URI for the referenced file, without the path specification.
+   */
+  readonly name: string;
+
+  /**
+   * TThe Folder object for the folder that contains this folder, or null if this object refers to the root folder of a volume.
+   */
+  readonly parent: Folder;
+
+  /**
+   * The path portion of the object absolute URI for the referenced file, without the folder name.
+   */
+  readonly path: string;
+
+  /**
+   * The path name for the referenced folder in URI notation, relative to the current folder.
+   */
+  readonly relativeURI: string;
+
+  /**
+   * Changes the path specification of the referenced folder.
+   * @param path A string containing the new path, absolute or relative to the current folder.
+   */
+  changePath(path: string): boolean;
+
+  /**
+   * Creates a folder at the location given by this object's path property.
+   * Returns true if the folder was created.
+   */
+  create(): boolean;
+
+  /**
+   * Opens this folder in the platform-specific file browser (as if it had been double-clicked in the file browser).
+   * Returns true immediately if the folder was opened successfully.
+   */
+  execute(): boolean;
+
+  /**
+   * Retrieves the contents of this folder, filtered by the supplied mask.
+   * Returns an array of File and Folder objects, or null if this object's referenced folder does not exist.
+   * @param mask A search mask for file names, specified as a string or a function. A mask string can contain question mark (?) and asterisk (*) wild cards. Default is "*", which matches all file names. Can also be the name of a function that takes a File or Folder object as its argument. It is called for each file or folder found in the search; if it returns true, the object is added to the return array. NOTE: In Windows, all aliases end with the extension .lnk. ExtendScript strips this from the file name when found, in order to preserve compatibility with other operating systems. You can search for all aliases by supplying the search mask "*.lnk", but note that such code is not portable.
+   */
+  getFiles(mask: any): Array<File | Folder>;
+
+  /**
+   * Retrieves and returns the path for this file, relative to the specified base path, in URI notation.
+   * If no base path is supplied, the URI is relative to the path of the current folder.Returns a string containing the relative URI.
+   * @param basePath A base path in URI notation.
+   */
+  getRelativeURI(basePath?: string): string;
+
+  /**
+   * Deletes the folder associated with this object from disk immediately, without moving it to the system trash.
+   * Folders must be empty before they can be deleted. Does not resolve aliases; instead, deletes the referenced alias or shortcut file itself. Returns true if the file was successfully removed.
+   * IMPORTANT: Cannot be undone. It is recommended that you prompt the user for permission before deleting.
+   */
+  remove(): boolean;
+
+  /**
+   * Renames the associated folder.
+   * Does not resolve aliases, but renames the referenced alias or shortcut file itself. Returns true if the folder was successfully renamed.
+   * @param newName The new folder name, with no path information.
+   */
+  rename(newName: string): boolean;
+
+  /**
+   * Attempts to resolve the file-system alias or shortcut that this object refers to.
+   * If successful, creates and returns a new Folder object that points to the resolved file system element. Returns null if this object does not refer to an alias, or if the alias could not be resolved.
+   */
+  resolve(): Folder;
+
+  /**
+   * Opens the built-in platform-specific file-browsing dialog, and creates a new File or Folder object for the selected file or folder.
+   * Differs from the class method selectDialog() in that it preselects this folder.
+   * If the user clicks OK, returns a File or Folder object for the selected file or folder.
+   * If the user cancels, returns null.
+   * @param prompt The prompt text, if the dialog allows a prompt.
+   */
+  selectDlg(prompt?: string): Folder;
+
+  /**
+   * Creates and returns a serialized string representation of this object.
+   * Pass the resulting string to eval() to recreate the object.
+   */
+  toSource(): string;
+
+  /**
+   * Converts this object to a string.
+   */
+  toString(): string;
+}
+
+interface SocketConstructor {
+  readonly prototype: Socket;
+
+  /**
+   * Creates a new Socket object.
+   */
+  new (): Socket;
+  (): Socket;
+}
+declare const Socket: SocketConstructor;
+
+/**
+ * Creates a TCP/IP connection, or establishes a TCP/IP server.
+ */
+interface Socket {
+  /**
+   * When true, the connection is active.
+   */
+  readonly connected: boolean;
+
+  /**
+   * Sets or retrieves the name of the encoding used to transmit data.
+   * Typical values are "ASCII", "BINARY", or "UTF-8".
+   */
+  encoding: string;
+
+  /**
+   * When true, the receive buffer is empty.
+   */
+  readonly eof: boolean;
+
+  /**
+   * A message describing the most recent error. Setting this value clears any error message.
+   */
+  error: string;
+
+  /**
+   * The name of the remote computer when a connection is established.
+   * If the connection is shut down or does not exist, the property contains the empty string.
+   */
+  readonly host: string;
+
+  /**
+   * The timeout in seconds to be applied to read or write operations.
+   */
+  timeout: number;
+
+  /**
+   * Terminates the open connection.
+   * Returns true if the connection was closed, false on I/O errors.
+   * Deleting the object also closes the connection, but not until JavaScript garbage-collects the object. The connection might stay open longer than you wish if you do not close it explicitly.
+   */
+  close(): boolean;
+
+  /**
+   * Instructs the object to start listening for an incoming connection.
+   * The call to open() and the call to listen()are mutually exclusive. Call one function or the other, not both.
+   * @param port The TCP/IP port number to listen on. Valid port numbers are 1 to 65535. Typical values are 80 for a Web server, 23 for a Telnet server and so on.
+   * @param encoding The encoding to be used for the connection Typical values are "ASCII", "BINARY", or "UTF-8".
+   */
+  listen(port: number, encoding?: string): boolean;
+
+  /**
+   * Opens the connection for subsequent read/write operations.
+   * The call to open() and the call to listen() are mutually exclusive. Call one function or the other, not both.
+   * @param host The server to connect to. This can be a DNS name, an IPv4 address, or an IPv6 address, followed by a colon and a port number.
+   * @param encoding The encoding to be used for the connection Typical values are "ASCII", "binary", or "UTF-8".
+   */
+  open(host: string, encoding?: string): boolean;
+
+  /**
+   * Checks a listening object for a new incoming connection.
+   * If a connection request was detected, the method returns a new Socket object that wraps the new connection. Use this connection object to communicate with the remote computer. After use, close the connection and delete the JavaScript object. If no new connection request was detected, the method returns null.
+   */
+  poll(): Socket;
+
+  /**
+   * Reads up to the specified number of characters from the connection. CR characters are ignored unless the encoding is set to "BINARY".
+   * Returns a string that contains up to the number of characters that were supposed to be read, or the number of characters read before the connection closed or timed out.
+   * @param count The number of characters to read. If not supplied, the connection attempts to read as many characters it can get and returns immediately.
+   */
+  read(count?: number): string;
+
+  /**
+   * Reads one line of text up to the next line feed.
+   * Line feeds are recognized as LF or CRLF pairs. CR characters are ignored. Returns a string containing the characters.
+   */
+  readln(): string;
+
+  /**
+   * Concatenates all arguments into a single string and writes that string to the connection.
+   * @param text Any number of string values. All arguments are concatenated to form the string to be written. CRLF sequences are converted to LFs unless the encoding is set to "BINARY".
+   */
+  write(text: string): boolean;
+
+  /**
+   * Concatenates all arguments into a single string, appends a LF character, and writes that string to the connection.
+   * @param text Any number of string values. All arguments are concatenated to form the string to be written. CRLF sequences are converted to LFs unless the encoding is set to "BINARY".
+   */
+  writeln(text: string): boolean;
+}
+
+/**
+ * Provides information about a method, a property or a method parameters.
+ */
+interface ReflectionInfo {
+  /**
+   * The description of method or function arguments.
+   */
+  readonly arguments: ReflectionInfo[];
+
+  /**
+   * The data type.
+   */
+  readonly dataType: string;
+
+  /**
+   * The default value.
+   */
+  readonly defaultValue: any;
+
+  /**
+   * The long description text.
+   */
+  readonly description: string;
+
+  /**
+   * The short description text.
+   */
+  readonly help: string;
+
+  /**
+   * Contains true if the class describes a collection class.
+   */
+  readonly isCollection: boolean;
+
+  /**
+   * The maximum value.
+   */
+  readonly max: number;
+
+  /**
+   * The minimum value.
+   */
+  readonly min: number;
+
+  /**
+   * The element name.
+   */
+  readonly name: string;
+
+  /**
+   * The class object that this element belongs to.
+   */
+  readonly parent: Reflection;
+
+  /**
+   * Sample code, if present.
+   */
+  readonly sampleCode: string;
+
+  /**
+   * A file containing sample code. May be null.
+   */
+  readonly sampleFile: File;
+
+  /**
+   * The element type.
+   * One of unknown, readonly, readwrite, createonly, method or parameter.
+   */
+  readonly type: string;
+}
+declare const ReflectionInfo: ReflectionInfo;
+
+/**
+ * Provides information about a class.
+ */
+interface Reflection {
+  /**
+   * The long description text.
+   */
+  readonly description: string;
+
+  /**
+   * The short description text.
+   */
+  readonly help: string;
+
+  /**
+   * An array of method descriptions.
+   */
+  readonly methods: ReflectionInfo[];
+
+  /**
+   * The class name.
+   */
+  readonly name: string;
+
+  /**
+   * An array of property descriptions.
+   */
+  readonly properties: ReflectionInfo[];
+
+  /**
+   * Sample code, if present.
+   */
+  readonly sampleCode: string;
+
+  /**
+   * A file containing sample code. May be null.
+   */
+  readonly sampleFile: File;
+
+  /**
+   * An array of class method descriptions.
+   */
+  readonly staticMethods: ReflectionInfo[];
+
+  /**
+   * An array of class property descriptions.
+   */
+  readonly staticProperties: ReflectionInfo[];
+
+  /**
+   * Finds an element description by name.
+   * @param name The name of the element to find.
+   */
+  find(name: string): ReflectionInfo;
+
+  /**
+   * Returns this class information as XML in OMV format.
+   */
+  toXML(): XML;
+}
+declare const Reflection: Reflection;
+
+interface QNameConstructor {
+  readonly prototype: QName;
+
+  /**
+   * Creates a QName object.
+   * @param uri The URI, specified as a Namespace object, an existing QName object, or string. If this is a Namespace object, the URI is set to the namespace URI, and there is no local name. If this is a QName object, the URI and localName is set to those of that object. If this is a string, the URI is set to that string.
+   * @param name The local name. Used only if URI is given as a string.
+   */
+  new (uri: any, name?: string): QName;
+  (uri: any, name?: string): QName;
+}
+declare const QName: QNameConstructor;
+
+/**
+ * A qualified XML name, containing the URI and the local name.
+ */
+interface QName {
+  /**
+   * The local name part of the qualified name.
+   */
+  readonly localName: string;
+
+  /**
+   * The URI part of the qualified name.
+   */
+  readonly uri: string;
+}
+
+interface NamespaceConstructor {
+  readonly prototype: Namespace;
+
+  /**
+   * Creates a Namespace object.
+   * @param prefix The URIprefix, specified as an existing Namespace object, QName object, or string. If this is a Namespace or a QName object, the URI and prefix are set to that of the object. If this is a string, the prefix is set to that string, and the URI must be specified.
+   * @param uri The URI if the prefix is specified as a string.
+   */
+  new (prefix: any, uri?: string): Namespace;
+  (prefix: any, uri?: string): Namespace;
+}
+declare const Namespace: NamespaceConstructor;
+
+/**
+ * A XML namespace object.
+ */
+interface Namespace {
+  /**
+   * The named prefix.
+   */
+  readonly prefix: string;
+
+  /**
+   * The URI.
+   */
+  readonly uri: string;
+}
+
+interface XMLConstructor {
+  readonly prototype: XML;
+
+  /**
+   * Parses an XML string. Throws an error if the XML is incorrect.
+   * @param text The text to parse.
+   */
+  new (text: string): XML;
+  (text: string): XML;
+
+  /**
+   * Controls whether XML comments should be parsed (false) or ignored (true).
+   */
+  ignoreComments: boolean;
+
+  /**
+   * Controls whether XML preprocessing instructions should be parsed (false) or ignored (true).
+   */
+  ignoreProcessingInstructions: boolean;
+
+  /**
+   * Controls whether whitespace should be parsed (false) or ignored (true).
+   */
+  ignoreWhitespace: boolean;
+
+  /**
+   * The number of spaces used to indent pretty-printed XML.
+   */
+  prettyIndent: number;
+
+  /**
+   * When true, XML is pretty-printed when converting to a string.
+   */
+  prettyPrinting: boolean;
+
+  /**
+   * Returns an object containing the default parsing and print settings for XML.
+   */
+  defaultSettings(): object;
+
+  /**
+   * Sets the parsing and print setting for XML using an object returned by the settings() method.
+   * @param obj The object containing the settings to set.
+   */
+  setSettings(obj: object): void;
+
+  /**
+   * Returns an object containing the current parsing and print settings for XML.
+   */
+  settings(): object;
+}
+declare const XML: XMLConstructor;
+
+/**
+ * Wraps XML into an object.
+ */
+interface XML {
+  /**
+   * Adds a namespace declaration to the node. Returns the XML object itself.
+   * @param namespace The namespace to add.
+   */
+  addNamespace(namespace: Namespace): XML;
+
+  /**
+   * Appends the given XML to this XML as a child. Returns the XML object itself.
+   * If the argument is not XML, creates a new XML element containing the argument as text. The element name of that new XML is the same as the last element in the original XML.
+   * @param child The child XML to add.
+   */
+  appendChild(child: XML): XML;
+
+  /**
+   * Returns a list containing all attribute elements matching the given name.
+   * @param name The attribute name to look for.
+   */
+  attribute(name: string): XML;
+
+  /**
+   * Returns a list containing all attribute elements.
+   */
+  attributes(): XML;
+
+  /**
+   * Returns a list containing all children of this XML matching the given element name.
+   * If the argument is a number, uses the number as index into the array of children.
+   * @param name The name or the index of the child element.
+   */
+  child(name: string): XML;
+
+  /**
+   * Returns a number representing the ordinal position of this XML object within the context of its parent.
+   */
+  childIndex(): number;
+
+  /**
+   * Returns an XML object containing all the properties of this XML object in order.
+   */
+  children(): XML;
+
+  /**
+   * Returns an XML object containing the properties of this XML object that represent XML comments.
+   */
+  comments(): XML;
+
+  /**
+   * Checks if this XML object contains the given XML object.
+   * @param xml The XML to search for.
+   */
+  contains(xml: XML): boolean;
+
+  /**
+   * Creates a copy of this XML object.
+   */
+  copy(): XML;
+
+  /**
+   * Returns all the XML-valued descendants of this XML object with the given name.
+   * If the name parameter is omitted, returns all descendants of this XML object.
+   * @param name The name of the descendant to find.
+   */
+  descendants(name?: string): XML;
+
+  /**
+   * Returns a list of XML children that are elements with a given name, or all children that are XML elements.
+   * @param name The element name. If not supplied, gets all children that are XML elements.
+   */
+  elements(name?: string): XML;
+
+  /**
+   * Reports whether this XML object contains complex content.
+   * An XML object is considered to contain complex content if it represents an XML element that has child elements. XML objects representing attributes, comments, processing instructions and text nodes do not have complex content. The existence of attributes, comments, processing instructions and text nodes within an XML object is not significant in determining if it has complex content.
+   */
+  hasComplexContent(): boolean;
+
+  /**
+   * Reports whether this XML object contains simple content.
+   * An XML object is considered to contain simple content if it represents a text node, represents an attribute node or if it represents an XML element that has no child elements. XML objects representing comments and processing instructions do not have simple content. The existence of attributes, comments, processing instructions and text nodes within an XML object is not significant in determining if it has simple content.
+   */
+  hasSimpleContent(): boolean;
+
+  /**
+   * Returns an array of Namespace objects mirroring the current list of valid namespaces at this element.
+   * The last element of thereturned array is the default namespace.
+   */
+  inScopeNamespaces(): Namespace[];
+
+  /**
+   * Inserts the given child2 after the given child1 in this XML object and returns this XML object.
+   * If child1 is null, the method inserts child2 before all children of this XML object (that is, after none of them). If child1 does not exist in this XML object, the method returns without modifying this XML object.
+   * @param child1 The child to insert the other child after. If null, the method inserts child2 before all children of this XML object.
+   * @param child2 The XML to insert.
+   */
+  insertChildAfter(child1: XML, child2: XML): void;
+
+  /**
+   * Inserts the given child2 before the given child1 in this XML object and returns this XML object.
+   * If child1 is null, the method inserts child2 after all children of this XML object (that is, before none of them). If child1 does not exist in this XML object, the method returns without modifying this XML object.
+   * @param child1 The child to search for. If null, the method inserts child2 after all children of this XML object.
+   * @param child2 The XML to insert.
+   */
+  insertChildBefore(child1: XML, child2: XML): void;
+
+  /**
+   * Returns the number of elements contained in an XML list. If this XML object is not a list, returns 1.
+   */
+  length(): number;
+
+  /**
+   * Returns the local name of this XML object.
+   * This value corresponds to the element name unless the name has a namespace prefix. For example, if the element has the name "ns:tag", the return value is "tag".
+   */
+  localName(): string;
+
+  /**
+   * Returns a QName object containing the URI and the local name of the element.
+   */
+  name(): QName;
+
+  /**
+   * Returns a Namespace object containing the namespace URI of the current element.
+   */
+  namespace(): Namespace;
+
+  /**
+   * Returns an array containing all namespace declarations of this XML object.
+   */
+  namespaceDeclarations(): Namespace[];
+
+  /**
+   * Returns the type of this XML object as one of the strings "element", "attribute", "comment", "processing-instruction", or "text".
+   */
+  nodeKind(): string;
+
+  /**
+   * Puts all text nodes in this and all descendant XML objects into a normal form by merging adjacent text nodes and eliminating empty text nodes. Returns this XML object.
+   */
+  normalize(): XML;
+
+  /**
+   * Returns the parent object of this XML object.
+   * The root object, as returned by the XML constructor, does not have a parent and returns null. Note that the E4X standard does not define what happens if this XML object is a list containing elements with multiple parents.
+   */
+  parent(): XML;
+
+  /**
+   * Inserts a given child into this object before its existing XML properties, and returns this XML object.
+   * @param child The XML to insert.
+   */
+  prependChild(child: XML): XML;
+
+  /**
+   * Returns a list of preprocessing instructions.
+   * Collects processing-instructions with the given name, if supplied. Otherwise, returns an XML list containing all the children of this XML object that are processing-instructions regardless of their name.
+   * @param name The name of the preprocessing instruction to return.
+   */
+  processingInstructions(name?: string): XML;
+
+  /**
+   * Removes the given namespace from this XML, and returns this XML.
+   * @param namespace The namespace to remove.
+   */
+  removeNamespace(namespace: Namespace): XML;
+
+  /**
+   * Replaces the value of specified XML properties of this XML object returns this XML object.
+   * This method acts like the assignment operator.
+   * @param name The property name. Can be a numeric property name, a name for a set of XML elements, or the properties wildcard “*”. If this XML object contains no properties that match the name, the method returns without modifying this XML object.
+   * @param value The XML with which to replace the value of the matching property. Can be an XML object, XML list or any value that can be converted to a String with toString().
+   */
+  replace(name: string, value: XML): XML;
+
+  /**
+   * Replaces all of the XML-valued properties in this object with a new value, and returns this XML object.
+   * @param value The new value, which can be a single XML object or an XML list.
+   */
+  setChildren(value: XML): XML;
+
+  /**
+   * Replaces the local name of this XML objectwith a string constructed from the given name
+   * The local name is any part behind a colon character. If there is no colon, it is the entire name.
+   * @param name The name to set.
+   */
+  setLocalName(name: string): void;
+
+  /**
+   * Replaces the name of this XML object with the given QName object.
+   * @param name The fully qualified name.
+   */
+  setName(name: QName): void;
+
+  /**
+   * Sets the namespace for this XML element.
+   * If the namespace has not been declared in the tree above this element, adds a namespace declaration.
+   * @param namespace The namespace to set.
+   */
+  setNamespace(namespace: Namespace): void;
+
+  /**
+   * Returns an XML list containing all XML properties of this XML object that represent XML text nodes.
+   */
+  text(): XML;
+
+  /**
+   * Returns the string representation of this object.
+   * For text and attribute nodes, this is the textual value of the node; for other elements, this is the result of calling the toXMLString() method. If this XML object is a list, concatenates the result of calling toString() on each element.
+   */
+  toString(): string;
+
+  /**
+   * Returns an XML-encoded string representation of this XML object.
+   * Always includes the start tag, attributes and end tag of the XML object regardless of its content. It is provided for cases when the default XML to string conversion rules are not desired. Interprets the global settings XML.prettyPrint and XML.prettyIndent.
+   */
+  toXMLString(): string;
+
+  /**
+   * Evaluates the given XPath expression in accordance with the W3C XPath recommendation, using this XML object as the context node.
+   * @param expr The XPath expression to use.
+   */
+  xpath(expr: string): XML;
+}
+
+/**
+ * An XML list object.
+ * In this implementation, an XMLList object is synonymous to the XML object. The constructor accepts an XML list, but everything else works like theXML object.
+ */
+interface XMLList {}
+declare const XMLList: XMLList;
+
+interface UnitValueConstructor {
+  readonly prototype: UnitValue;
+
+  /**
+   * Creates a new UnitValue object.
+   */
+  new (value: string | UnitValue): UnitValue;
+  (value: string | UnitValue): UnitValue;
+
+  /**
+   * The base unit for all conversions.
+   */
+  baseUnit: UnitValue;
+}
+declare const UnitValue: UnitValueConstructor;
+
+/**
+ * Represents a measurement as a combination of values and unit.
+ * Note that this object is not available in all applications.
+ */
+interface UnitValue {
+  /**
+   * The base unit.
+   */
+  baseUnit: UnitValue;
+
+  /**
+   * The unit name.
+   */
+  readonly type: string;
+
+  /**
+   * The numeric value.
+   */
+  value: number;
+
+  /**
+   * Returns this instance as a different unit.
+   * @param unitName The unit name.
+   */
+  as(unitName: string): UnitValue;
+
+  /**
+   * Converts this instance to a different unit.
+   * @param unitName The unit name.
+   */
+  convert(unitName: string): any;
+}
+
+/**
+ * Only for TypeScript compatibility
+ */
+interface CallableFunction extends Function {}
+
+interface NewableFunction extends Function {}
+
+interface IArguments {
+  [index: number]: any;
+  length: number;
+  callee: Function;
+}
+
+/**
+ * Make all properties in T optional
+ */
+type Partial<T> = { [P in keyof T]?: T[P] };
+
+/**
+ * Make all properties in T readonly
+ */
+type Readonly<T> = { readonly [P in keyof T]: T[P] };
+
+/**
+ * From T pick a set of properties K
+ */
+type Pick<T, K extends keyof T> = { [P in K]: T[P] };
+
+/**
+ * Construct a type with a set of properties K of type T
+ */
+type Record<K extends string, T> = { [P in K]: T };
 
 /**
  * The global BridgeTalk object.
@@ -147015,6 +152024,1258 @@ interface $ {
 }
 declare const $: $;
 
+
+interface FileConstructor {
+  readonly prototype: File;
+
+  /**
+   * Creates and returns a new File object referring to a given file system location.
+   * @param path The full or partial path name of the file,in platform-specific or URI format. The value stored in the object is the absolute path. The file that the path refers to does not need to exist.If the path refers to an existing folder: The File function returns a Folder object instead of a File object. The new operator returns a File object for a nonexisting file with the same name.
+   */
+  new (path?: string): File;
+  (path?: string): File;
+
+  /**
+   * The name of the file system.
+   * This is a class property accessed through the File constructor. Valid values are "Windows", "Macintosh", and "Unix".
+   */
+  readonly fs: string;
+
+  /**
+   * Decodes a UTF-8 encoded string as required by RFC 2396, and returns the decoded string.
+   * See also String.decodeURI().
+   * @param uri The UTF-8 encoded string to decode.
+   */
+  decode(uri: string): string;
+
+  /**
+   * Encodes a string as required by RFC 2396, and returns the encoded string.
+   * All special characters are encoded in UTF-8 and stored as escaped characters starting with the percent sign followed by two hexadecimal digits. For example, the string "my file" is encoded as "my%20file".
+   * Special characters are those with a numeric value greater than 127, except the following: / - _ . ! ~ * ' ( )
+   * See also encodeURI().
+   * @param name The string to encode.
+   */
+  encode(name: string): string;
+
+  /**
+   * Reports whether a given encoding is available.
+   * @param name The encoding name. Typical values are "ASCII", "binary", or "UTF-8".For a complete list of supported encodings, see the JavaScript Tools Guide.
+   */
+  isEncodingAvailable(name: string): boolean;
+
+  /**
+   * Opens a dialog so the user can select one or more files to open.
+   * Opens the built-in platform-specific file-browsing dialog in which a user can select an existing file or multiple files, and creates new File objects to represent the selected files.
+   * If the user clicks OK, returns a File object for the selected file, or an array of objects if multiple files are selected.
+   * If the user cancels, returns null.
+   * @param prompt The prompt text, displayed if the dialog allows a prompt.
+   * @param filter A filter that limits the types of files displayed in the dialog. In Windows,a filter expression such as "Javascript files:*.jsx;All files:*.*". In Mac OS, a filter function that takes a File instance and returns true if the file should be included in the display, false if it should not.
+   * @param multiSelect When true, the user can select multiple files and the return value is an array.
+   */
+  openDialog(prompt?: string, filter?: any, multiSelect?: boolean): File;
+
+  /**
+   * Opens a dialog so the user can select a file name to save to.
+   * Opens the built-in platform-specific file-browsing dialog in which a user can select an existing file location to which to save information, and creates a new File object to represent the selected file location.
+   * If the user clicks OK, returns a File object for the selected file location.
+   * If the user cancels, returns null.
+   * @param prompt The prompt text, displayed if the dialog allows a prompt.
+   * @param filter In Windows only, a filter that limits the types of files displayed in the dialog. In Windows only,a filter expression such as "Javascript files:*.jsx;All files:*.*". Not used In Mac OS.
+   */
+  saveDialog(prompt?: string, filter?: any): File;
+}
+declare const File: FileConstructor;
+
+/**
+ * Represents a file in the local file system in a platform-independent manner.
+ */
+interface File {
+  /**
+   * The full path name for the referenced file in URI notation.
+   */
+  readonly absoluteURI: string;
+
+  /**
+   * If true, the object refers to a file system alias or shortcut.
+   */
+  readonly alias: boolean;
+
+  /**
+   * The creation date of the referenced file, or null if the object does not refer to a file on disk.
+   */
+  readonly created: Date;
+
+  /**
+   * In Mac OS, the file creator as a four-character string. In Windows or UNIX, value is "????".
+   */
+  readonly creator: string;
+
+  /**
+   * The localized name of the referenced file, without the path specification.
+   */
+  readonly displayName: string;
+
+  /**
+   * Gets or sets the encoding for subsequent read/write operations.
+   * One of the encoding constants listed in the JavaScript Tools Guide. If the value is not recognized, uses the system default encoding.A special encoder, BINARY, is used to read binary files. It stores each byte of the file as one Unicode character regardless of any encoding. When writing, the lower byte of each Unicode character is treated as a single byte to write.
+   */
+  encoding: string;
+
+  /**
+   * When true, a read attempt caused the current position to be at the end of the file, or the file is not open.
+   */
+  readonly eof: boolean;
+
+  /**
+   * A string containing a message describing the most recent file system error.
+   * Typically set by the file system, but a script can set it. Setting this value clears any error message and resets the error bit for opened files. Contains the empty string if there is no error.
+   */
+  error: string;
+
+  /**
+   * If true, this object refers to a file or file-system alias that actually exists in the file system.
+   */
+  readonly exists: boolean;
+
+  /**
+   * The platform-specific full path name for the referenced file.
+   */
+  readonly fsName: string;
+
+  /**
+   * The full path name for the referenced file in URI notation.
+   */
+  readonly fullName: string;
+
+  /**
+   * When true, the file is not shown in the platform-specific file browser.
+   * If the object references a file-system alias or shortcut, the flag is altered on the alias, not on the original file.
+   */
+  hidden: boolean;
+
+  /**
+   * The size of the file in bytes.
+   * Can be set only for a file that is not open, in which case it truncates or pads the file with 0-bytes to the new length.
+   */
+  length: number;
+
+  /**
+   * How line feed characters are written in the file system.
+   * One of the values "Windows", "Macintosh", or "Unix".
+   */
+  lineFeed: string;
+
+  /**
+   * The date of the referenced file's last modification, or null if the object does not refer to a file on the disk.
+   */
+  readonly modified: Date;
+
+  /**
+   * The file name portion of the absolute URI for the referenced file, without the path specification.
+   */
+  readonly name: string;
+
+  /**
+   * The Folder object for the folder that contains this file.
+   */
+  readonly parent: Folder;
+
+  /**
+   * The path portion of the absolute URI for the referenced file, without the file name.
+   */
+  readonly path: string;
+
+  /**
+   * When true, prevents the file from being altered or deleted.
+   * If the referenced file is a file-system alias or shortcut, the flag is altered on the alias, not on the original file.
+   */
+  readonly: boolean;
+
+  /**
+   * The path name for the object in URI notation, relative to the current folder.
+   */
+  readonly relativeURI: string;
+
+  /**
+   * The file type as a four-character string.
+   * In Mac OS, the Mac OS file type.
+   * In Windows, "appl" for .EXE files, "shlb" for .DLL files and "TEXT" for any other file.
+   */
+  readonly type: string;
+
+  /**
+   * Changes the path specification of the referenced file.
+   * @param path A string containing the new path, absolute or relative to the current folder.
+   */
+  changePath(path: string): boolean;
+
+  /**
+   * Closes this open file.
+   * Returns true if the file was closed successfully, false if an I/O error occurred.
+   */
+  close(): boolean;
+
+  /**
+   * Copies this object’s referenced file to the specified target location.
+   * Resolves any aliases to find the source file. If a file exists at the target location, it is overwritten.
+   * Returns true if the copy was successful.
+   * @param target A string with the URI path to the target location, or a File object that references the target location.
+   */
+  copy(target: string): boolean;
+
+  /**
+   * Makes this file a file-system alias or shortcut to the specified file.
+   * The referenced file for this object must not yet exist on disk. Returns true if the operation was successful.
+   * @param path A string containing the path of the target file.
+   */
+  createAlias(path: string): void;
+
+  /**
+   * Executes or opens this file using the appropriate application, as if it had been double-clicked in a file browser.
+   * You can use this method to run scripts, launch applications, and so on.Returns true immediately if the application launch was successful.
+   */
+  execute(): boolean;
+
+  /**
+   * Retrieves and returns the path for this file, relative to the specified base path, in URI notation.
+   * If no base path is supplied, the URI is relative to the path of the current folder.Returns a string containing the relative URI.
+   * @param basePath A base path in URI notation.
+   */
+  getRelativeURI(basePath: string): string;
+
+  /**
+   * Opens the referenced file for subsequent read/write operations. The method resolves any aliases to find the file.
+   * Returns true if the file was opened successfully.The method attempts to detect the encoding of the open file. It reads a few bytes at the current location and tries to detect the Byte Order Mark character 0xFFFE. If found, the current position is advanced behind the detected character and the encoding property is set to one of the strings UCS-2BE, UCS-2LE, UCS4-BE, UCS-4LE, or UTF-8. If the marker character is not found, it checks for zero bytes at the current location and makes an assumption about one of the above formats (except UTF-8). If everything fails, the encoding property is set to the system encoding.
+   * IMPORTANT: Be careful about opening a file more than once. The operating system usually permits you to do so, but if you start writing to the file using two different File objects, you can destroy your data.
+   * @param mode The read-write mode, a single-character string. One of these characters: r (read) Opens for reading. If the file does not exist or cannot be found, the call fails. w (write) Opens a file for writing. If the file exists, its contents are destroyed. If the file does not exist, creates a new, empty file. e (edit) Opens an existing file for reading and writing. a (append) Opens an existing file for reading and writing, and moves the current position to the end of the file.
+   * @param type In Mac OS, the type of a newly created file, a 4-character string. Ignored in Windows and UNIX.
+   * @param creator In Mac OS, the creator of a newly created file, a 4-character string. Ignored in Windows and UNIX.
+   */
+  open(mode: string, type?: string, creator?: string): boolean;
+
+  /**
+   * Opens the built-in platform-specific file-browsing dialog, in which the user can select an existing file or files, and creates new File objects to represent the selected files.
+   * Differs from the class method openDialog() in that it presets the current folder to this File object’s parent folder and the current file to this object’s associated file.
+   * If the user clicks OK, returns a File or Folder object for the selected file or folder, or an array of objects.
+   * If the user cancels, returns null.
+   * @param prompt A string containing the prompt text, if the dialog allows a prompt.
+   * @param filter A filter that limits the types of files displayed in the dialog. In Windows,a filter expression such as "Javascript files:*.jsx;All files:*.*". In Mac OS, a filter function that takes a File instance and returns true if the file should be included in the display, false if it should not.
+   * @param multiSelect When true, the user can select multiple files and the return value is an array.
+   */
+  openDlg(prompt?: string, filter?: any, multiSelect?: boolean): File;
+
+  /**
+   * Reads the contents of the file, starting at the current position.
+   * Returns a string that contains up to the specified number of characters. If a number of characters is not supplied, reads from the current position to the end of the file. If the file is encoded, multiple bytes might be read to create single Unicode characters.
+   * @param chars An integer specifying the number of characters to read.
+   */
+  read(chars?: number): string;
+
+  /**
+   * Reads a single text character from the file at the current position.
+   * Line feeds are recognized as CR, LF, CRLF or LFCR pairs.If the file is encoded, multiple bytes might be read to create a single Unicode character. Returns a string that contains the character.
+   */
+  readch(): string;
+
+  /**
+   * Reads a single line of text from the file at the current position.
+   * Line feeds are recognized as CR, LF, CRLF or LFCR pairs.. If the file is encoded, multiple bytes might be read to create single Unicode characters. Returns a string that contains the text.
+   */
+  readln(): string;
+
+  /**
+   * Deletes the file associated with this object from disk immediately, without moving it to the system trash.
+   * Does not resolve aliases; instead, deletes the referenced alias or shortcut file itself. Returns true if the file was successfully removed.
+   * IMPORTANT: Cannot be undone. It is recommended that you prompt the user for permission before deleting.
+   */
+  remove(): boolean;
+
+  /**
+   * Renames the associated file.
+   * Does not resolve aliases, but renames the referenced alias or shortcut file itself. Returns true if the file was successfully renamed.
+   * @param newName The new file name, with no path information.
+   */
+  rename(newName: string): boolean;
+
+  /**
+   * Attempts to resolve the file-system alias or shortcut that this object refers to.
+   * If successful, creates and returns a new File object that points to the resolved file system element. Returns null if this object does not refer to an alias, or if the alias could not be resolved.
+   */
+  resolve(): File;
+
+  /**
+   * Opens the built-in platform-specific file-browsing dialog, in which the user can select an existing file location to which to save information, and creates a new File object to represent the selected file.
+   * Differs from the class method saveDialog() in that it presets the current folder to this File object’s parent folder and the file to this object’s associated file.
+   * If the user clicks OK, returns a File object for the selected file.
+   * If the user cancels, returns null.
+   * @param prompt A string containing the prompt text, if the dialog allows a prompt.
+   * @param filter In Windows only, a filter that limits the types of files displayed in the dialog. In Windows only,a filter expression such as "Javascript files:*.jsx;All files:*.*". Not used In Mac OS.
+   */
+  saveDlg(prompt?: string, filter?: any): File;
+
+  /**
+   * Seeks to a given position in the file.
+   * The new position cannot be less than 0 or greater than the current file size. Returns true if the position was changed.
+   * @param pos The new current position in the file as an offset in bytes from the start, current position, or end, depending on the mode.
+   * @param mode The seek mode. One of: 0: Seek to absolute position, where pos=0 is the first byte of the file. This is the default. 1: Seek relative to the current position. 2. Seek backward from the end of the file.
+   */
+  seek(pos: number, mode?: number): boolean;
+
+  /**
+   * Retrieves the current position as a byte offset from the start of the file.
+   * Returns a number, the position index.
+   */
+  tell(): number;
+
+  /**
+   * Creates and returns a serialized string representation of this object.
+   * Pass the resulting string to eval() to recreate the object.
+   */
+  toSource(): string;
+
+  /**
+   * Converts this object to a string.
+   */
+  toString(): string;
+
+  /**
+   * Writes the specified text to the file at the current position.
+   * You can supply multiple text values; the strings are concatenated to form a single string.For encoded files, writing a single Unicode character may write multiple bytes. Returns true if the write was successful.IMPORTANT: Be careful not to write to a file that is open in another application or object, as this can overwrite existing data.
+   * @param text A text string to be written.
+   */
+  write(text: string): boolean;
+
+  /**
+   * Writes a string to the file at the current position and appends a line-feed sequence.
+   * You can supply multiple text values. The strings are concatenated into a single string, which is written in the file followed by one line-feed sequence, of the style specified by this object's linefeed property.For encoded files, writing a single Unicode character may write multiple bytes.Returns true if the write was successful.IMPORTANT: Be careful not to write to a file that is open in another application or object, as this can overwrite existing data.
+   * @param text A text string to be written.
+   */
+  writeln(text: string): boolean;
+}
+
+interface FolderConstructor {
+  readonly prototype: Folder;
+
+  /**
+   * Creates and returns a new Folder object referring to a given file-system location.
+   * If the path name refers to an already existing disk file, a File object is returned instead.Returns the new Folder object.
+   * @param path The absolute or relative path to the folder associated with this object, specified in URI format. The value stored in the object is the absolute path.The path need not refer to an existing folder. If the path refers to an existing file, rather than a folder: The Folder() function returns a File object instead of a Folder object. The new operator returns a Folder object for a nonexisting folder with the same name.
+   */
+  new (path?: string): Folder;
+  (path?: string): Folder;
+
+  /**
+   * The folder containing the application data for all users.
+   * In Windows, the value of %APPDATA% (by default, C:\\Documents and Settings\\All Users\\Application Data)
+   * In Mac OS, /Library/Application Support
+   */
+  readonly appData: Folder;
+
+  /**
+   * In Mac OS, a Folder object for the folder containing the bundle of the running application.
+   */
+  readonly appPackage: Folder;
+
+  /**
+   * A Folder object for the folder containing common files for all programs installed by the user.
+   * In Windows, the value of %CommonProgramFiles% (by default, C:\\Program Files\\Common Files)
+   * In Mac OS, /Library/Application Support
+   */
+  readonly commonFiles: Folder;
+
+  /**
+   * A Folder object for the current folder.
+   * Assign a Folder object or a string containing the new path name to set the current folder. This is a class property accessed through the Folder constructor.
+   */
+  current: Folder;
+
+  /**
+   * A Folder object for the folder that contains the user’s desktop.
+   * In Windows, C:\\Documents and Settings\\username\\Desktop
+   * In Mac OS, ~/Desktop
+   */
+  readonly desktop: Folder;
+
+  /**
+   * The name of the current file system.
+   * One of "Windows", "Macintosh", or "Unix".
+   */
+  readonly fs: string;
+
+  /**
+   * A folder pointing to the user's My Documents folder.
+   * In Windows, C:\\Documents and Settings\\username\\My Documents
+   * In Mac OS,~/Documents
+   */
+  readonly myDocuments: Folder;
+
+  /**
+   * A Folder object for the folder containing the executable image of the running application.
+   */
+  readonly startup: Folder;
+
+  /**
+   * A Folder object for the folder containing the operating system files.
+   * In Windows, the value of %windir% (by default, C:\\Windows)
+   * In Mac OS, /System
+   */
+  readonly system: Folder;
+
+  /**
+   * A Folder object for the default folder for temporary files.
+   */
+  readonly temp: Folder;
+
+  /**
+   * A Folder object for the folder containing deleted items. On Windows, the trash folder is a virtual
+   * folder containing a database; therefore, the property value is null on Windows.
+   */
+  readonly trash: Folder;
+
+  /**
+   * A Folder object for the folder containing the user's application data.
+   * In Windows, the value of %USERDATA% (by default, C:\\Documents and Settings\\username\\Application Data)
+   * In Mac OS,~/Library/Application Support.
+   */
+  readonly userData: Folder;
+
+  /**
+   * Decodes a UTF-8 encoded string as required by RFC 2396, and returns the decoded string.
+   * See also String.decodeURI().
+   * @param uri The UTF-8 string to decode.
+   */
+  decode(uri: string): string;
+
+  /**
+   * Encodes a string as required by RFC 2396, and returns the encoded string.
+   * All special characters are encoded in UTF-8 and stored as escaped characters starting with the percent sign followed by two hexadecimal digits. For example, the string "my file" is encoded as "my%20file".
+   * Special characters are those with a numeric value greater than 127, except the following: / - _ . ! ~ * ' ( )
+   * See also encodeURI().
+   * @param name The string to encode.
+   */
+  encode(name: string): string;
+
+  /**
+   * Reports whether a given encoding is available.
+   * @param name The encoding name. Typical values are "ASCII", "binary", or "UTF-8".For a complete list of supported encodings, see the JavaScript Tools Guide.
+   */
+  isEncodingAvailable(name: string): boolean;
+
+  /**
+   * Opens the built-in platform-specific file-browsing dialog, and creates a new File or Folder object for the selected file or folder.
+   * Differs from the object method selectDlg() in that it does not preselect a folder.
+   * If the user clicks OK, returns a File or Folder object for the selected file or folder.
+   * If the user cancels, returns null.
+   * @param prompt The prompt text, if the dialog allows a prompt.
+   */
+  selectDialog(prompt?: string): Folder;
+}
+declare const Folder: FolderConstructor;
+
+/**
+ * Represents a file-system folder or directory in a platform-independent manner.
+ */
+interface Folder {
+  /**
+   * The full path name for the referenced folder in URI notation.
+   */
+  readonly absoluteURI: string;
+
+  /**
+   * When true, the object refers to a file system alias or shortcut.
+   */
+  readonly alias: boolean;
+
+  /**
+   * The creation date of the referenced folder, or null if the object does not refer to a folder on disk.
+   */
+  readonly created: Date;
+
+  /**
+   * The localized name portion of the absolute URI for the referenced folder, without the path specification.
+   */
+  readonly displayName: string;
+
+  /**
+   * A message describing the most recent file system error.
+   * Typically set by the file system, but a script can set it. Setting this value clears any error message and resets the error bit for opened files. Contains the empty string if there is no error.
+   */
+  error: string;
+
+  /**
+   * When true, this object refers to a folder that currently exists in the file system.
+   */
+  readonly exists: boolean;
+
+  /**
+   * The platform-specific name of the referenced folder as a full path name.
+   */
+  readonly fsName: string;
+
+  /**
+   * The full path name for the referenced folder in URI notation. .
+   */
+  readonly fullName: string;
+
+  /**
+   * The date of the referenced folder's last modification, or null if the object does not refer to a folder on disk.
+   */
+  readonly modified: Date;
+
+  /**
+   * The folder name portion of the absolute URI for the referenced file, without the path specification.
+   */
+  readonly name: string;
+
+  /**
+   * TThe Folder object for the folder that contains this folder, or null if this object refers to the root folder of a volume.
+   */
+  readonly parent: Folder;
+
+  /**
+   * The path portion of the object absolute URI for the referenced file, without the folder name.
+   */
+  readonly path: string;
+
+  /**
+   * The path name for the referenced folder in URI notation, relative to the current folder.
+   */
+  readonly relativeURI: string;
+
+  /**
+   * Changes the path specification of the referenced folder.
+   * @param path A string containing the new path, absolute or relative to the current folder.
+   */
+  changePath(path: string): boolean;
+
+  /**
+   * Creates a folder at the location given by this object's path property.
+   * Returns true if the folder was created.
+   */
+  create(): boolean;
+
+  /**
+   * Opens this folder in the platform-specific file browser (as if it had been double-clicked in the file browser).
+   * Returns true immediately if the folder was opened successfully.
+   */
+  execute(): boolean;
+
+  /**
+   * Retrieves the contents of this folder, filtered by the supplied mask.
+   * Returns an array of File and Folder objects, or null if this object's referenced folder does not exist.
+   * @param mask A search mask for file names, specified as a string or a function. A mask string can contain question mark (?) and asterisk (*) wild cards. Default is "*", which matches all file names. Can also be the name of a function that takes a File or Folder object as its argument. It is called for each file or folder found in the search; if it returns true, the object is added to the return array. NOTE: In Windows, all aliases end with the extension .lnk. ExtendScript strips this from the file name when found, in order to preserve compatibility with other operating systems. You can search for all aliases by supplying the search mask "*.lnk", but note that such code is not portable.
+   */
+  getFiles(mask: any): Array<File | Folder>;
+
+  /**
+   * Retrieves and returns the path for this file, relative to the specified base path, in URI notation.
+   * If no base path is supplied, the URI is relative to the path of the current folder.Returns a string containing the relative URI.
+   * @param basePath A base path in URI notation.
+   */
+  getRelativeURI(basePath?: string): string;
+
+  /**
+   * Deletes the folder associated with this object from disk immediately, without moving it to the system trash.
+   * Folders must be empty before they can be deleted. Does not resolve aliases; instead, deletes the referenced alias or shortcut file itself. Returns true if the file was successfully removed.
+   * IMPORTANT: Cannot be undone. It is recommended that you prompt the user for permission before deleting.
+   */
+  remove(): boolean;
+
+  /**
+   * Renames the associated folder.
+   * Does not resolve aliases, but renames the referenced alias or shortcut file itself. Returns true if the folder was successfully renamed.
+   * @param newName The new folder name, with no path information.
+   */
+  rename(newName: string): boolean;
+
+  /**
+   * Attempts to resolve the file-system alias or shortcut that this object refers to.
+   * If successful, creates and returns a new Folder object that points to the resolved file system element. Returns null if this object does not refer to an alias, or if the alias could not be resolved.
+   */
+  resolve(): Folder;
+
+  /**
+   * Opens the built-in platform-specific file-browsing dialog, and creates a new File or Folder object for the selected file or folder.
+   * Differs from the class method selectDialog() in that it preselects this folder.
+   * If the user clicks OK, returns a File or Folder object for the selected file or folder.
+   * If the user cancels, returns null.
+   * @param prompt The prompt text, if the dialog allows a prompt.
+   */
+  selectDlg(prompt?: string): Folder;
+
+  /**
+   * Creates and returns a serialized string representation of this object.
+   * Pass the resulting string to eval() to recreate the object.
+   */
+  toSource(): string;
+
+  /**
+   * Converts this object to a string.
+   */
+  toString(): string;
+}
+
+interface SocketConstructor {
+  readonly prototype: Socket;
+
+  /**
+   * Creates a new Socket object.
+   */
+  new (): Socket;
+  (): Socket;
+}
+declare const Socket: SocketConstructor;
+
+/**
+ * Creates a TCP/IP connection, or establishes a TCP/IP server.
+ */
+interface Socket {
+  /**
+   * When true, the connection is active.
+   */
+  readonly connected: boolean;
+
+  /**
+   * Sets or retrieves the name of the encoding used to transmit data.
+   * Typical values are "ASCII", "BINARY", or "UTF-8".
+   */
+  encoding: string;
+
+  /**
+   * When true, the receive buffer is empty.
+   */
+  readonly eof: boolean;
+
+  /**
+   * A message describing the most recent error. Setting this value clears any error message.
+   */
+  error: string;
+
+  /**
+   * The name of the remote computer when a connection is established.
+   * If the connection is shut down or does not exist, the property contains the empty string.
+   */
+  readonly host: string;
+
+  /**
+   * The timeout in seconds to be applied to read or write operations.
+   */
+  timeout: number;
+
+  /**
+   * Terminates the open connection.
+   * Returns true if the connection was closed, false on I/O errors.
+   * Deleting the object also closes the connection, but not until JavaScript garbage-collects the object. The connection might stay open longer than you wish if you do not close it explicitly.
+   */
+  close(): boolean;
+
+  /**
+   * Instructs the object to start listening for an incoming connection.
+   * The call to open() and the call to listen()are mutually exclusive. Call one function or the other, not both.
+   * @param port The TCP/IP port number to listen on. Valid port numbers are 1 to 65535. Typical values are 80 for a Web server, 23 for a Telnet server and so on.
+   * @param encoding The encoding to be used for the connection Typical values are "ASCII", "BINARY", or "UTF-8".
+   */
+  listen(port: number, encoding?: string): boolean;
+
+  /**
+   * Opens the connection for subsequent read/write operations.
+   * The call to open() and the call to listen() are mutually exclusive. Call one function or the other, not both.
+   * @param host The server to connect to. This can be a DNS name, an IPv4 address, or an IPv6 address, followed by a colon and a port number.
+   * @param encoding The encoding to be used for the connection Typical values are "ASCII", "binary", or "UTF-8".
+   */
+  open(host: string, encoding?: string): boolean;
+
+  /**
+   * Checks a listening object for a new incoming connection.
+   * If a connection request was detected, the method returns a new Socket object that wraps the new connection. Use this connection object to communicate with the remote computer. After use, close the connection and delete the JavaScript object. If no new connection request was detected, the method returns null.
+   */
+  poll(): Socket;
+
+  /**
+   * Reads up to the specified number of characters from the connection. CR characters are ignored unless the encoding is set to "BINARY".
+   * Returns a string that contains up to the number of characters that were supposed to be read, or the number of characters read before the connection closed or timed out.
+   * @param count The number of characters to read. If not supplied, the connection attempts to read as many characters it can get and returns immediately.
+   */
+  read(count?: number): string;
+
+  /**
+   * Reads one line of text up to the next line feed.
+   * Line feeds are recognized as LF or CRLF pairs. CR characters are ignored. Returns a string containing the characters.
+   */
+  readln(): string;
+
+  /**
+   * Concatenates all arguments into a single string and writes that string to the connection.
+   * @param text Any number of string values. All arguments are concatenated to form the string to be written. CRLF sequences are converted to LFs unless the encoding is set to "BINARY".
+   */
+  write(text: string): boolean;
+
+  /**
+   * Concatenates all arguments into a single string, appends a LF character, and writes that string to the connection.
+   * @param text Any number of string values. All arguments are concatenated to form the string to be written. CRLF sequences are converted to LFs unless the encoding is set to "BINARY".
+   */
+  writeln(text: string): boolean;
+}
+
+/**
+ * Provides information about a method, a property or a method parameters.
+ */
+interface ReflectionInfo {
+  /**
+   * The description of method or function arguments.
+   */
+  readonly arguments: ReflectionInfo[];
+
+  /**
+   * The data type.
+   */
+  readonly dataType: string;
+
+  /**
+   * The default value.
+   */
+  readonly defaultValue: any;
+
+  /**
+   * The long description text.
+   */
+  readonly description: string;
+
+  /**
+   * The short description text.
+   */
+  readonly help: string;
+
+  /**
+   * Contains true if the class describes a collection class.
+   */
+  readonly isCollection: boolean;
+
+  /**
+   * The maximum value.
+   */
+  readonly max: number;
+
+  /**
+   * The minimum value.
+   */
+  readonly min: number;
+
+  /**
+   * The element name.
+   */
+  readonly name: string;
+
+  /**
+   * The class object that this element belongs to.
+   */
+  readonly parent: Reflection;
+
+  /**
+   * Sample code, if present.
+   */
+  readonly sampleCode: string;
+
+  /**
+   * A file containing sample code. May be null.
+   */
+  readonly sampleFile: File;
+
+  /**
+   * The element type.
+   * One of unknown, readonly, readwrite, createonly, method or parameter.
+   */
+  readonly type: string;
+}
+declare const ReflectionInfo: ReflectionInfo;
+
+/**
+ * Provides information about a class.
+ */
+interface Reflection {
+  /**
+   * The long description text.
+   */
+  readonly description: string;
+
+  /**
+   * The short description text.
+   */
+  readonly help: string;
+
+  /**
+   * An array of method descriptions.
+   */
+  readonly methods: ReflectionInfo[];
+
+  /**
+   * The class name.
+   */
+  readonly name: string;
+
+  /**
+   * An array of property descriptions.
+   */
+  readonly properties: ReflectionInfo[];
+
+  /**
+   * Sample code, if present.
+   */
+  readonly sampleCode: string;
+
+  /**
+   * A file containing sample code. May be null.
+   */
+  readonly sampleFile: File;
+
+  /**
+   * An array of class method descriptions.
+   */
+  readonly staticMethods: ReflectionInfo[];
+
+  /**
+   * An array of class property descriptions.
+   */
+  readonly staticProperties: ReflectionInfo[];
+
+  /**
+   * Finds an element description by name.
+   * @param name The name of the element to find.
+   */
+  find(name: string): ReflectionInfo;
+
+  /**
+   * Returns this class information as XML in OMV format.
+   */
+  toXML(): XML;
+}
+declare const Reflection: Reflection;
+
+interface QNameConstructor {
+  readonly prototype: QName;
+
+  /**
+   * Creates a QName object.
+   * @param uri The URI, specified as a Namespace object, an existing QName object, or string. If this is a Namespace object, the URI is set to the namespace URI, and there is no local name. If this is a QName object, the URI and localName is set to those of that object. If this is a string, the URI is set to that string.
+   * @param name The local name. Used only if URI is given as a string.
+   */
+  new (uri: any, name?: string): QName;
+  (uri: any, name?: string): QName;
+}
+declare const QName: QNameConstructor;
+
+/**
+ * A qualified XML name, containing the URI and the local name.
+ */
+interface QName {
+  /**
+   * The local name part of the qualified name.
+   */
+  readonly localName: string;
+
+  /**
+   * The URI part of the qualified name.
+   */
+  readonly uri: string;
+}
+
+interface NamespaceConstructor {
+  readonly prototype: Namespace;
+
+  /**
+   * Creates a Namespace object.
+   * @param prefix The URIprefix, specified as an existing Namespace object, QName object, or string. If this is a Namespace or a QName object, the URI and prefix are set to that of the object. If this is a string, the prefix is set to that string, and the URI must be specified.
+   * @param uri The URI if the prefix is specified as a string.
+   */
+  new (prefix: any, uri?: string): Namespace;
+  (prefix: any, uri?: string): Namespace;
+}
+declare const Namespace: NamespaceConstructor;
+
+/**
+ * A XML namespace object.
+ */
+interface Namespace {
+  /**
+   * The named prefix.
+   */
+  readonly prefix: string;
+
+  /**
+   * The URI.
+   */
+  readonly uri: string;
+}
+
+interface XMLConstructor {
+  readonly prototype: XML;
+
+  /**
+   * Parses an XML string. Throws an error if the XML is incorrect.
+   * @param text The text to parse.
+   */
+  new (text: string): XML;
+  (text: string): XML;
+
+  /**
+   * Controls whether XML comments should be parsed (false) or ignored (true).
+   */
+  ignoreComments: boolean;
+
+  /**
+   * Controls whether XML preprocessing instructions should be parsed (false) or ignored (true).
+   */
+  ignoreProcessingInstructions: boolean;
+
+  /**
+   * Controls whether whitespace should be parsed (false) or ignored (true).
+   */
+  ignoreWhitespace: boolean;
+
+  /**
+   * The number of spaces used to indent pretty-printed XML.
+   */
+  prettyIndent: number;
+
+  /**
+   * When true, XML is pretty-printed when converting to a string.
+   */
+  prettyPrinting: boolean;
+
+  /**
+   * Returns an object containing the default parsing and print settings for XML.
+   */
+  defaultSettings(): object;
+
+  /**
+   * Sets the parsing and print setting for XML using an object returned by the settings() method.
+   * @param obj The object containing the settings to set.
+   */
+  setSettings(obj: object): void;
+
+  /**
+   * Returns an object containing the current parsing and print settings for XML.
+   */
+  settings(): object;
+}
+declare const XML: XMLConstructor;
+
+/**
+ * Wraps XML into an object.
+ */
+interface XML {
+  /**
+   * Adds a namespace declaration to the node. Returns the XML object itself.
+   * @param namespace The namespace to add.
+   */
+  addNamespace(namespace: Namespace): XML;
+
+  /**
+   * Appends the given XML to this XML as a child. Returns the XML object itself.
+   * If the argument is not XML, creates a new XML element containing the argument as text. The element name of that new XML is the same as the last element in the original XML.
+   * @param child The child XML to add.
+   */
+  appendChild(child: XML): XML;
+
+  /**
+   * Returns a list containing all attribute elements matching the given name.
+   * @param name The attribute name to look for.
+   */
+  attribute(name: string): XML;
+
+  /**
+   * Returns a list containing all attribute elements.
+   */
+  attributes(): XML;
+
+  /**
+   * Returns a list containing all children of this XML matching the given element name.
+   * If the argument is a number, uses the number as index into the array of children.
+   * @param name The name or the index of the child element.
+   */
+  child(name: string): XML;
+
+  /**
+   * Returns a number representing the ordinal position of this XML object within the context of its parent.
+   */
+  childIndex(): number;
+
+  /**
+   * Returns an XML object containing all the properties of this XML object in order.
+   */
+  children(): XML;
+
+  /**
+   * Returns an XML object containing the properties of this XML object that represent XML comments.
+   */
+  comments(): XML;
+
+  /**
+   * Checks if this XML object contains the given XML object.
+   * @param xml The XML to search for.
+   */
+  contains(xml: XML): boolean;
+
+  /**
+   * Creates a copy of this XML object.
+   */
+  copy(): XML;
+
+  /**
+   * Returns all the XML-valued descendants of this XML object with the given name.
+   * If the name parameter is omitted, returns all descendants of this XML object.
+   * @param name The name of the descendant to find.
+   */
+  descendants(name?: string): XML;
+
+  /**
+   * Returns a list of XML children that are elements with a given name, or all children that are XML elements.
+   * @param name The element name. If not supplied, gets all children that are XML elements.
+   */
+  elements(name?: string): XML;
+
+  /**
+   * Reports whether this XML object contains complex content.
+   * An XML object is considered to contain complex content if it represents an XML element that has child elements. XML objects representing attributes, comments, processing instructions and text nodes do not have complex content. The existence of attributes, comments, processing instructions and text nodes within an XML object is not significant in determining if it has complex content.
+   */
+  hasComplexContent(): boolean;
+
+  /**
+   * Reports whether this XML object contains simple content.
+   * An XML object is considered to contain simple content if it represents a text node, represents an attribute node or if it represents an XML element that has no child elements. XML objects representing comments and processing instructions do not have simple content. The existence of attributes, comments, processing instructions and text nodes within an XML object is not significant in determining if it has simple content.
+   */
+  hasSimpleContent(): boolean;
+
+  /**
+   * Returns an array of Namespace objects mirroring the current list of valid namespaces at this element.
+   * The last element of thereturned array is the default namespace.
+   */
+  inScopeNamespaces(): Namespace[];
+
+  /**
+   * Inserts the given child2 after the given child1 in this XML object and returns this XML object.
+   * If child1 is null, the method inserts child2 before all children of this XML object (that is, after none of them). If child1 does not exist in this XML object, the method returns without modifying this XML object.
+   * @param child1 The child to insert the other child after. If null, the method inserts child2 before all children of this XML object.
+   * @param child2 The XML to insert.
+   */
+  insertChildAfter(child1: XML, child2: XML): void;
+
+  /**
+   * Inserts the given child2 before the given child1 in this XML object and returns this XML object.
+   * If child1 is null, the method inserts child2 after all children of this XML object (that is, before none of them). If child1 does not exist in this XML object, the method returns without modifying this XML object.
+   * @param child1 The child to search for. If null, the method inserts child2 after all children of this XML object.
+   * @param child2 The XML to insert.
+   */
+  insertChildBefore(child1: XML, child2: XML): void;
+
+  /**
+   * Returns the number of elements contained in an XML list. If this XML object is not a list, returns 1.
+   */
+  length(): number;
+
+  /**
+   * Returns the local name of this XML object.
+   * This value corresponds to the element name unless the name has a namespace prefix. For example, if the element has the name "ns:tag", the return value is "tag".
+   */
+  localName(): string;
+
+  /**
+   * Returns a QName object containing the URI and the local name of the element.
+   */
+  name(): QName;
+
+  /**
+   * Returns a Namespace object containing the namespace URI of the current element.
+   */
+  namespace(): Namespace;
+
+  /**
+   * Returns an array containing all namespace declarations of this XML object.
+   */
+  namespaceDeclarations(): Namespace[];
+
+  /**
+   * Returns the type of this XML object as one of the strings "element", "attribute", "comment", "processing-instruction", or "text".
+   */
+  nodeKind(): string;
+
+  /**
+   * Puts all text nodes in this and all descendant XML objects into a normal form by merging adjacent text nodes and eliminating empty text nodes. Returns this XML object.
+   */
+  normalize(): XML;
+
+  /**
+   * Returns the parent object of this XML object.
+   * The root object, as returned by the XML constructor, does not have a parent and returns null. Note that the E4X standard does not define what happens if this XML object is a list containing elements with multiple parents.
+   */
+  parent(): XML;
+
+  /**
+   * Inserts a given child into this object before its existing XML properties, and returns this XML object.
+   * @param child The XML to insert.
+   */
+  prependChild(child: XML): XML;
+
+  /**
+   * Returns a list of preprocessing instructions.
+   * Collects processing-instructions with the given name, if supplied. Otherwise, returns an XML list containing all the children of this XML object that are processing-instructions regardless of their name.
+   * @param name The name of the preprocessing instruction to return.
+   */
+  processingInstructions(name?: string): XML;
+
+  /**
+   * Removes the given namespace from this XML, and returns this XML.
+   * @param namespace The namespace to remove.
+   */
+  removeNamespace(namespace: Namespace): XML;
+
+  /**
+   * Replaces the value of specified XML properties of this XML object returns this XML object.
+   * This method acts like the assignment operator.
+   * @param name The property name. Can be a numeric property name, a name for a set of XML elements, or the properties wildcard “*”. If this XML object contains no properties that match the name, the method returns without modifying this XML object.
+   * @param value The XML with which to replace the value of the matching property. Can be an XML object, XML list or any value that can be converted to a String with toString().
+   */
+  replace(name: string, value: XML): XML;
+
+  /**
+   * Replaces all of the XML-valued properties in this object with a new value, and returns this XML object.
+   * @param value The new value, which can be a single XML object or an XML list.
+   */
+  setChildren(value: XML): XML;
+
+  /**
+   * Replaces the local name of this XML objectwith a string constructed from the given name
+   * The local name is any part behind a colon character. If there is no colon, it is the entire name.
+   * @param name The name to set.
+   */
+  setLocalName(name: string): void;
+
+  /**
+   * Replaces the name of this XML object with the given QName object.
+   * @param name The fully qualified name.
+   */
+  setName(name: QName): void;
+
+  /**
+   * Sets the namespace for this XML element.
+   * If the namespace has not been declared in the tree above this element, adds a namespace declaration.
+   * @param namespace The namespace to set.
+   */
+  setNamespace(namespace: Namespace): void;
+
+  /**
+   * Returns an XML list containing all XML properties of this XML object that represent XML text nodes.
+   */
+  text(): XML;
+
+  /**
+   * Returns the string representation of this object.
+   * For text and attribute nodes, this is the textual value of the node; for other elements, this is the result of calling the toXMLString() method. If this XML object is a list, concatenates the result of calling toString() on each element.
+   */
+  toString(): string;
+
+  /**
+   * Returns an XML-encoded string representation of this XML object.
+   * Always includes the start tag, attributes and end tag of the XML object regardless of its content. It is provided for cases when the default XML to string conversion rules are not desired. Interprets the global settings XML.prettyPrint and XML.prettyIndent.
+   */
+  toXMLString(): string;
+
+  /**
+   * Evaluates the given XPath expression in accordance with the W3C XPath recommendation, using this XML object as the context node.
+   * @param expr The XPath expression to use.
+   */
+  xpath(expr: string): XML;
+}
+
+/**
+ * An XML list object.
+ * In this implementation, an XMLList object is synonymous to the XML object. The constructor accepts an XML list, but everything else works like theXML object.
+ */
+interface XMLList {}
+declare const XMLList: XMLList;
+
+interface UnitValueConstructor {
+  readonly prototype: UnitValue;
+
+  /**
+   * Creates a new UnitValue object.
+   */
+  new (value: string | UnitValue): UnitValue;
+  (value: string | UnitValue): UnitValue;
+
+  /**
+   * The base unit for all conversions.
+   */
+  baseUnit: UnitValue;
+}
+declare const UnitValue: UnitValueConstructor;
+
+/**
+ * Represents a measurement as a combination of values and unit.
+ * Note that this object is not available in all applications.
+ */
+interface UnitValue {
+  /**
+   * The base unit.
+   */
+  baseUnit: UnitValue;
+
+  /**
+   * The unit name.
+   */
+  readonly type: string;
+
+  /**
+   * The numeric value.
+   */
+  value: number;
+
+  /**
+   * Returns this instance as a different unit.
+   * @param unitName The unit name.
+   */
+  as(unitName: string): UnitValue;
+
+  /**
+   * Converts this instance to a different unit.
+   * @param unitName The unit name.
+   */
+  convert(unitName: string): any;
+}
+
+/**
+ * Only for TypeScript compatibility
+ */
+interface CallableFunction extends Function {}
+
+interface NewableFunction extends Function {}
+
+interface IArguments {
+  [index: number]: any;
+  length: number;
+  callee: Function;
+}
+
+/**
+ * Make all properties in T optional
+ */
+type Partial<T> = { [P in keyof T]?: T[P] };
+
+/**
+ * Make all properties in T readonly
+ */
+type Readonly<T> = { readonly [P in keyof T]: T[P] };
+
+/**
+ * From T pick a set of properties K
+ */
+type Pick<T, K extends keyof T> = { [P in K]: T[P] };
+
+/**
+ * Construct a type with a set of properties K of type T
+ */
+type Record<K extends string, T> = { [P in K]: T };
+
 /**
  * The global BridgeTalk object.
  */
@@ -150121,4 +156382,2088 @@ interface _WindowPanelGroupAdd {
 
 `;
 
-export { es5, ANYshim, ILSTshim, AEFTshim, PHXSshim, AUDTshim, PPROshim, IDSNshim };
+
+let XDshim = `
+/**
+ * All rendition settings fields are required (for a given rendition type) unless otherwise specified.
+ */
+type RenditionSettings = {
+    /**
+     * Root of scenegraph subtree to render. This may be any node in the scenegraph, regardless of the current edit context.
+     */
+    node: SceneNode;
+    /**
+     * File to save the rendition to (overwritten without warning if it already exists)
+     */
+    outputFile: File;
+    /**
+     * File type: RenditionType.PNG, JPG, PDF, or SVG
+     */
+    type: string;
+    /**
+     * (PNG & JPG renditions) DPI multipler in the range [0.1, 100], e.g. 2.0 for @2x DPI.
+     */
+    scale: number;
+    /**
+     * (JPG renditions) Compression quality in the range [1, 100].
+     */
+    quality: number;
+    /**
+     * (PNG & JPEG renditions) Alpha component ignored for JPG. Optional: defaults to transparent for PNG, solid white for JPG.
+     */
+    background: Color;
+    /**
+     * (SVG renditions) If true, SVG code is minified.
+     */
+    minify: boolean;
+    /**
+     * (SVG renditions) If true, bitmap images are stored as base64 data inside the SVG file. If false, bitmap images are saved as separate files linked from the SVG code.
+     */
+    embedImages: boolean;
+}
+
+/**
+ * Type that gets returned by 'application.createRenditions'
+ */
+type RenditionResult = {
+    /**
+     * File the rendition was written to (equal to outputFile in RenditionSettings)
+     */
+    outputFile: File;
+}
+
+/**
+ * Generate renditions of nodes in the document in a batch. Overwrites any existing files without warning.
+ *
+ * A single createRenditions() call can generate any number of renditions, including multiple renditions of the same node (with different output settings) or renditions of multiple different nodes. Only one createRenditions() call can be executing at any given time, so wait for the Promise it returns before calling it again.
+ *
+ * @param renditions List of renditions to generate
+ * @return Promise<Array<RenditionResult>, string> - Promise which is fulfilled with an array of RenditionResults (pointing to the same outputFiles that were originally passed in, or rejected with an error string if one or more renditions failed for any reason.
+ */
+export function createRenditions(renditions: RenditionSettings[]): Promise<RenditionResult[] | string>;
+
+/**
+ * Adobe XD version number in the form "major.minor.patch.build"
+ */
+export const version: string;
+
+/**
+ * Current language the application UI is using. This may not equal the user's OS locale setting: it is the closest locale supported by XD - use this when you want your plugin's UI to be consistent with XD's UI. Specifies language only, with no region info (e.g. "fr", not "fr_FR").
+ */
+export const appLanguage: string;
+
+/**
+ * User's OS-wide locale setting. May not match the XD UI, since XD does not support all world languages. Includes both language and region (e.g. "fr_CA" or "en_US").
+ */
+export const systemLocale: string;
+
+/**
+ * Type of gradient color element: linear gradient or radial gradient
+ */
+export enum GradientType {
+    LINEAR,
+    RADIAL
+}
+
+/**
+ * Assets library entry representing a solid color.
+ */
+declare ColorAsset = {
+    /**
+     * Name of the Assets entry, if it is explicitly named. (The UI shows an auto-generated label for any unnamed assets).
+     */
+    name?: string;
+
+    /**
+     * Color of the asset
+     */
+    color: Color;
+}
+
+/**
+ * Assets library entry representing a linear or radial gradient.
+ */
+type GradientAsset = {
+    /**
+     * Name of the Assets entry, if it is explicitly named. (The UI shows an auto-generated label for any unnamed assets).
+     */
+    name?: string;
+    /**
+     * Either 'GradientType.LINEAR' or 'GradientType.RADIAL'
+     */
+    gradientType: GradientType;
+    /**
+     * Array of color stops used in the gradient, where stop >= 0 and <= 1, and the values are strictly increasing. Same format as the colorStops property of a LinearGradientFill object.
+     */
+    colorStops: Array<{ stop: number, color: Color }>
+}
+
+/**
+ * Assets library entry representing a set of text character styles.
+ */
+type CharacterStyleAsset = {
+    /**
+     * Name of the Assets entry, if it is explicitly named. (The UI shows an auto-generated label for any unnamed assets).
+     */
+    name?: string;
+    /**
+     * Object containing the style properties
+     */
+    style: CharacterStyle;
+}
+
+/**
+ * Character style properties. See documentation for the Text node type for more details.
+ *
+ * When creating a new character style, all properties are mandatory except those with default values specified here. When deleting
+ an existing character style, always pass the exact object returned by ['characterStyles.get()'](#module_assets-characterStyles-get) (with all properties fully
+ specified) to avoid any ambiguity.
+ */
+type CharacterStyle = {
+    /**
+     * the font family
+     */
+    fontFamily: string;
+    /**
+     * the style of the font
+     */
+    fontStyle: string;
+    /**
+     * the size of the font
+     */
+    fontSize: number;
+    /**
+     * the Color of the font fill
+     */
+    fill: Color;
+    /**
+     * the character spacing
+     */
+    charSpacing: number;
+    /**
+     * the line spacing
+     */
+    lineSpacing: number;
+    /**
+     * whether underline is turned on
+     */
+    underline: boolean;
+    /**
+     * (**Since**: XD 19)
+     * Default 'false'; whether strikethrough is turned on
+     */
+    strikethrough?: boolean;
+    /**
+     * (**Since**: XD 19)
+     * Default "none"; one of "none", "uppercase", "lowercase", or "titlecase"
+     */
+    textTransform?: 'none' | 'uppercase' | 'lowercase' | 'titlecase';
+    /**
+     * (**Since**: XD 20)
+     * Default "none"; one of "none", "superscript", or "subscript"
+     */
+    textScript?: 'none' | 'superscript' | 'subscript';
+}
+
+/**
+ * The collection of colors and gradients saved in this document's Asset library
+ */
+interface colors {
+    /**
+     * Get a list of all color/gradient assets, in the order they appear in the Assets panel.
+     *
+     * The list may contain a mix of solid Color assets and/or gradient assets. If there are no color/gradient assets, an empty array is returned.
+     *
+     * @example
+     *  var assets = require("assets"),
+     *  allColors = assets.colors.get();
+     *
+     */
+    get(): Array<ColorAsset | GradientAsset>;
+
+    /**
+     * Add color/gradient assets to the collection.
+     *
+     * The list may contain a mix of solid Color assets and/or gradient assets. Items are not added if a duplicate color/gradient already exists in the collection, *regardless of its name*.
+     * @param colorAssets The color assets
+     * @returns {number} number of assets added (may be less than requested if duplicates already exist)
+     */
+    add(colorAssets: Color | ColorAsset | LinearGradientFill | RadialGradientFill | GradientAsset | Array<Color | ColorAsset | LinearGradientFill | RadialGradientFill | GradientAsset>): number;
+
+    /**
+     * Delete color/gradient assets from the collection.
+     *
+     * The list may contain a mix of solid Color assets and/or gradient assets. Assets with the same color/gradient are removed even if their names differ. Assets that already don't exist in the collection are silently ignored. Typically you will pass asset objects returned from 'get()' directly to this function.
+     *
+     * @param colorAssets The color assets
+     * @returns {number} number of assets deleted (may be less than requested if some didn't exist)
+     */
+    delete(colorAssets: Color | ColorAsset | LinearGradientFill | RadialGradientFill | GradientAsset | Array<Color | ColorAsset | LinearGradientFill | RadialGradientFill | GradientAsset>): number;
+}
+
+/**
+ * The collection of character styles saved in this document's Assets library.
+ */
+interface characterStyles {
+    /**
+     * Get a list of all character style assets, in the order they appear in the Assets panel.
+     *
+     * If there are no character style assets, an empty array is returned.
+     *
+     * @example
+     *  var assets = require("assets"),
+     *  allCharacterStyles = assets.characterStyles.get();
+     *
+     */
+    get(): Array<CharacterStyleAsset>;
+
+    /**
+     * Add one or more character style assets to the collection.
+     *
+     * Items are not added if a duplicate character style already exists in the collection, regardless of its name. All character style properties must be fully specified (no properties are optional).
+     *
+     * @param charStyleAssets The character style assets
+     * @returns {number} number of assets added (may be less than requested if duplicates already exist)
+     */
+    add(charStyleAssets: CharacterStyleAsset | Array<CharacterStyleAsset>): number;
+
+    /**
+     * Delete one or more character style assets from the collection.
+     *
+     * Assets with the same character style are removed *even if their names differ*. Assets that already don't exist in the
+     * collection are silently ignored. All character style properties must be fully specified (no properties are optional).
+     * To avoid ambiguity, pass the exact asset objects returned from ['get()'](#module_assets-characterStyles-get) directlyto this function.
+     *
+     * @returns {number} number of assets deleted (may be less than requested if some didn't exist)
+     * @param charStyleAssets The character styles
+     */
+    delete(charStyleAssets: CharacterStyleAsset | Array<CharacterStyleAsset>): number;
+}
+
+/**
+ * The collection of colors and gradients saved in this document's Asset library
+ */
+export const colors: colors;
+/**
+ * The collection of character styles saved in this document's Assets library.
+ */
+export const characterStyles: characterStyles;
+
+
+/**
+ * Write plain text to the clipboard.
+ * @param text Will be automatically converted to string if a different type is passed
+ */
+export function copyText(text: string | any): void;
+
+interface BaseSharedArtifact {
+    type: ArtifactType;
+    /**
+     * URL to view in browser
+     */
+    url: string;
+    /**
+     * Name of shared artifact (often, but not always, matches the document name)
+     */
+    name: string;
+    /**
+     * Level of access protection
+     */
+    accessLevel: AccessLevel;
+    /**
+     * True if stakeholders can post comments on this artifact
+     */
+    allowComments: boolean;
+}
+
+interface PrototypeArtifact extends BaseSharedArtifact {
+    type: ArtifactType.PROTOTYPE;
+    /**
+     * URL for embedding a view of the prototype inside an iframe (compact view with minimal surrounding UI)
+     */
+    embedURL: string;
+    /**
+     * iframe width needed to display embedURL. May include room for navigation UI in addition to the prototype's content itself.
+     */
+    embedWidth: number;
+    /**
+     * iframe height needed to display embedURL. May include room for navigation UI in addition to the prototype's content itself.
+     */
+    embedHeight: number;
+    /**
+     * True if prototype defaults to a view that fills the entire page, with no surrounding UI visible for navigation, commenting, etc.
+     */
+    fullscreenInPage: boolean;
+    /**
+     * True if clicking in non-interactive parts of the prototype flashes visual hints indicating the interactive spots
+     */
+    hotspotHints: boolean;
+}
+
+interface SpecsArtifact extends BaseSharedArtifact {
+    type: ArtifactType.SPECS;
+    /**
+     * Target platform. Determines which information and measurement units are shown by default.
+     */
+    targetPlatform: TargetPlatform
+}
+
+/**
+ * Type of shared artifact: interactive prototype or developer-focused specs view
+ */
+export enum ArtifactType {
+    PROTOTYPE = 'prototype',
+    SPECS = 'specs'
+}
+
+/**
+ * Target platform for published design specs
+ */
+export enum TargetPlatform {
+    WEB = 'Web',
+    IOS = 'iOS',
+    ANDROID = 'Android'
+}
+
+
+/**
+ * Access level of the shared link: accessible to anyone with the link, anyone with the link + password, or only specific Creative Cloud user accounts
+ */
+export enum AccessLevel {
+    LINKABLE = 'linkable',
+    PASSWORD_PROTECTED = 'passwordProtected',
+    INVITE_ONLY = 'inviteOnly'
+}
+
+/**
+ * Get a list of recently shared artifacts generated from this document. Older artifacts may not be included even if the shared links are still live. Shared links that have been deleted from the server (File > Manage Published Links) may still be listed here, as this API only provides a record of recent share actions from XD - not what the links' current status on the server may be.
+ *
+ * The list may contain a mix of PrototypeArtifact and/or SpecsArtifact, and items are listed in no particular order. If nothing has been shared from this document, an empty array is returned.
+ *
+ * @return {!Array<!PrototypeArtifact|SpecsArtifact>}
+ */
+export function getSharedArtifacts(): Array<PrototypeArtifact | SpecsArtifact>;
+
+/**
+ * Wraps the selected objects in a Group, leaving the Group selected afterward. Equivalent to Object > Group in the UI.
+ */
+export function group(): void;
+
+/**
+ * Ungroups any of the selected objects that are ungroupable containers (Group, SymbolInstance, RepeatGrid, etc.). Equivalent to _Object > Ungroup_.
+ */
+export function ungroup(): void;
+
+/**
+ * Creates a masked Group from the selected objects, using the object that is highest in the z order as the mask shape. The mask shape must be a leaf node or Boolean Group. Equivalent to Object > Mask With Shape.
+ */
+export function createMaskGroup(): void;
+
+/**
+ * Converts each selected object to a Path with the exact same visual appearance. Only applies to leaf nodes and Boolean Groups. Equivalent to Object > Path > Convert to Path.
+ */
+export function convertToPath(): void;
+
+/**
+ * Duplicates all selected objects, leaving the duplicates selected afterward.
+ *
+ * - If the objects are artboards, the duplicates are positioned to not overlap any more artboards, and are placed at the top of the artboard z order.
+ * - If normal objects, each duplicate is in the exact same position as the original, and just above it in the z order (duplicates of a multiple selection will not be contiguous in the z order if the originals were not).
+ *
+ * Edit > Duplicate
+ */
+export function duplicate(): void;
+
+/**
+ * Brings selected objects to the front of the z order. Equivalent to Object > Arrange > Bring to Front.
+ */
+export function bringToFront(): void;
+
+/**
+ * Brings each selected object one step closer to the front of the z order. Equivalent to Object > Arrange > Bring Forward.
+ */
+export function bringForward(): void;
+
+/**
+ * Sends selected objects to the back of the z order. Equivalent to Object > Arrange > Send to Back.
+ */
+export function sendToBack(): void;
+
+/**
+ * Sends each selected object one step closer to the back of the z order. Equivalent to Object > Arrange > Send Backward.
+ */
+export function sendBackward(): void;
+
+/**
+ * Aligns all selected objects flush left. Equivalent to Object > Align > Left.
+ */
+export function alignLeft(): void;
+
+/**
+ * Aligns all selected objects flush right. Equivalent to Object > Align > Right.
+ */
+export function alignRight(): void;
+
+/**
+ * Aligns all selected objects along their horizontal centerlines. Equivalent to Object > Align > Center (Horizontally).
+ */
+export function alignHorizontalCenter(): void;
+
+/**
+ * Aligns all selected objects flush top. Equivalent to Object > Align > Top.
+ */
+export function alignTop(): void;
+
+/**
+ * Aligns all selected objects flush bottom. Equivalent to Object > Align > Bottom.
+ */
+export function alignBottom(): void;
+
+/**
+ * Aligns all selected objects along their vertical centerlines. Equivalent to Object > Align > Center (Vertically).
+ */
+export function alignVerticalCenter(): void;
+
+/**
+ * Distributes all selected objects evenly along the X axis. Equivalent to Object > Distribute > Horizontally.
+ */
+export function distributeHorizontal(): void;
+
+/**
+ * Distributes all selected objects evenly along the Y axis. Equivalent to Object > Distribute > Vertically.
+ */
+export function distributeVertical(): void;
+
+/**
+ * Shifts all selected objects and their content so they align crisply with the pixel grid. Equivalent to Object > Align to Pixel Grid.
+ */
+export function alignToPixelGrid(): void;
+
+
+declare global {
+    /**
+     * Imports classes from a module (e.g. const { Text } = require('scenegraph'); )
+     * @param module The module name
+     */
+    function require(module: string): void;
+
+    let module: {exports:any};
+
+    /**
+     * The selection object represents the currently selected set of nodes in the UI. You can set the selection to use it as input for commands, or to determine what is left selected for the user when your plugin’s edit operation completes.
+     *
+     * The current selection state is passed to your command handler function as an argument.
+     *
+     * The selection can only contain items within the current edit context:
+     *
+     *  - If the user has drilled down into a container node, the container is the current edit context and only its immediate children can be selected.
+     *  - If the user hasn’t drilled into any container, the root of the document is the edit context, and the selection may contain any artboard or any combination of the pasteboard’s immediate children and one or more artboards’ immediate children. The selection cannot contain both artboards and non-artboards at the same time, however.
+     *
+     * Note that when in the root edit context, the selection can contain items with multiple different parents.
+     *
+     * Items that are locked cannot be in the selection. If the user or your plugin attempts to select any locked items, they are automatically filtered into a separate list (itemsIncludingLocked) which is generally only used by the Unlock command.
+     */
+    interface Selection {
+        /**
+         * Array representing the current selection. Empty array if nothing is selected (never null). Never includes locked nodes.
+         *
+         * As a convenience, the setter also accepts a single node or null as valid input. However, the getter always returns an array.
+         *
+         * If the user selects nodes one-by-one, by Shift-clicking, this array lists the nodes in the order they were added to the selection.
+         *
+         * Returns a fresh array each time, so this can be mutated by the caller without interfering with anything. Mutating the array does not change the selection - only invoking the ‘items’ setter changes selection.
+         */
+        items: Array<SceneNode>;
+        /**
+         * Array representing the current selection plus any locked items that the user has attempted to select.
+         */
+        itemsIncludingLocked: Array<SceneNode>;
+        /**
+         * True if the selection isn’t empty and consists of one or more non-Artboards. Never true at the same time as hasArtboards.
+         */
+        hasArtwork: boolean;
+        /**
+         * True if the selection isn’t empty and consists of one or more Artboards. Never true at the same time as hasArtwork.
+         */
+        hasArtboards: boolean;
+        /**
+         * The context in which selection and edit operations must occur. If the user hasn’t drilled into any container node, this value is the document root, and its scope includes all immediate children of the pasteboard (including Artboards), and all immediate children of all those Artboards.
+         */
+        editContext: SceneNode;
+        /**
+         * The preferred parent to insert newly added content into. Takes into account the current edit context as well as the “focused artboard” if in the root context.
+         */
+        insertionParent: SceneNode;
+        /**
+         * The artboard the user is currently most focused on (via recent selection or edit operations). May be null, for example if no artboards exist or if the user just deleted an artboard.
+         */
+        focusedArtboard: Artboard | null | undefined;
+    }
+}
+
+/**
+ * The starting Artboard seen when the interactive prototype is launched.
+ * @see Artboard.isHomeArtboard
+ */
+export const homeArtboard: Artboard | null;
+
+/**
+ * Returns a collection of *all* interactions across the entire document, grouped by triggering scenenode. Each entry in this array specifies a 'triggerNode' and the result of getting ['triggerNode.triggeredInteractions'](./scenegraph.md#SceneNode-triggeredInteractions).
+ *
+ * May include interactions that are impossible to trigger because the trigger node (or one of its ancestors) has 'visible' = false.
+ *
+ * Note: currently, this API excludes all of the document's keyboard/gamepad interactions.
+ */
+export const allInteractions: Array<{ triggerNode: SceneNode, interactions: Array<Interaction> }>;
+
+/**
+ * An interaction consists of a Trigger + Action pair and is attached to a single, specific scenenode.
+ *
+ * @example javascript
+{
+  trigger: {
+    type: "tap"
+  },
+  action: {
+    type: "goToArtboard",
+      destination: Artboard node,
+        preserveScrollPosition: false,
+          transition: {
+      type: "dissolve",
+        duration: 0.4,
+          easing: "ease-out"
+    }
+  }
+}
+ * Note: Interaction objects are not plain JSON -- they may reference scenenodes (as seen above) and other strongly-typed objects.
+ */
+type Interaction = {
+    /**
+     * User gesture or other event which will trigger the action.
+     */
+    trigger: Trigger;
+    /**
+     * Action that occurs
+     */
+    action: Action;
+}
+
+/**
+ * Animation style with which "goToArtboard" and "overlay" actions transition from/to Artboards.
+ */
+type Transition = {
+    /**
+     * One of: 'autoAnimate', 'dissolve', 'push', 'slide', 'none'
+  * /
+type: 'autoAnimate' | 'dissolve' | 'push' | 'slide' | 'none';
+
+/**
+ * _(If type = "push" or "slide")._ One of: '"L"', '"R"', '"T"', '"B"'
+ */
+fromSide ?: string;
+
+/**
+ * Length of animation in seconds
+ */
+duration: number;
+
+/**
+ * One of: 'linear', 'ease-in', 'ease-out', 'ease-in-out', 'wind-up', 'bounce', 'snap'
+ */
+easing: 'linear' | 'ease-in' | 'ease-out' | 'ease-in-out' | 'wind-up' | 'bounce' | 'snap';
+}
+
+type Trigger = {
+  /**
+   * One of the trigger types listed below.
+   *
+   * ### '"tap"'
+   * When the user clicks or taps on a scenenode.
+   *
+   * ### '"drag"'
+   * When the user drags or swipes a scenenode. Can only trigger a 'goToArtboard' action with the 'autoAnimate' transition style.
+   *
+   * ### '"time"'
+   * Once a set amount of time elapses (this trigger type only exists on Artboard nodes). Additional Trigger properties:
+   * *  {@link delay}
+   *
+   * ### '"voice"'
+   * When the user speaks a specific voice command. Additional Trigger properties:
+   * * {@link speechCommand}
+   */
+  type: 'tap' | 'voice' | 'time' | 'drag'
+
+  /**
+   * Delay time in ms.
+   *
+   * Only when type is ''time''
+   */
+  delay?: number;
+
+  /**
+   * Phrase the user speaks to trigger this command.
+   *
+   * Only when type is ''voice''
+   */
+  speechCommand?: string;
+}
+
+/**
+ * Action performed when the trigger occurs.
+ */
+type Action = {
+  /**
+   * One of the action types listed below.
+   *
+   * ### "goToArtboard"
+   * Navigate the entire screen to view a different artboard. Additional Action properties:
+   * * {@link destination}
+   * * {@link transition}
+   * * {@link preserveScrollPosition}
+   *
+   * ### "overlay"
+   * Displays a second artboard overlaid on top of the current one. Additional Action properties:
+   * * {@link overlay}
+   * * {@link transition}
+   * * {@link overlayTopLeft}
+   *
+   * ### "goBack"
+   * Reverse the last '"goToArtboard"' or '"overlay"' action, replaying in reverse whatever transition it used.
+   *
+   * ### "speak"
+   * Speak with audio output to the user. Additional Action properties:
+   * * {@link speechOutput}
+   * * {@link locale}
+   * * {@link voice}
+   */
+  type: 'goToArtboard' | 'overlay' | 'speak' | 'goBack';
+
+  /**
+   *  Artboard to navigate to.
+   */
+  destination?: Artboard;
+  /**
+   *  Animation style with which the view transitions from the old Artboard to the new one.
+   *  Only certain transition types are allowed for overlays.
+   */
+  transition?: Transition;
+  /**
+   * If both Artboards are [taller than the viewport](./scenegraph.md#Artboard-viewportHeight), attempts to keep the user's current scroll position the same as in the outgoing artboard.
+   */
+  preserveScrollPosition?: boolean;
+  /**
+   *  Artboard to show on top.
+   */
+  overlay?: Artboard;
+
+  /**
+   *  Position of the overlay Artboard, in the current/base Artboard's coordinate space.
+   */
+  overlayTopLeft: { x: number, y: number };
+
+  /**
+   *  Phrase to speak to the user.
+   */
+  speechOutput?: string;
+  /**
+   * Locale determines the pronounciation and accent of the digital voice. Includes both language *and* region (e.g. "en-us").
+   */
+  locale?: string;
+  /**
+   * "Persona" of the digital voice to use. Available personas vary by locale.
+   */
+  voice?: string;
+}
+
+declare interface Point {
+    x: number;
+    y: number;
+}
+
+declare interface ScaleFactor {
+    scaleX: number;
+    scaleY: number;
+}
+
+/**
+ * Represents the children of a scenenode. Typically accessed via the SceneNode.children property.
+ */
+declare interface SceneNodeList {
+    items: SceneNode[];
+    readonly length: number;
+
+    forEach(
+        callback: (sceneNode: SceneNode, index: number) => void,
+        thisArg?: object
+    ): void;
+
+    forEachRight(
+        callback: (sceneNode: SceneNode, index: number) => void,
+        thisArg?: object
+    ): void;
+
+    filter(
+        callback: (sceneNode: SceneNode, index: number) => boolean,
+        thisArg?: object
+    ): Array<SceneNode>;
+
+    map(
+        callback: (sceneNode: SceneNode, index: number) => any,
+        thisArg?: object
+    ): Array<any>;
+
+    some(
+        callback: (sceneNode: SceneNode, index: number) => boolean,
+        thisArg?: object
+    ): boolean;
+
+    at(index: number): SceneNode | null;
+}
+
+export class Matrix {
+    /**
+     * Creates a new transform matrix with the following structure:
+     *
+     * 
+     * | a c e |
+     * | b d f |
+     * | 0 0 1 |
+     * 
+     *
+     * Note: XD does not generally allow transform matrices with scale or shear (skew) components - only translate and rotate components are typically permitted.
+     *
+     * If no arguments, creates a new identity matrix by default.
+     *
+     * @param a
+     * @param b
+     * @param c
+     * @param d
+     * @param e
+     * @param f
+     */
+    constructor(a: number, b: number, c: number, d: number, e: number, f: number);
+
+    /**
+     * Copies another matrix's values into this matrix.
+     * @param otherMatrix The matrix to copy values from.
+     */
+    setFrom(otherMatrix: Matrix): void;
+
+    /**
+     * Returns a copy of the matrix
+     */
+    clone(): Matrix;
+
+    /**
+     * Multiplies a passed affine transform to the right: this * M. The result effectively applies the transform of the passed in matrix first, followed by the transform of this matrix second. Modifies this matrix object and also returns it so calls can be chained.
+     * @param aOrOtherMatrix A Matrix or the a component of an affine transform.
+     * @param b The b component of an affine transform.
+     * @param c The c component of an affine transform.
+     * @param d The d component of an affine transform.
+     * @param e The e component of an affine transform.
+     * @param f The f component of an affine transform.
+     */
+    add(aOrOtherMatrix: number, b: number, c: number, d: number, e: number, f: number): void;
+
+    /**
+     * Multiplies a passed affine transform to the right: this * M. The result effectively applies the transform of the passed in matrix first, followed by the transform of this matrix second. Modifies this matrix object and also returns it so calls can be chained.
+     * @param aOrOtherMatrix A Matrix or the a component of an affine transform.
+     */
+    add(aOrOtherMatrix: Matrix): void;
+
+    /**
+     * Multiplies a passed affine transform to the left: M * this. The result effectively applies the transform of this matrix first, followed by the transform of the passed in matrix second. Modifies this matrix object and also returns it so calls can be chained.
+     * @param aOrOtherMatrix A Matrix or the a component of an affine transform.
+     * @param b The b component of an affine transform.
+     * @param c The c component of an affine transform.
+     * @param d The d component of an affine transform.
+     * @param e The e component of an affine transform.
+     * @param f The f component of an affine transform.
+     */
+    multLeft(aOrOtherMatrix: number, b: number, c: number, d: number, e: number, f: number): void;
+
+    /**
+     * Multiplies a passed affine transform to the left: M * this. The result effectively applies the transform of this matrix first, followed by the transform of the passed in matrix second. Modifies this matrix object and also returns it so calls can be chained.
+     * @param aOrOtherMatrix A Matrix or the a component of an affine transform.
+     */
+    multLeft(aOrOtherMatrix: Matrix): void;
+
+    /**
+     * Returns an inverted version of the matrix. Returns a brand new matrix - does not modify this matrix object.
+     */
+    invert(): Matrix;
+
+    /**
+     * Applies translation before the current transform of this matrix, as if using the add() method. Modifies this matrix object and also returns it so calls can be chained.
+     * @param tx horizontal offset distance
+     * @param ty vertical offset distance
+     */
+    translate(tx: number, ty: number): Matrix;
+
+    /**
+     * Applies scaling before the current transform of this matrix, as if using the add() method. Modifies this matrix object and also returns it so calls can be chained.
+     *
+     * Note: scale transforms are not generally permitted in XD.
+     * @param sx amount to be scaled, with 1 resulting in no change
+     * @param sy amount to scale along the vertical axis. (Otherwise sx applies to both axes.)
+     * @param cx horizontal origin point from which to scale (if unspecified, scales from the local coordinates' origin point)
+     * @param cy vertical origin point from which to scale
+     */
+    scale(sx: number, sy?: number, cx?: number, cy?: number): Matrix;
+
+    /**
+     * Applies clockwise rotation before the current transform of this matrix, as if using the add() method. Modifies this matrix object and also returns it so calls can be chained.
+     * @param angle angle of rotation, in degrees clockwise
+     * @param cx horizontal origin point from which to rotate (if unspecified, scales from the local coordinates' origin point)
+     * @param cy vertical origin point from which to rotate
+     */
+    rotate(angle: number, cx?: number, cy?: number): Matrix;
+
+    /**
+     * Returns x coordinate of the given point after transformation described by this matrix. See also Matrix.y and Matrix.transformPoint.
+     * @param x
+     * @param y
+     */
+    x(x: number, y: number): number;
+
+    /**
+     * Returns y coordinate of the given point after transformation described by this matrix. See also Matrix.x and Matrix.transformPoint.
+     * @param x
+     * @param y
+     */
+    y(x: number, y: number): number;
+
+    /**
+     * Returns x & y coordinates of the given point after transformation described by this matrix.
+     * @param point
+     */
+    transformPoint(point: Point): Point;
+
+    /**
+     * Transforms a rectangle using this matrix, returning the axis-aligned bounds of the resulting rectangle. If this matrix has rotation, then the result will have different width & height from the original rectangle, due to axis alignment. See "Coordinate Spaces" for some illustrations of this.
+     * @param rect
+     */
+    transformRect(rect: Bounds): Bounds;
+
+    /**
+     * @return The translation component of this matrix: [tx, ty]. Equals the 'e' and 'f' components of this matrix.
+     */
+    getTranslate(): number[];
+
+    /**
+     * Split the matrix into scale factors. This method assumes that there is no skew in the matrix.
+     */
+    scaleFactors(): ScaleFactor;
+
+    /**
+     * Returns a new matrix that contains only the translate and rotate components of the current matrix, with the given scale factors stripped out. Must be passed the exact scale factors returned by scaleFactors() for this matrix, and this matrix must have no skew/shear component.
+     *
+     * Returns a brand new matrix - does not modify this matrix object.
+     * @param scaleX horizontal scale component to remove
+     * @param scaleY vertical scale component to remove
+     */
+    removedScaleMatrix(scaleX: number, scaleY: number): Matrix;
+
+    /**
+     * @return true, if the matrix includes any skew (shear)
+     */
+    hasSkew(): boolean;
+}
+
+export class Color {
+    /**
+     * Integer 0-255. Get/set the alpha channel value.
+     */
+    a: number;
+
+    /**
+     * Integer 0-255. Get/set the red channel value.
+     */
+    r: number;
+
+    /**
+     * Integer 0-255. Get/set the green channel value.
+     */
+    g: number;
+
+    /**
+     * Integer 0-255. Get/set the blue channel value.
+     */
+    b: number;
+
+    /**
+     * Creates a new color instance.
+     * @param value String in CSS color format (hex, rgb, rgba, hsl, hsla, hsv, hsva, or color name); or ARGB numeric value (unsigned 32-bit integer); or object with r, g, b, a keys all set to integers from 0 - 255 (if a is omitted, 255 is used).
+     * @param opacity Optional, floating-point value from 0 - 1. Use when value parameter doesn't specify an opacity and you don't want the default 1.0 (100%) opacity.
+     */
+    constructor(value: string | { r: number, g: number, b: number, a?: number }, opacity?: number);
+
+    /**
+     * Convert to an object with r, g, b, a keys where r, g, b, a range from 0 - 255.
+     */
+    toRgba(): { r: number, g: number, b: number, a: number };
+
+    /**
+     * Convert to hex string with "#" prefix. Ignores the Color's alpha value. Returns a 3-digit string if possible, otherwise returns a 6-digit string.
+     * @param forceSixDigits True if you want the result to always have 6 digits.
+     */
+    toHex(forceSixDigits: boolean): string;
+
+    /**
+     * Returns a clone of the current color object
+     */
+    clone(): Color;
+}
+
+export class LinearGradientFill {
+    /**
+     * Array of objects representing each color and its position along the gradient line. The position (stop value) is a number 0.0 - 1.0.
+     */
+    colorStops: { color: Color, stop: number }[];
+
+    /**
+     * X position of the start of the gradient line, as a multiple of the object's bounding box: X=0 indicates the left edge of the bounding box and X=1 indicates the right edge. The gradient line may start or end outside the object's bounding box, so values may be < 0 or > 1.
+     */
+    startX: number;
+
+    /**
+     * Y position of the start of the gradient line, as a multiple of the object's bounding box: Y=0 indicates the top edge of the bounding box and Y=1 indicates the bottom edge. The gradient line may start or end outside the object's bounding box, so values may be < 0 or > 1.
+     */
+    startY: number;
+
+    /**
+     * X position of the end of the gradient line, as a multiple of the object's bounding box: X=0 indicates the left edge of the bounding box and X=1 indicates the right edge. The gradient line may start or end outside the object's bounding box, so values may be < 0 or > 1.
+     */
+    endX: number;
+
+    /**
+     * Y position of the end of the gradient line, as a multiple of the object's bounding box: Y=0 indicates the top edge of the bounding box and Y=1 indicates the bottom edge. The gradient line may start or end outside the object's bounding box, so values may be < 0 or > 1.
+     */
+    endY: number;
+
+    /**
+     * Create a new LinearGradientFill instance.
+     */
+    constructor();
+
+    /**
+     * Returns a copy of this instance.
+     */
+    clone(): LinearGradientFill;
+
+    /**
+     * Returns an array of [startX, startY, endX, endY].
+     */
+    getEndPoints(): number[];
+
+    /**
+     * Shorthand for setting all four start/endpoint properties.
+     * @param startX
+     * @param startY
+     * @param endX
+     * @param endY
+     */
+    setEndPoints(startX: number, startY: number, endX: number, endY: number): void;
+}
+
+/**
+ * **The RadialGradientFill type is not documented and its API may change. Plugins currently cannot modify or otherwise work with radial gradients.**
+ */
+export class RadialGradientFill {
+    // TODO: Waiting for documentation to arrive
+}
+
+export class ImageFill {
+    /**
+     * The image is stretched (distorting its aspect ratio) so its edges line up exactly with the edges of the shape. (Similar to 'object - fit: fill' in CSS).
+     */
+    static SCALE_STRETCH: string;
+    /**
+     * The image's aspect ratio is preserved and it it scaled to completely cover the area of the shape. This means on one axis the image's edges line up exactly with the edges of the shape, and on the other axis the image extends beyond the shape's bounds and is cropped. (Similar to 'object - fit: cover' in CSS).
+     */
+    static SCALE_COVER: string;
+
+    /**
+     * How the image is scaled when the aspect ratio of the shape does not match the aspect ratio of the image:
+     * * ImageFill.SCALE_STRETCH - The image is stretched (distorting its aspect ratio) so its edges line up exactly with the edges of the shape. (Similar to 'object - fit: fill' in CSS).
+     * * ImageFill.SCALE_COVER - The image's aspect ratio is preserved and it it scaled to completely cover the area of the shape. This means on one axis the image's edges line up exactly with the edges of the shape, and on the other axis the image extends beyond the shape's bounds and is cropped. (Similar to 'object - fit: cover' in CSS).
+     *
+     * Image size and scaling are also affected by cropping settings, but these are not yet exposed to plugins.
+     *
+     * To change this property, use cloneWithOverrides.
+     */
+    scaleBehaviour: string;
+
+    /**
+     * Format the image data was originally encoded in, such as 'image / gif' or 'image / jpeg'.
+     */
+    readonly mimeType: string;
+
+    /**
+     * True if the image comes from a link to an external resource, such as Creative Cloud Libraries.
+     */
+    readonly isLinkedContent: boolean;
+
+    /**
+     * Pixel dimensions of the underlying bitmap image data.
+     */
+    readonly naturalWidth: number;
+
+    /**
+     * Pixel dimensions of the underlying bitmap image data.
+     */
+    readonly naturalHeight: number;
+
+    /**
+     *
+     * @param fileOrDataURI File object pointing to an image file; or a string containing a data: URI with a base-64 encoded image.
+     */
+    constructor(fileOrDataURI: string | File);
+
+    /**
+     * @returns a new copy of this ImageFill.
+     */
+    clone(): ImageFill;
+}
+
+
+export class Shadow {
+    /**
+     * X offset of the shadow relative to the shape it is attached to, in global coordinates (i.e. independent of the shape's rotation or any parent's rotation). May be negative.
+     */
+    x: number;
+
+    /**
+     * Y offset of the shadow relative to the shape it is attached to, in global coordinates (i.e. independent of the shape's rotation or any parent's rotation). May be negative.
+     */
+    y: number;
+    blur: number;
+    color: Color;
+
+    /**
+     * If false, the shadow is not rendered. The user can toggle this via a checkbox in the Properties panel.
+     */
+    visible: boolean;
+
+    /**
+     * Creates a drop shadow style object with the given properties.
+     * @param x
+     * @param y
+     * @param blur
+     * @param color
+     * @param visible optional and defaults to true.
+     */
+    constructor(x: number, y: number, blur: number, color: Color, visible: boolean)
+}
+
+export class Blur {
+    /**
+     * The amount of blur
+     *
+     * (0 - 50)
+     */
+    blurAmount: number;
+    /**
+     * For background blur effects, the amount to increase or decrease the brightness of the background. Ignored for object blur effects.
+     *
+     * (-50 - 50)
+     */
+    brightnessAmount: number;
+
+    /**
+     * For background blur effects, the a multiplier on the opacity of the object's fill drawn over top of the blurred background. Useful to create a color tint on top of the blurred background. Does not affect stroke opacity.
+     *
+     * Ignored for object blur effects.
+     *
+     * (0.0 - 1.0)
+     */
+    fillOpacity: number;
+    /**
+     * If true, renders a background blur effect: all objects beneath the shape are blurred (modulated by brightnessAmount), but the shape itself is still rendered with crisp edges (with its fill modulated by fillOpacity).
+     *
+     * If false, renders an object blur effect: the shape itself is blurred, and objects beneath it are unaffected.
+     */
+    isBackgroundEffect: boolean;
+
+    /**
+     * If false, the blur effect is not rendered. The user can toggle this via a checkbox in the Properties panel.
+     */
+    visible: boolean;
+
+    /**
+     * Creates an object blur or background blur effect object with the given properties.
+     * @param blurAmount
+     * @param brightnessAmount
+     * @param fillOpacity
+     * @param visible
+     * @param isBackgroundEffect
+     */
+    constructor(blurAmount: number, brightnessAmount: number, fillOpacity: number, visible?: boolean, isBackgroundEffect?: boolean);
+}
+
+export interface Bounds {
+    x: number;
+    y: number;
+    width: number;
+    height: number;
+}
+
+/**
+ * Base class of all scenegraph nodes. Nodes will always be an instance of some subclass of SceneNode.
+ */
+export abstract class SceneNode {
+    /**
+     * Returns a unique identifier for this node that stays the same when the file is closed & reopened, or if the node is moved to a different part of the document. Cut-Paste will result in a new guid, however.
+     */
+    readonly guid: string;
+    /**
+     * Returns the parent node. Null if this is the root node, or a freshly constructed node which has not been added to a parent yet.
+     */
+    readonly parent: SceneNode | null;
+    /**
+     * Returns a list of this node’s children. List is length 0 if the node has no children. The first child is lowest in the z order.
+     * This list is not an Array, so you must use at(i) instead of [i] to access children by index. It has a number of Array-like methods such as forEach() for convenience, however.
+     * The list is immutable. Use removeFromParent and addChild to add/remove child nodes.
+     */
+    readonly children: SceneNodeList;
+    /**
+     * True if the node’s parent chain connects back to the document root node.
+     */
+    readonly isInArtworkTree: boolean;
+    /**
+     * True if this node is a type that could have children (e.g. an Artboard, Group, Boolean Group, etc.).
+     */
+    readonly isContainer: boolean;
+    /**
+     * True if this node is part of the current selection. To change which nodes are selected, use selection.
+     */
+    readonly selected: boolean;
+
+    /**
+     * False if this node has been hidden by the user (eyeball toggle in Layers panel). If true, the node may still be invisible for other reasons: a parent or grandparent has visible=false, the node has opacity=0%, the node is clipped by a mask, etc.
+     */
+    visible: boolean;
+
+    /**
+     * (0.0-1.0)Node’s opacity setting. The overall visual opacity seen on canvas is determined by combining this value with the opacity of the node’s entire parent chain, as well as the opacity settings of its fill/stroke properties if this is a leaf node.
+     */
+    opacity: number;
+
+    /**
+     * Affine transform matrix that converts from the node’s local coordinate space to its parent’s coordinate space. The matrix never has skew or scale components, and if this node is an Artboard the matrix never has rotation either. Rather than working with the raw matrix directly, it may be easier to use methods such as placeInParentCoordinates or rotateAround.
+     * Returns a fresh Matrix each time, so this can be mutated by the caller without interfering with anything. Mutating the returned Matrix does not change the node’s transform - only invoking the ‘transform’ setter changes the node. To modify an existing transform, always be sure to re-invoke the transform setter rather than just changing the Matrix object’s properties inline. See “Properties with object values”.
+     * For an overview of node transforms & coordinate systems, see Coordinate spaces.
+     */
+    readonly transform: Matrix;
+
+    /**
+     * The translate component of this node’s transform. Since translation is applied after any rotation in the transform Matrix, translation occurs along the parent’s X/Y axes, not the node’s own local X/Y axes. This is equivalent to the e & f fields in the transform Matrix.
+     * For an overview of node positioning & coordinate systems, see Coordinate spaces.
+     */
+    translation: Point;
+
+    /**
+     * The rotation component of this node’s transform, in clockwise degrees.
+     * For an overview of node transforms & coordinate systems, see Coordinate spaces.
+     */
+    readonly rotation: number;
+
+    /**
+     * The node’s path bounds in document-global coordinate space (represented by a bounding box aligned with global X/Y axes). Path bounds match the selection outline seen in the XD, but exclude some visual parts of the node (outer stroke, drop shadow / blur, etc.).
+     */
+    readonly globalBounds: Bounds;
+
+    /**
+     * The node’s path bounds in its own local coordinate space. This coordinate space may be rotated and translated relative to the parent’s coordinate space. Path bounds match the selection outline seen in XD, but exclude some visual parts of the node (outerstroke, drop shadow / blur, etc.).
+     * The visual top-left of a node’s path bounds is located at (localBounds.x, localBounds.y). This value is not necessarily (0,0) in the local coordinate space: for example, a text node’s baseline is at y=0 in local coordinates, so the top of the text has a negative y value.
+     */
+    readonly localBounds: Bounds;
+
+    /**
+     * The node’s path bounds in its parent’s coordinate space (represented by a bounding box aligned with the parent’s X/Y axes - so if the node has rotation, the top-left of the node is not necessarily located at the top-left of boundsInParent). Path bounds match the selection outline seen in XD, but exclude some visual parts of the node (outer stroke, drop shadow / blur, etc.).
+     */
+    readonly boundsInParent: Bounds;
+
+    /**
+     * The position of the node’s upper-left corner (localBounds.x, localBounds.y) in its parent’s coordinate space. If the node is rotated, this is not the same as the top-left corner of boundsInParent. This is a shortcut for node.transform.transformPoint({x: node.localBounds.x, y: node.localBounds.y})
+     */
+    readonly topLeftInParent: Point;
+
+    /**
+     * The position of the node’s centerpoint in its own local coordinate space. Useful as an argument to rotateAround. This is a shortcut for {x: localBounds.x + localBounds.width/2, y: localBounds.y + localBounds.height/2})
+     */
+    readonly localCenterPoint: Point;
+
+    /**
+     * The node’s draw bounds in document-global coordinate space. Draw bounds are larger than the selection outline seen in XD, including outer stroke, drop shadow / blur, etc. - every visible pixel of the node is encompassed by these bounds. This matches the image dimensions if the node is exported as a PNG/JPEG bitmap.
+     */
+    readonly globalDrawBounds: Bounds;
+
+    /**
+     * Node name as seen in the Layers panel. Also used as filename during export.
+     */
+    name: string;
+
+    /**
+     * True if name is a generic, auto-generated string (e.g. “Rectangle 5”). False if name has been explicitly set.
+     */
+    readonly hasDefaultName: boolean;
+
+    /**
+     * True if the node is locked, meaning it cannot normally be selected.
+     */
+    locked: boolean;
+
+    /**
+     * True if the node should be included in the output of File > export > Batch and other bulk-export workflows.
+     */
+    markedForExport: boolean;
+
+    /**
+     * **Since**: XD 19
+     *
+     * True if the node stays in a fixed position while the Artboard's content is scrolling (when viewed in an interactive prototype). _Only applicable for nodes whose immediate parent is an Artboard._
+     *
+     * For other nodes, this property returns undefined and cannot be set. To determine whether those nodes scroll or remain fixed, walk up the parent chain and check this property on the topmost ancestor in the Artboard.
+     */
+    fixedWhenScrolling?: boolean;
+
+    /**
+     * Get all interactions that are triggered by this node in the document's interactive prototype. Each element in the array is an Interaction object which describes a gesture/event plus the action it produces.
+     *
+     * Note: If this node (or one of its ancestors) has 'visible' = false, tap and drag interactions on it will not be triggered.
+     *
+     * Currently, this API excludes any keyboard/gamepad interactions on this node.
+     *
+     * @example javascript
+// Print all the interactions triggered by a node
+node.triggeredInteractions.forEach(interaction => {
+  console.log("Trigger: " + interaction.trigger.type + " -> Action: " + interaction.action.type);
+});
+     * 
+     *
+     * @see interactions.allInteractions
+     */
+    readonly triggeredInteractions?: Array<Interaction>;
+
+    /**
+     * True if the node's appearance comes from a link to an external resource, such as Creative Cloud Libraries or a separate XD document (in the case of a Linked Component instance).
+     */
+    readonly hasLinkedContent: boolean;
+
+    /**
+     * **Since:** XD 14
+     * Metadata specific to your plugin. Must be a value which can be converted to a JSON string, or undefined to clear the stored metadata on this node.
+     *
+     * Metadata is persisted with the document when it is saved. Duplicating a node (including across documents, via copy-paste) will duplicate the metadata with it. If the node lies within a Component or Repeat Grid, all instances of the node will have identical metadata (changes in one copy will automatically be synced to the other copy). Metadata stored by this plugin cannot be accessed by other plugins - each plugin has its own isolated metadata storage.
+     *
+     * To store general metadata for the document overall, set pluginData on the root node of the scenegraph. Metadata on the root node can be changed from any edit context.
+     */
+    pluginData: any;
+
+    /**
+     * Remove this node from its parent, effectively deleting it from the document.
+     */
+    removeFromParent(): void;
+
+    /**
+     * Move the node by the given number of pixels along the parent’s X/Y axes (if this node has no rotation, this is identical to moving the node along its own local X/Y axes). This is equivalent to modifying the value returned by ‘translation’ and then setting it back.
+     * For an overview of node positioning & coordinate systems, see Coordinate spaces.
+     * @param {number} deltaX
+     * @param {number} deltaY
+     */
+    moveInParentCoordinates(deltaX: number, deltaY: number): void;
+
+    /**
+     * Move the node so the given point in its local coordinates is placed at the given point in its parent’s coordinates (taking into account any rotation on this node, etc.).
+     * For an overview of node positioning & coordinate systems, see Coordinate spaces.
+     * @param {Point} registrationPoint Point in this node’s local coordinate space to align with parentPoint
+     * @param {Point} parentPoint Point in this node’s parent’s coordinate space to move registrationPoint to
+     */
+    placeInParentCoordinates(
+        registrationPoint: Point,
+        parentPoint: Point
+    ): void;
+
+    /**
+     * Rotate the node clockwise by the given number of degrees around the given point in the plugin’s local coordinate space. If this node already has nonzero rotation, this operation adds to its existing angle.
+     * @param {number} deltaAngle In degrees.
+     * @param {Point} rotationCenter Point to rotate around, in node’s local coordinates.
+     */
+    rotateAround(deltaAngle: number, rotationCenter: Point): void;
+
+    /**
+     * Attempts to change localBounds.width & height to match the specified sizes. This operation may not succeed, since some nodes are not resizable. Resizing one dimension may affect the other, if the node’s aspect ratio is locked.
+     * @param {number} width
+     * @param {number} height
+     */
+    resize(width: number, height: number): void;
+}
+
+/**
+ * Base class for nodes that have a stroke and/or fill. This includes leaf nodes such as Rectangle, as well as BooleanGroup which is a container node. If you create a shape node, it will not be visible unless you explicitly give it either a stroke or a fill.
+ */
+export class GraphicNode extends SceneNode {
+    /**
+     * The fill applied to this shape, if any. If this property is null or fillEnabled is false, no fill is drawn. Freshly created nodes have no fill by default.
+     *
+     * For Line objects, fill is ignored. For Text objects, only solid Color fill values are allowed.
+     *
+     * To modify an existing fill, always be sure to re-invoke the fill setter rather than just changing the fill object’s properties inline. See “Properties with object values”.
+     *
+     * Known issue: When modifying a gradient fill object specifically, you must clone the gradient returned by the getter before modifying it, to avoid issues with Undo history.
+     */
+    fill:
+        | null
+        | Color
+        | LinearGradientFill
+        | RadialGradientFill
+        | ImageFill;
+
+    /**
+     * If false, the fill is not rendered. The user can toggle this via a checkbox in the Properties panel.
+     */
+    fillEnabled: boolean;
+
+    /**
+     * The stroke color applied to this shape, if any. If this property is null or strokeEnabled is false, no stroke is drawn. Freshly created nodes have no stroke by default. Artboard objects ignore stroke settings.
+     *
+     * Depending on the strokeWidth and strokePosition, the path outline of a node may need to be positioned on fractional pixels in order for the stroke itself to be crisply aligned to the pixel grid. For example, if a horizontal line uses a 1px center stroke, the line’s y should end in .5 to keep the stroke on-pixel.
+     *
+     * To modify an existing stroke, always be sure to re-invoke the stroke setter rather than just changing the Color object’s properties inline. See “Properties with object values”.
+     */
+    stroke: null | Color;
+
+    /**
+     * If false, the stroke is not rendered. The user can toggle this via a checkbox in the Properties panel.
+     */
+    strokeEnabled: boolean;
+
+    /**
+     * Thickness in pixels of the stroke.
+     * value must be >= 0
+     */
+    strokeWidth: number;
+
+    /**
+     * @default 'CENTER_STROKE' for most shapes, 'INNER_STROKE' for Rectangle, Ellipse & Polygon
+     * Position of the stroke relative to the shape’s path outline: GraphicNode.INNER_STROKE, OUTER_STROKE, or CENTER_STROKE.
+     */
+    strokePosition: string;
+
+    /**
+     * For Lines and non-closed Paths, how the dangling ends of the stroke are rendered: GraphicNode.STROKE_CAP_NONE, STROKE_CAP_SQUARE, or STROKE_CAP_ROUND.
+     */
+    strokeEndCaps: string;
+
+    /**
+     * How sharp corners in the shape are rendered: GraphicNode.STROKE_JOIN_BEVEL, STROKE_JOIN_ROUND, or STROKE_JOIN_MITER.
+     */
+    strokeJoins: string;
+
+    /**
+     * value must be >= 0
+     */
+    strokeMiterLimit: number;
+
+    /**
+     * Empty array indicates a solid stroke. If non-empty, values represent the lengths of rendered and blank segments of the stroke’s dash pattern, repeated along the length of the stroke. The first value is the length of the first solid segment. If the array is odd length, the items are copied to double the array length. For example, [3] produces the same effect as [3, 3].
+     *
+     * The appearance of each segment’s start/end follows the strokeEndCaps setting.
+     */
+    strokeDashArray: Array<number>;
+
+    /**
+     * Ignored unless strokeDashArray is non-empty. Shifts the “phase” of the repeating dash pattern along the length of the stroke.
+     */
+    strokeDashOffset: number;
+
+    /**
+     * The node’s dropshadow, if any. If there is no shadow applied, this property may be null or shadow.visible may be false.
+     */
+    shadow: null | Shadow;
+
+    /**
+     * The node’s object blur or background blur settings, if applicable. If there is no blur effect applied, this property may be null or blur.visible may be false.
+     */
+    blur: null | Blur;
+
+    /**
+     * Returns a representation of the node’s outline in SVG <path> syntax. Note that only nodes with strokePosition == GraphicNode.CENTER_STROKE can be faithfully rendered in actual SVG using the exact pathData shown here.
+     */
+    readonly pathData: string;
+
+    /**
+     * True if the node’s image fill comes from a link to an external resource, such as Creative Cloud Libraries.
+     */
+    readonly hasLinkedGraphicFill: boolean;
+}
+
+/**
+ * Artboard container node. All Artboards must be children of the root node (they cannot be nested), and they must be placed below all pasteboard content in the z order.
+ *
+ * Artboards can have a background fill, but the stroke, shadow, and blur settings are all ignored. Artboards cannot be locked or hidden, or have opacity < 100%.
+ *
+ * If a node is changed to overlap an Artboard, it will automatically become a child of the artboard when the operation finishes, and similar if a node is changed to no longer overlap an Artboard. It is not possible to have a node overlapping an Artboard that does not become a child of the artboard, or vice versa, a node that falls entirely outside an Artboard’s bounds but remains its child.
+ */
+export class Artboard extends GraphicNode {
+    /**
+     * value must be >= 0
+     */
+    width: number;
+
+    /**
+     * For scrollable Artboards, this is the total height encompassing all content - not just the viewport size (i.e. screen height).
+     *
+     * value must be >= 0
+     */
+    height: number;
+
+    /**
+     * If Artboard is scrollable, this is the height of the viewport (e.g. mobile device screen size). Null if Artboard isn’t scrollable.
+     */
+    viewportHeight: null | number;
+
+    /**
+     * **Since**: XD 19
+     *
+     * Get all interactions whose destination is this artboard (either navigating the entire view, i.e. a "goToArtboard" action, or
+     * showing this artboard as an overlay, i.e. an "overlay" action). Each element in the array is an [Interaction object](
+     * /interactions.md#Interaction)
+     * which describes a gesture/event plus the action it produces.
+     *
+     * May include interactions that are impossible to trigger because the trigger node (or one of its ancestors) has 'visible' = false.
+     *
+     * Note: currently, this API excludes any applicable keyboard/gamepad interactions.
+     * @see SceneNode.triggeredInteractions
+     * @see interactions.allInteractions
+     */
+    readonly incomingInteractions: Array<{ triggerNode: SceneNode, interactions: Array<Interaction> }>;
+
+    /**
+     * **Since**: XD 19
+     *
+     * True if this is the starting Artboard seen when the interactive prototype is launched.
+     *
+     * @see interactions.homeArtboard
+     */
+    readonly isHomeArtboard: boolean;
+
+    /**
+     * Adds a child node to this container node. You can only add leaf nodes this way; to create structured subtrees of content, use commands.
+     * @param {SceneNode} node Child to add
+     * @param {number} index Optional: index to insert child at. Child is appended to end of children list (top of z order) otherwise.
+     */
+    addChild(node: SceneNode, index?: number): void;
+
+    /**
+     * Inserts a child node after the given reference node.
+     * @param {SceneNode} node Child to add
+     * @param {SceneNode} relativeTo New child is added immediately after this existing child
+     */
+    addChildAfter(node: SceneNode, relativeTo: SceneNode): void;
+
+    /**
+     * Inserts a child node before the given reference node.
+     * @param {SceneNode} node Child to add
+     * @param {SceneNode} relativeTo New child is added immediately before this existing child
+     */
+    addChildBefore(node: SceneNode, relativeTo: SceneNode): void;
+
+    /**
+     * Removes all children from this node. Equivalent to calling removeFromParent() on each child in turn, but faster.
+     */
+    removeAllChildren(): void;
+}
+
+/**
+ * Rectangle leaf node shape, with or without rounded corners. Like all shape nodes, has no fill or stroke by default unless you set one.
+ */
+export class Rectangle extends GraphicNode {
+    /**
+     * value must be >= 0
+     */
+    width: number;
+
+    /**
+     * value must be >= 0
+     */
+    height: number;
+
+    /**
+     * Default: '{ topLeft: 0, topRight: 0, bottomRight: 0, bottomLeft: 0 } '
+     * The actual corner radius that is rendered is capped based on the size of the rectangle even if the radius value set here is higher (see {@link effectiveCornerRadii})
+     * To set all corners to the same value, use {@link setAllCornerRadii}
+     */
+    cornerRadii: {
+        topLeft: number;
+        topRight: number;
+        bottomRight: number;
+        bottomLeft: number;
+    };
+
+    /**
+     * True if any of the Rectangle’s four corners is rounded (corner radius > 0).
+     */
+    readonly hasRoundedCorners: boolean;
+
+    /**
+     * The actual corner radius that is rendered may be capped by the size of the rectangle. Returns the actual radii that are currently in effect, which may be smaller than the {@link cornerRadii} values as a result.
+     */
+    effectiveCornerRadii: {
+        topLeft: number;
+        topRight: number;
+        bottomRight: number;
+        bottomLeft: number;
+    };
+
+    /**
+     * Set the rounding radius of all four corners of the Rectangle to the same value. The actual corner radius that is rendered is capped based on the size of the rectangle even if the radius value set here is higher (see {@link effectiveCornerRadii})
+     * To set the corners to different radius values, use {@link cornerRadii}.
+     */
+    setAllCornerRadii(radius: number): void;
+}
+
+/**
+ * Ellipse leaf node shape.
+ */
+export class Ellipse extends GraphicNode {
+    radiusX: number;
+    radiusY: number;
+    /**
+     * True if the Ellipse is a circle (i.e., has a 1:1 aspect ratio).
+     */
+    isCircle: boolean;
+}
+
+/**
+ * Line leaf node shape.
+ */
+export class Line extends GraphicNode {
+    /**
+     * Start point of the Line in local coordinate space.TEMP: To change the start point, use setStartEnd.
+     */
+    readonly start: Point;
+    /**
+     * Endpoint of the Line in local coordinate space.TEMP: To change the endpoint, use setStartEnd.
+     */
+    readonly end: Point;
+
+    /**
+     * Set the start and end points of the Line in local coordinate space. The values may be normalized by this setter, shifting the node’s translation and counter-shifting the start/end points. So the start/end setters may return values different from the values you passed this setter, even though the line’s visual bounds and appearance are the same.
+     * @param {number} startX
+     * @param {number} startY
+     * @param {number} endX
+     * @param {number} endY
+     */
+    setSTartEnd(
+        startX: number,
+        startY: number,
+        endX: number,
+        endY: number
+    ): void;
+}
+
+/**
+ * Arbitrary vector Path leaf node shape.
+ *
+ * The path may not start at (0,0) in local coordinates, for example if it starts with a move (“M”)
+ */
+export class Path extends GraphicNode {
+    /**
+     * Representation of the path outline in SVG <path> syntax. Unlike other node types, pathData is writable here. Syntax is automatically normalized, so the getter may return a slightly different string than what you passed to the setter.
+     */
+    pathData: string;
+}
+
+/**
+ * **Since**: XD 19
+ * Leaf node shape that is a polygon with 3 or more sides. May also have rounded corners. The sides are not necessarily all equal in length: this is true only when the Polygon's width and height matches the aspect ratio of a regular (equilateral) polygon with the given number of sides.
+ *
+ * When unrotated, the Polygon always has its bottommost side as a perfectly horizontal line - with the exception of the 4-sided Polygon, which is a diamond shape instead.
+ *
+ * Like all shape nodes, has no size, fill, or stroke by default unless you set one.
+ *
+ * @example javascript
+// Add a red triangle to the document and select it
+var polygon = new Polygon();
+polygon.cornerCount = 3;
+polygon.width = 50;
+polygon.height = 100;
+polygon.fill = new Color("red");
+selection.insertionParent.addChild(polygon);
+selection.items = [polygon];
+ *
+ */
+export class Polygon extends GraphicNode {
+    /**
+     * > 0
+     */
+    width: number;
+
+    /**
+     * > 0
+     */
+    height: number;
+
+    /**
+     * @default 3
+     * Number of corners (vertices), and also therefore number of sides.
+     *
+     * Setting cornerCount on an existing Polygon behaves in one of two different ways:
+     * * If the shape's aspect ratio gives it equilateral sides, the sides remain equilateral while the size and aspect ratio of the shape is changed to accomodate.
+     * * Otherwise, the size and aspect ratio of the shape remains unchanged.
+     *
+     * This matches how changing the corner count in XD's UI behaves.
+     *
+     * To change corner count while guaranteeing the shape will not change size, save its original size first, set 'cornerCount', and      then set size back to the saved values.
+     */
+    cornerCount: number;
+
+    /**
+     * True if any of the Polygon's corners is rounded (corner radius > 0).
+     */
+    readonly hasRoundedCorners: boolean;
+
+    /**
+     * List of corner radius for each corner of the polygon. To set corner radius, use [<code>setAllCornerRadii()</code>](#Polygon-setAllCornerRadii).
+     */
+    cornerRadii: number[];
+
+    /**
+     * Set the corner radius of all corners of the Polygon to the same value.
+     * @param {number} radius
+     */
+    setAllCornerRadii(radius: number): void;
+}
+
+/**
+ * BooleanGroup container node - although it has fill/stroke/etc. properties like a leaf shape node, it is a container with children. Its visual appearance is determined by generating a path via a nondestructive boolean operation on all its children’s paths.
+ *
+ * It is not currently possible for plugins to create a new BooleanGroup node, aside from using commands.duplicate to clone existing BooleanGroups.
+ */
+export class BooleanGroup extends GraphicNode {
+    /**
+     * Which boolean operation is used to generate the path: BooleanGroup.PATH_OP_ADD, PATH_OP_SUBTRACT, PATH_OP_INTERSECT, or PATH_OP_EXCLUDE_OVERLAP.
+     */
+    readonly pathOp: string;
+
+    /**
+     * Adds a child node to this container node. You can only add leaf nodes this way; to create structured subtrees of content, use commands.
+     * @param {SceneNode} node Child to add
+     * @param {number} index Optional: index to insert child at. Child is appended to end of children list (top of z order) otherwise.
+     */
+    addChild(node: SceneNode, index?: number): void;
+
+    /**
+     * Inserts a child node after the given reference node.
+     * @param {SceneNode} node Child to add
+     * @param {SceneNode} relativeTo New child is added immediately after this existing child
+     */
+    addChildAfter(node: SceneNode, relativeTo: SceneNode): void;
+
+    /**
+     * Inserts a child node before the given reference node.
+     * @param {SceneNode} node Child to add
+     * @param {SceneNode} relativeTo New child is added immediately before this existing child
+     */
+    addChildBefore(node: SceneNode, relativeTo: SceneNode): void;
+
+    /**
+     * Removes all children from this node. Equivalent to calling removeFromParent() on each child in turn, but faster.
+     */
+    removeAllChildren(): void;
+}
+
+/**
+ * Text leaf node shape. Text can have a fill and/or stroke, but only a solid-color fill is allowed (gradient or image will will be rejected).
+ *
+ * There are two types of Text nodes:
+ * - **Point Text** - Expands to fit the full width of the text content. Only uses multiple lines if the text content contains hard line breaks ("\n").
+ * - **Area Text** - Fixed width and height. Text is automatically wrapped (soft line wrapping) to fit the width. If it does not fit the height, any remaining text is clipped. Check whether areaBox is null to determine the type of a Text node.
+ *
+ * The baseline of a Point Text node is at y=0 in its own local coordinate system. Horizontally, local x=0 is the anchor point that the text grows from / shrinks toward when edited. This anchor depends on the justification: for example, if the text is centered, x=0 is the horizontal centerpoint of the text.
+ *
+ * The bounds reported for a Text object leave enough space for descenders, uppercase letters, and accent marks, even if the current string does not contain any of those characters. This makes aligning text based on its bounds behave more consistently.
+ */
+export class Text extends GraphicNode {
+    /**
+     * The plaintext content of the node, including any hard line breaks but excluding soft line wrap breaks.
+     *
+     * Setting text does not change styleRanges, so styles aligned with the old text’s string indices will continue to be applied to the new string’s indices unless you explicitly change styleRanges as well.
+     */
+    text: string;
+
+    /**
+     * Array of text ranges and their character style settings. Each range covers a set number of characters in the text content. Ranges are contiguous, with each one starting immediately after the previous one. Any characters past the end of the last range use the same style as the last range.
+     *
+     * When setting styleRanges, any fields missing from a given range default to the existing values from the last range in the old value of styleRanges. The styleRanges getter always returns fully realized range objects with all fields specified.
+     */
+    styleRanges: Array<{
+        length: number;
+        fontFamily: string;
+        fontStyle: string;
+        fontSize: number;
+        fill: Color;
+        charSpacing: number;
+        underline: boolean;
+        strikethrough: boolean;
+        textTransform: string;
+        textScript: string;
+    }>;
+
+    /**
+     * If true, the text is drawn upside down.
+     */
+    flipY: boolean;
+
+    /**
+     * **Since:** XD 14
+     * Set the font family across all style ranges, or get the font family of the last style range (font family of all the text if one range covers all the text). Plugins should not assume any particular default value for fontFamily.
+     */
+    fontFamily: string;
+
+    /**
+     * **Since:** XD 14
+     * Set the font style across all style ranges, or get the font style of the last style range (font style of all the text if one range covers all the text).
+     * @default non-italic normal weight style
+     */
+    fontStyle: string;
+
+    /**
+     * **Since:** XD 14
+     * Font size in document pixels. Set the font size across all style ranges, or get the font size of the last style range (font size of all the text if one range covers all the text). Plugins should not assume any particular default value for fontSize.
+     */
+    fontSize: number;
+
+    /**
+     * Set the text color across all style ranges, or get the color of the last style range (color of all the text if one range covers all the text). Unlike most other nodes, text only allows a solid color fill - gradients and image fills are not supported.
+     * @default null
+     */
+    fill: Color | null;
+
+    /**
+     * **Since:** XD 14
+     * Character spacing in increments of 1/1000th of the fontSize, in addition to the font's default character kerning. May be negative.
+     *
+     * Set the character spacing across all style ranges, or get the character spacing of the last style range (character spacing of all the text if one range covers all the text).
+     * @default 0
+     */
+    charSpacing: number;
+
+    /**
+     * **Since:** XD 14
+     * Set underline across all style ranges, or get the underline of the last style range (underline of all the text if one range covers all the text).
+     * @default false
+     */
+    underline: boolean;
+
+    /**
+     * @default false
+     * **Since**: XD 19
+     *
+     * Set strikethrough across all style ranges, or get the strikethrough of the last style range (strikethrough of all the text if one range covers all the text).
+     */
+    strikethrough: boolean;
+
+    /**
+     * @default "none"
+     * **Since**: XD 19
+     *
+     * Set textTransform ("none", "uppercase", "lowercase", or "titlecase") across all style ranges, or get the textTransform of the last style range.
+     */
+    textTransform: 'none' | 'uppercase' | 'lowercase' | 'titlecase';
+
+    /**
+     * @default "none"
+     * **Since**: XD 20
+     *
+     * Set textScript ("none" or "superscript" or "subscript") across all style ranges, or get the textScript of the last style range.
+     */
+    textScript: 'none' | 'superscript' | 'subscript';
+
+    static readonly ALIGN_LEFT: string;
+    static readonly ALIGN_CENTER: string;
+    static readonly ALIGN_RIGHT: string;
+
+    /**
+     * Horizontal alignment: Text.ALIGN_LEFT, ALIGN_CENTER, or ALIGN_RIGHT. This setting affects the layout of multiline text, and for point text it also affects how the text is positioned relative to its anchor point (x=0 in local coordinates) and what direction the text grows when edited by the user.
+     *
+     * Changing textAlign on existing point text will cause it to shift horizontally. To change textAlign while keeping the text in a fixed position, shift the text horizontally (moving its anchor point) to compensate:
+     * @example javascript
+  * let originalBounds = textNode.localBounds;
+     * textNode.textAlign = newAlignValue;
+     * let newBounds = textNode.localBounds;
+     * textNode.moveInParentCoordinates(originalBounds.x - newBounds.x, 0);
+     *
+     * @default Text.ALIGN_LEFT
+  * /
+textAlign: string;
+
+/**
+ * Distance between baselines in multiline text, in document pixels. The special value 0 causes XD to use the default line spacing defined by the font given the current font size & style.
+ *
+ * This property is not automatically adjusted when fontSize changes, if line spacing is not set to 0, the line spacing will stay fixed while the font size changes, shifting the spacing’s proportional relationship to font size. If the value is 0, then the rendered line spacing will change to match the new font size, since 0 means the spacing is dynamically calculated from the current font settings.
+ *
+ * @default 0
+ */
+lineSpacing: number;
+
+/**
+ * **Since:** XD 14
+ *
+ * Additional distance between paragraphs, in document pixels, added to the lineSpacing amount (soft line breaks in area text are separated only by lineSpacing, while hard line breaks are separated by lineSpacing + paragraphSpacing). Unlike lineSpacing, 0 is not a special value; it just means no added spacing.
+ *
+ * Similar to {@link lineSpacing}, this property is not automatically adjusted when fontSize changes. The paragraph spacing amount will stay fixed while the font size changes, shifting the spacing's proportional relationship to font size.
+ *
+ * @default 0
+ */
+paragraphSpacing: number;
+
+/**
+ * 'Null' for point text. For area text, specifies the size of the rectangle within which text is wrapped and clipped.
+ *
+ * Changing point text to area text or vice versa will change the origin / anchor point of the text, thus changing its localBounds, but it will also automatically change the node's transform so its globalBounds and boundsInParent origins remain unchanged.
+ *
+ * Changing area text to point text will also automatically insert hard line breaks ("\n") into the text to match the previous line wrapping's appearance exactly.
+ */
+areaBox: null | { width: number; height: number };
+
+    /**
+     * Always false for point text. For area text, true if the text does not fit in the content box and its bottom is being clipped.
+     */
+    readonly clippedByArea: boolean;
+}
+
+/**
+ * Group nodes represent two types of simple containers in XD:
+ * - Plain Groups, created by the Object > Group command
+ * - Masked Groups, created by the Object > Mask With Shape command You can determine whether a group is masked by checking the mask property.
+ *
+ * Groups and other containers cannot be created directly using scenenode constructors, since you can’t add a populated Group to the scenegraph (you can’t add subtrees all at once) nor can you add an empty Group and then add children to it (can’t add nodes outside the scope of the current edit context). Instead, to create Groups and other nested structures, use commands.
+ *
+ * In a Mask Group, the mask shape is included in the group’s children list, at the top of the z order. It is not visible - only its path outline is used, for clipping the group.
+ */
+export class Group extends SceneNode {
+  /**
+   * The mask shape applied to this group, if any. This object is also present in the group’s children list. Though it has no direct visual appearance of its own, the mask affects the entire groups’s appearance by clipping all its other content.
+   */
+  readonly mask: SceneNode | null;
+
+  /**
+   * Adds a child node to this container node. You can only add leaf nodes this way; to create structured subtrees of content, use commands.
+   * @param {SceneNode} node Child to add
+   * @param {number} index Optional: index to insert child at. Child is appended to end of children list (top of z order) otherwise.
+   */
+  addChild(node: SceneNode, index?: number): void;
+
+  /**
+   * Inserts a child node after the given reference node.
+   * @param {SceneNode} node Child to add
+   * @param {SceneNode} relativeTo New child is added immediately after this existing child
+   */
+  addChildAfter(node: SceneNode, relativeTo: SceneNode): void;
+
+  /**
+   * Inserts a child node before the given reference node.
+   * @param {SceneNode} node Child to add
+   * @param {SceneNode} relativeTo New child is added immediately before this existing child
+   */
+  addChildBefore(node: SceneNode, relativeTo: SceneNode): void;
+
+  /**
+   * Removes all children from this node. Equivalent to calling removeFromParent() on each child in turn, but faster.
+   */
+  removeAllChildren(): void;
+}
+
+/**
+ * Container node representing one instance of a Component (previously known as "Symbols" in XD's UI). Changes made to the contents of a SymbolInstance are treated in one of two ways:
+ * * If 'isMaster' is **false**: The changes affect _only_ this one instance. This creates an "override": changes made to the corresponding part of the master later will no longer get synced to this particular instance.
+ * * If 'isMaster' is **true**: The changes are automatically synced to all other other instances of the component - _except_ for instances where the affected nodes have instance-specific overrides. As a result, your plugin's batch of edits **may not be applied atomically** in some instances.
+ *
+ * To elaborate: if your plugin command makes edits to more than one property or more than one node as part of a single gesture, and the  user invokes your plugin while editing a component master, other instances of the component may receive only a _partial application_  of your plugin's changes. In many cases this will feel like a natural consequence of the overrides the user has created, but if this  partial application of your plugin's intended changes feels too confusing in your use case, you may opt to warn users or disable some  of your plugin's functionality when 'selection.editContext' is (or is inside of) a component with 'isMaster' true.
+ *
+ * Note that overrides vary somewhat in granularity. In some but not all cases, overriding one property may also prevent other properties on the same node from receiving future updates from the master instance.
+ *
+ * It is not currently possible for plugins to *create* a new component definition or a new SymbolInstance node, aside from using {@link commands.duplicate} to clone existing SymbolInstances.
+ */
+export class SymbolInstance extends SceneNode {
+  /**
+   * An identifier unique within this document that is shared by all instances of the same component.
+   */
+  readonly symbolId: string;
+
+  /**
+   * True if this is the "master" instance of the component, which forms the template for all new instances. When the user edits the master, those changes are synced to all other instances of the component (unless blocked by "overrides"
+   * @see SymbolInstance
+   */
+  readonly isMaster: boolean;
+
+  /**
+   * Adds a child node to this container node. You can only add leaf nodes this way; to create structured subtrees of content, use commands.
+   * @param {SceneNode} node Child to add
+   * @param {number} index Optional: index to insert child at. Child is appended to end of children list (top of z order) otherwise.
+   */
+  addChild(node: SceneNode, index?: number): void;
+
+  /**
+   * Inserts a child node after the given reference node.
+   * @param {SceneNode} node Child to add
+   * @param {SceneNode} relativeTo New child is added immediately after this existing child
+   */
+  addChildAfter(node: SceneNode, relativeTo: SceneNode): void;
+
+  /**
+   * Inserts a child node before the given reference node.
+   * @param {SceneNode} node Child to add
+   * @param {SceneNode} relativeTo New child is added immediately before this existing child
+   */
+  addChildBefore(node: SceneNode, relativeTo: SceneNode): void;
+
+  /**
+   * Removes all children from this node. Equivalent to calling removeFromParent() on each child in turn, but faster.
+   */
+  removeAllChildren(): void;
+}
+
+/**
+ * Repeat Grid container node containing multiple grid cells, each one a child Group. Changes within one cell are automatically synced to all the other cells - with certain exceptions, called "overrides." A Repeat Grid also defines a rectangular clipping mask which determines how may cells are visible (new cells are automatically generated as needed if the Repeat Grid is resized larger).
+ * Each grid cell is a Group that is an immediate child of the RepeatGrid. These groups are automatically created and destroyed as needed when the RepeatGrid is resized.
+ * It is not currently possible for plugins to create a new RepeatGrid node, aside from using commands.duplicate to clone existing RepeatGrids.
+ */
+export class RepeatGrid extends SceneNode {
+  /**
+   * Defines size of the RepeatGrid. Cells are created and destroyed as necessary to fill the current size. Cells that only partially fit will be clipped.
+   */
+  width: number;
+
+  /**
+   * Defines size of the RepeatGrid. Cells are created and destroyed as necessary to fill the current size. Cells that only partially fit will be clipped.
+   */
+  height: number;
+
+  /**
+   * Number of grid columns
+   */
+  numColumns: number;
+
+  /**
+   * Number of grid rows
+   */
+  numRows: number;
+
+  /**
+   * Horizontal spacing between grid cells/columns
+   */
+  paddingX: number;
+
+  /**
+   * Vertical spacing between grid cells/rows
+   */
+  paddingY: number;
+
+  /**
+   * The size of each grid cell. The size of each cell’s content can vary slightly due to text overrides; the cell size is always set to the width of the widest cell content and the height of the tallest cell content.
+   */
+  cellSize: { width: number; height: number };
+
+  /**
+   * Attach a sequence of text values to the instances of a given text node across all the cells of a Repeat Grid. The sequence is repeated as necessary to cover all the grid cells. This is a persistent data binding, so if the Repeat Grid is resized later to increase the number of grid cells, items from this sequence will be used to fill the text values of the new cells.
+   * You can call this API from either of two different edit contexts:
+   * - Edit context is the parent node of this RepeatGrid (i.e. a context where the RepeatGrid could be selected)
+   * - Edit context is the RepeatGrid cell which is the parent of textNode (i.e. a context where textNode could be selected)
+   * @param {Text} textNode A Text node exemplar that is an immediate child of one of this RepeatGrid's cells. The data series will be bound to this text node and all corresponding copies of it in the other grid cells.
+   * @param {string[]} textValues Array of one or more strings. Empty strings are ignored.
+   */
+  attachTextDataSeries(textNode: Text, textValues: string[]): void;
+
+  /**
+   * Attach a sequence of image fills to the instances of a given shape node across all the cells of a Repeat Grid. The sequence is repeated as necessary to cover all the grid cells. This is a persistent data binding, so if the Repeat Grid is resized later to increase the number of grid cells, items from this sequence will be used to set the image fill in the new cells.
+   * You can call this API from either of two different edit contexts:
+   * - Edit context is the parent node of this RepeatGrid (i.e. a context where the RepeatGrid could be selected)
+   * - Edit context is the RepeatGrid cell which is the parent of shapeNode (i.e. a context where shapeNode could be selected)
+   * @param {GraphicNode} shapeNode A shape node exemplar that is an immediate child of one of this RepeatGrid's cells. The image series will be bound to this node and all corresponding copies of it in the other grid cells. Must be a node type that supports image fills (e.g. Rectangle, but not Text or Line).
+   * @param {string[]} images Array of one or more ImageFills.
+   */
+  attachImageDataSeries(shapeNode: GraphicNode, images: string[]): void;
+
+  /**
+   * Adds a child node to this container node. You can only add leaf nodes this way; to create structured subtrees of content, use commands.
+   * @param {SceneNode} node Child to add
+   * @param {number} index Optional: index to insert child at. Child is appended to end of children list (top of z order) otherwise.
+   */
+  addChild(node: SceneNode, index?: number): void;
+
+  /**
+   * Inserts a child node after the given reference node.
+   * @param {SceneNode} node Child to add
+   * @param {SceneNode} relativeTo New child is added immediately after this existing child
+   */
+  addChildAfter(node: SceneNode, relativeTo: SceneNode): void;
+
+  /**
+   * Inserts a child node before the given reference node.
+   * @param {SceneNode} node Child to add
+   * @param {SceneNode} relativeTo New child is added immediately before this existing child
+   */
+  addChildBefore(node: SceneNode, relativeTo: SceneNode): void;
+
+  /**
+   * Removes all children from this node. Equivalent to calling removeFromParent() on each child in turn, but faster.
+   */
+  removeAllChildren(): void;
+}
+
+/**
+ * Container node whose content is linked to an external resource, such as Creative Cloud Libraries. It cannot be edited except by first ungrouping it, breaking this link.
+ */
+export class LinkedGraphic extends SceneNode {
+}
+
+/**
+ * Class representing the root node of the document. All Artboards are children of this node, as well as any pasteboard content that does not lie within an Artboard. Artboards must be grouped contiguously at the bottom of this node’s z order. The root node has no visual appearance of its own.
+ */
+export class RootNode extends SceneNode {
+  /**
+   * Adds a child node to this container node. You can only add leaf nodes this way; to create structured subtrees of content, use commands.
+   * @param {SceneNode} node Child to add
+   * @param {number} index Optional: index to insert child at. Child is appended to end of children list (top of z order) otherwise.
+   */
+  addChild(node: SceneNode, index?: number): void;
+
+  /**
+   * Inserts a child node after the given reference node.
+   * @param {SceneNode} node Child to add
+   * @param {SceneNode} relativeTo New child is added immediately after this existing child
+   */
+  addChildAfter(node: SceneNode, relativeTo: SceneNode): void;
+
+  /**
+   * Inserts a child node before the given reference node.
+   * @param {SceneNode} node Child to add
+   * @param {SceneNode} relativeTo New child is added immediately before this existing child
+   */
+  addChildBefore(node: SceneNode, relativeTo: SceneNode): void;
+
+  /**
+   * Removes all children from this node. Equivalent to calling removeFromParent() on each child in turn, but faster.
+   */
+  removeAllChildren(): void;
+}
+
+/**
+ * **Since:** XD 14
+ * Object representing the current selection state and edit context. Also available as the first argument passed to your plugin command handler function.
+ */
+export const selection: SceneNodeList;
+
+/**
+ * **Since:** XD 14
+ * Root node of the current document's scenegraph. Also available as the second argument passed to your plugin command handler function.
+ */
+export const root: RootNode;
+
+`
+
+export { es5, ANYshim, XDshim, ILSTshim, AEFTshim, PHXSshim, AUDTshim, PPROshim, IDSNshim };

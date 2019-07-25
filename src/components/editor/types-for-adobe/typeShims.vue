@@ -7,6 +7,7 @@
     <PHXSshim ref="PHXS" />
     <IDSNshim ref="IDSN" />
     <AUDTshim ref="AUDT" />
+    <!-- <XDshim ref="XD" /> -->
     <ANYshim ref="ANY" />
   </div>
 </template>
@@ -18,6 +19,7 @@ import PHXSshim from "@/components/editor/types-for-adobe/PHXSshim";
 import AUDTshim from "@/components/editor/types-for-adobe/AUDTshim";
 import PPROshim from "@/components/editor/types-for-adobe/PPROshim";
 import IDSNshim from "@/components/editor/types-for-adobe/IDSNshim";
+// import XDshim from "@/components/editor/types-for-adobe/XDshim";
 import ANYshim from "@/components/editor/types-for-adobe/ANYshim";
 
 import { es5 } from "@/components/editor/types-for-adobe/typeMaster";
@@ -43,6 +45,7 @@ export default {
     PHXSshim,
     PPROshim,
     IDSNshim,
+    // XDshim,
     ANYshim
   }
 };
