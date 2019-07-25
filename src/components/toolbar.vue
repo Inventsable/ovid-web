@@ -45,28 +45,49 @@
 
     <v-divider vertical class="mr-3" />
 
-    <v-btn icon :style="getIconColor()" @click="openCompiled" v-if="!isHome">
-      <v-icon>mdi-file-xml</v-icon>
-    </v-btn>
+    <v-tooltip bottom>
+      <template v-slot:activator="{ on }">
+        <v-btn v-on="on" icon :style="getIconColor()" @click="openCompiled" v-if="!isHome">
+          <v-icon>mdi-file-xml</v-icon>
+        </v-btn>
+      </template>
+      <span>Compile any modern Javascript down to be compatible with scripting</span>
+    </v-tooltip>
 
-    <v-btn icon :style="getIconColor()" @click="promptOpenDialog">
-      <v-icon>mdi-file-find</v-icon>
-    </v-btn>
+    <v-tooltip bottom>
+      <template v-slot:activator="{ on }">
+        <v-btn v-on="on" icon :style="getIconColor()" @click="promptOpenDialog">
+          <v-icon>mdi-file-find</v-icon>
+        </v-btn>
+      </template>
+      <span>Open a snippet by title</span>
+    </v-tooltip>
 
-    <v-btn
-      icon
-      v-if="!isHome"
-      :style="getIconColor()"
-      @click="promptSnippetSave"
-      :loading="isLoadingSave"
-      :disabled="cannotSave"
-    >
-      <v-icon>{{saveIcon}}</v-icon>
-    </v-btn>
+    <v-tooltip bottom>
+      <template v-slot:activator="{ on }">
+        <v-btn
+          icon
+          v-on="on"
+          v-if="!isHome"
+          :style="getIconColor()"
+          @click="promptSnippetSave"
+          :loading="isLoadingSave"
+          :disabled="cannotSave"
+        >
+          <v-icon>{{saveIcon}}</v-icon>
+        </v-btn>
+      </template>
+      <span>Save this snippet and generate a permanent URL to direct link to it</span>
+    </v-tooltip>
 
-    <v-btn icon :style="getIconColor()" @click="toggleTheme" v-if="!isHome">
-      <v-icon>mdi-format-color-fill</v-icon>
-    </v-btn>
+    <v-tooltip bottom>
+      <template v-slot:activator="{ on }">
+        <v-btn v-on="on" icon :style="getIconColor()" @click="toggleTheme" v-if="!isHome">
+          <v-icon>mdi-format-color-fill</v-icon>
+        </v-btn>
+      </template>
+      <span>Toggle the app theme between light and dark</span>
+    </v-tooltip>
 
     <v-menu bottom offset-y left v-if="!loggedIn">
       <template v-slot:activator="{ on }">
